@@ -47,24 +47,27 @@ export default {
       wx.login({
         success: (resp) => {
           console.log(resp);
-          // wx.getUserInfo({
-          //   success: (res) => {
-          //     this.userInfo = res.userInfo
-          //     console.log(this.userInfo);
-          //   }
-          // })
-          if (resp.code && resp.errMsg === 'login:ok') {
-            wx.request({
-              url: 'http://localhost:7002/login',
-              data: {
-                code: resp.code
-              },
-              success(res) {
-                const { session } = res.data;
-                wx.setStorageSync('session', session);
+          wx.getUserInfo({
+            success: (res) => {
+              this.userInfo = res.userInfo
+              console.log(this.userInfo);
+              console.log(res);
+              if (resp.code && resp.errMsg === 'login:ok') {
+                wx.request({
+                  url: 'http://localhost:7001/login',
+                  data: {
+                    code: resp.code,
+                    encry: res.encryptedData,
+                    iv: res.iv
+                  },
+                  success(res) {
+                    const { userInfo } = res.data;
+                    // wx.setStorageSync('cookie', session);
+                  }
+                })
               }
-            })
-          }
+            }
+          })
         }
       })
     },
@@ -74,11 +77,22 @@ export default {
   },
 
   created () {
-    // 调用应用实例的方法获取全局数据
-    if (wx.getStorageSync('session')) {
-      console.log(wx.getStorageSync('session'));
-      return;
-    }
+    //调用应用实例的方法获取全局数据
+    // const cookie = wx.getStorageSync('coookie');
+    // console.log(cookie);
+    // if (cookie) {
+    //   console.log('cookie');
+    //   wx.request({
+    //     url: 'http://localhost:7001/login/checkCookie',
+    //     data: {
+    //       existCookieKey: cookie
+    //     },
+    //     success(res) {
+    //       console.log(res.data);
+    //     }
+    //   })
+    //   return;
+    // }
     this.getUserInfo()
   }
 }
