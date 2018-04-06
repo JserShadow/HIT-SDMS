@@ -18,10 +18,12 @@ class LoginController extends Controller {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
     });
+
+    // 解密encryptedData 得到全部信息
     const wxencry = new wx(appId, session_key);
-    console.log(wxencry.decryptData(encry, iv));
+    const wxUserInfo = wxencry.decryptData(encry, iv);
     this.ctx.body = {
-      session: newSession,
+      userInfo: wxUserInfo
     };
   }
   async getNewSessionKey() {
