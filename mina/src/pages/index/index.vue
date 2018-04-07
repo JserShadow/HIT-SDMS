@@ -29,7 +29,8 @@ export default {
   data () {
     return {
       motto: 'Hello World',
-      userInfo: {}
+      userInfo: {},
+      cookie: ''
     }
   },
 
@@ -44,14 +45,11 @@ export default {
     },
     getUserInfo () {
       // 调用登录接口
+      const _this = this;
       wx.login({
         success: (resp) => {
-          console.log(resp);
           wx.getUserInfo({
             success: (res) => {
-              this.userInfo = res.userInfo
-              console.log(this.userInfo);
-              console.log(res);
               if (resp.code && resp.errMsg === 'login:ok') {
                 wx.request({
                   url: 'http://localhost:7001/login',
@@ -61,8 +59,11 @@ export default {
                     iv: res.iv
                   },
                   success(res) {
-                    const { userInfo } = res.data;
-                    // wx.setStorageSync('cookie', session);
+                    const { userInfo, newCookie } = res.data;
+                    _this.userInfo = userInfo;
+                    _this.cookie = newCookie;
+                    wx.setStorageSync('cookie', newCookie);
+                    wx.setStorageSync('userInfo', JSON.stringify(userInfo));
                   }
                 })
               }
@@ -77,22 +78,13 @@ export default {
   },
 
   created () {
-    //调用应用实例的方法获取全局数据
-    // const cookie = wx.getStorageSync('coookie');
-    // console.log(cookie);
-    // if (cookie) {
-    //   console.log('cookie');
-    //   wx.request({
-    //     url: 'http://localhost:7001/login/checkCookie',
-    //     data: {
-    //       existCookieKey: cookie
-    //     },
-    //     success(res) {
-    //       console.log(res.data);
-    //     }
-    //   })
-    //   return;
-    // }
+    // 调用应用实例的方法获取全局数据
+    const cookie = wx.getStorageSync('cookie');
+    if (cookie) {
+
+      this.userInfo = JSON.parse(wx.getStorageSync('userInfo'));
+      return;
+    }
     this.getUserInfo()
   }
 }

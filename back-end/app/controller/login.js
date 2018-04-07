@@ -13,17 +13,16 @@ class LoginController extends Controller {
     const result = await axios.get(requestUrl);
     const { session_key, openid } = result.data;
     const newSession = await this.getNewSessionKey();
-    this.ctx.cookies.set(newSession, session_key + openid, {
-      encrypt: true,
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24,
-    });
-
     // 解密encryptedData 得到全部信息
     const wxencry = new wx(appId, session_key);
     const wxUserInfo = wxencry.decryptData(encry, iv);
+    await this.ctx.service.login.addUser(wxUserInfo);
     this.ctx.body = {
-      userInfo: wxUserInfo
+      userInfo: wxUserInfo,
+      newCookie: JSON.stringify({
+        key: newSession,
+        value: openid,
+      }),
     };
   }
   async getNewSessionKey() {
@@ -40,6 +39,10 @@ class LoginController extends Controller {
       httpOnly: true,
     });
     this.ctx.body = cookie;
+  }
+  async getUserInfo() {
+    const { Users } = this.ctx.model;
+    const mongoRes = await Users.find();
   }
 }
 
