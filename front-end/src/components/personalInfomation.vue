@@ -4,6 +4,10 @@
     <div class="avatar-container">
       <img src="../assets/logo.png" alt="avatar" class="avatar">
     </div>
+    <div class="basic-info">
+      <button @click="jump">123</button>
+
+    </div>
   </div>
 </template>
 
@@ -12,6 +16,11 @@ export default {
   name: 'PersonalInfomation',
   data () {
     return {
+    }
+  },
+  methods: {
+    jump() {
+      this.$router.push('edit');
     }
   }
 }
