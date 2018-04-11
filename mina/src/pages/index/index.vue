@@ -1,7 +1,7 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-    <web-view src="http://localhost:8080"></web-view>
-    <div class="userinfo" @click="bindViewTap">
+  <!-- <div class="container" @click="clickHandle('test click', $event)"> -->
+    <web-view src="http://localhost:8081"></web-view>
+    <!-- <div class="userinfo" @click="bindViewTap">
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
@@ -18,8 +18,8 @@
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-  </div>
+    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -28,7 +28,7 @@ import card from '@/components/card'
 export default {
   data () {
     return {
-      motto: 'Hello World',
+      // motto: 'Hello World',
       userInfo: {},
       cookie: ''
     }
@@ -39,10 +39,10 @@ export default {
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
-    },
+    // bindViewTap () {
+    //   const url = '../logs/main'
+    //   wx.navigateTo({ url })
+    // },
     getUserInfo () {
       // 调用登录接口
       const _this = this;
@@ -72,9 +72,9 @@ export default {
         }
       })
     },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
-    }
+    // clickHandle (msg, ev) {
+    //   console.log('clickHandle:', msg, ev)
+    // }
   },
 
   created () {
