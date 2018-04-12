@@ -26,23 +26,17 @@ class LoginController extends Controller {
     };
   }
   async getNewSessionKey() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       exec('head -n 80 /dev/urandom | tr -dc A-Za-z0-9 | head -c 168', (err, stdout, stderr) => {
         resolve(stdout);
       });
     });
   }
-  async checkCookie() {
-    const { existCookieKey } = this.ctx.request.body;
-    const cookie = this.ctx.cookies.get(existCookieKey, {
-      encrypt: true,
-      httpOnly: true,
-    });
-    this.ctx.body = cookie;
-  }
   async getUserInfo() {
+    const { value } = this.ctx.request.body;
     const { Users } = this.ctx.model;
-    const mongoRes = await Users.find();
+    const mongoRes = await Users.findOne({ openId: value });
+    this.ctx.body = mongoRes;
   }
 }
 

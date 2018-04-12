@@ -18,6 +18,16 @@ export default {
       IDCard: '',
       familyAddress: '',
     }
+  },
+  mounted() {
+    const form = JSON.parse(localStorage.getItem('personal'));
+    if (form) {
+      this.phoneNumber = form.phoneNumber;
+      this.QQ = form.QQ;
+      this.EMail = form.EMail;
+      this.IDCard = form.IDCard;
+      this.familyAddress = form.familyAddress;
+    }
   }
 }
 </script>

@@ -6,16 +6,17 @@
       <van-step>家庭信息</van-step>
       <van-step>毕业信息</van-step>
     </van-steps>
-    <router-view></router-view>
+    <router-view ref="form"></router-view>
     <div class="buttons">
       <van-button type="default" @click="lastStep" :disabled="lastStepDisable">上一步</van-button>
-      <van-button type="primary" @click="save">保存</van-button>
-      <van-button type="default" @click="nextStep" :disabled="nextStepDisable">下一步</van-button>
+      <van-button type="default" @click="nextStep" v-if="!nextStepDisable">下一步</van-button>
+      <van-button type="primary" @click="save" v-else>保存</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -23,6 +24,8 @@ export default {
       nextStepDisable: false,
       lastRouter: '',
       nextRouter: '',
+      routerName: '',
+      openId: ''
     }
   },
   computed: {
@@ -38,14 +41,16 @@ export default {
   methods: {
     lastStep() {
       this.$store.commit('stepBack');
-      this.$router.push(this.lastRouter);
+      this.$router.replace(this.lastRouter);
     },
     nextStep() {
       this.$store.commit('stepForward')
-      this.$router.push(this.nextRouter);
+      this.$router.replace(this.nextRouter);
     },
-    save() {
-      
+    async save() {
+      await this.saveData();
+      this.$store.commit('setFormStep');
+      this.$router.replace('/')
     },
     handleRouter(val) {
       if (val === 3) {
@@ -62,12 +67,47 @@ export default {
         this.lastStepDisable = false;
         this.nextStepDisable = false;
       }
+    },
+    async saveData() {
+      const { graduateRoute, remark, schoolRollStatus } = this.$refs.form.$data;
+      const graduateInfo = { graduateRoute, remark, schoolRollStatus };
+      const basicInfo = JSON.parse(localStorage.getItem('basic'));
+      const personalInfo = JSON.parse(localStorage.getItem('personal'));
+      const familyInfo = JSON.parse(localStorage.getItem('family'));
+      
+      const stuInfo = { openId: this.openId, basicInfo, personalInfo, familyInfo, graduateInfo };
+      console.log(stuInfo);
+      try {
+        console.log('trying');
+        await axios.post('/submit/studentInfo', stuInfo);
+      } catch (error) {
+        console.log(error);
+        this.$toast({
+          type: 'fail',
+          duation: 2000,
+          message: '保存失败,请稍后重试'
+        });
+      }
+      this.$toast({
+        type: 'success',
+        duation: 2000,
+        message: '保存成功'
+      })
     }
   },
   mounted() {
     const val = this.$store.state.form_step;
     this.handleRouter(val);
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.openId = localStorage.getItem('userID');
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    localStorage.setItem(from.name, JSON.stringify(this.$refs.form.$data));
+    next();
+  },
 }
 </script>
 

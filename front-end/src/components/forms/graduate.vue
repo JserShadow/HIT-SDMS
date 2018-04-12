@@ -14,6 +14,14 @@ export default {
       graduateRoute: '',
       remark: ''
     }
+  },
+  mounted() {
+    const form = JSON.parse(localStorage.getItem('graduate'));
+    if (form) {
+      this.schoolRollStatus = form.schoolRollStatus;
+      this.graduateRoute = form.graduateRoute;
+      this.remark = form.remark;
+    }
   }
 }
 </script>

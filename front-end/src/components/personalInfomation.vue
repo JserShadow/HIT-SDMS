@@ -2,8 +2,9 @@
   <div>
     <div class="avatar-background"></div>
     <div class="avatar-container">
-      <img src="../assets/logo.png" alt="avatar" class="avatar">
+      <img :src="wxUserInfo.avatarUrl" alt="avatar" class="avatar">
     </div>
+    <div class="nick-name">{{ wxUserInfo.nickName }}</div>
     <div class="basic-info">
       <button @click="jump">123</button>
 
@@ -12,16 +13,30 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'PersonalInfomation',
   data () {
     return {
+      wxUserInfo: '',
     }
   },
   methods: {
     jump() {
-      this.$router.push('edit');
+      this.$router.push('/edit/basicInfo');
     }
+  },
+  async mounted() {
+    if (!localStorage.getItem('userID')) {
+      const value = this.$router.currentRoute.query.userID;
+      localStorage.setItem('userID', value);
+      const wxUserInfo = await axios.post('/login/getUserInfo', { value });
+      this.wxUserInfo = wxUserInfo.data;
+      return;
+    }
+    const value = localStorage.getItem('userID');
+    const wxUserInfo = await axios.post('/login/getUserInfo', { value });
+    this.wxUserInfo = wxUserInfo.data;
   }
 }
 </script>

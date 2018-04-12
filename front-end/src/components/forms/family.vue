@@ -26,6 +26,17 @@ export default {
       motherWorkPlace: '',
       motherPhoneNumber: '',
     }
+  },
+  mounted() {
+    const form = JSON.parse(localStorage.getItem('family'));
+    if (form) {
+      this.fatherName = form.fatherName;
+      this.fatherWorkPlace = form.fatherWorkPlace;
+      this.fatherPhoneNumber = form.fatherPhoneNumber;
+      this.motherName = form.motherName;
+      this.motherWorkPlace = form.motherWorkPlace;
+      this.motherPhoneNumber = form.motherPhoneNumber;
+    }
   }
 }
 </script>

@@ -25,18 +25,22 @@ export default new Router({
       component: Form,
       children: [
         {
+          name: 'basic',
           path: 'basicInfo',
           component: Basic
         },
         {
+          name: 'personal',
           path: 'personalInfo',
           component: Personal
         },
         {
+          name: 'family',
           path: 'familyInfo',
           component: Family
         },
         {
+          name: 'graduate',
           path: 'graduateInfo',
           component: Graduate
         }

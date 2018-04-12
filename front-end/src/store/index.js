@@ -11,7 +11,7 @@ export default new Vuex.Store({
       '/edit/personalInfo',
       '/edit/familyInfo',
       '/edit/graduateInfo',
-    ]
+    ],
   },
   mutations: {
     stepForward(state) {
@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     stepBack(state) {
       state.form_step--;
+    },
+    setFormStep(state) {
+      state.form_step = 0;
     }
   }
 })
