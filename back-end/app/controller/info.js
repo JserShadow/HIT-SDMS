@@ -6,7 +6,7 @@ class InfoController extends Controller {
   async studentInfo() {
     const { Studentinfo } = this.ctx.model;
     const { openId } = this.ctx.request.body;
-    const mongoRes = await Studentinfo.findOne({ openId });
+    const mongoRes = await Studentinfo.find({ openId });
     if (mongoRes.length === 0) {
       this.ctx.body = {
         success: false,

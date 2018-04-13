@@ -1,11 +1,13 @@
 <template>
   <div>
-    <van-steps :active="active">
-      <van-step>基本信息</van-step>
-      <van-step>个人信息</van-step>
-      <van-step>家庭信息</van-step>
-      <van-step>毕业信息</van-step>
-    </van-steps>
+    <div id="step" style="text-align: left;">
+      <van-steps :active="active">
+        <van-step>基本信息</van-step>
+        <van-step>个人信息</van-step>
+        <van-step>家庭信息</van-step>
+        <van-step>毕业信息</van-step>
+      </van-steps>
+    </div>
     <router-view ref="form"></router-view>
     <div class="buttons">
       <van-button type="default" @click="lastStep" :disabled="lastStepDisable">上一步</van-button>
@@ -111,11 +113,7 @@ export default {
 }
 </script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
+<style scoped>
 .buttons {
   margin-top: 20px;
   display: flex;

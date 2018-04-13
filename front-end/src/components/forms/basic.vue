@@ -14,6 +14,7 @@
     </van-radio-group>
     <van-field v-model="stuId" label="学号" placeholder="请输入学号" />
     <van-field v-model="major" label="专业" placeholder="请输入专业" />
+    <van-field v-model="className" label="班级" placeholder="请输入班级" />
     <van-field v-model="birthday" label="生日" placeholder="如：1997-06-13" />
     <van-radio-group v-model="minority">
       <van-cell-group>
@@ -63,6 +64,7 @@ export default {
       gender: '',
       stuId: '',
       major: '',
+      className: '',
       birthday: '',
       minority: '',
       volk: '',
@@ -80,6 +82,7 @@ export default {
         this.gender = form.gender;
         this.stuId = form.stuId;
         this.major = form.major;
+        this.className = form.className;
         this.birthday = form.birthday;
         this.minority = form.minority;
         this.volk = form.volk;
@@ -93,7 +96,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .van-cell__value--alone {
   display: flex;
 }

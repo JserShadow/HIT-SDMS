@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cell-title {
   text-align: left;
   color: #999999;

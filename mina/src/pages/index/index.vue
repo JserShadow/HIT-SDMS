@@ -33,6 +33,9 @@ export default {
                     _this.userInfo = userInfo;
                     _this.cookie = newCookie;
                     wx.setStorageSync('cookie', newCookie);
+                    const val = JSON.parse(newCookie).value;
+                    console.log(val);
+                    _this.webViewUrl = `${ utils.webViewUrl }/#/?userID=${ val }`;
                   }
                 })
               }

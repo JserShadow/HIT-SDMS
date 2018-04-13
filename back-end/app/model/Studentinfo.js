@@ -9,6 +9,7 @@ module.exports = app => {
       gender: { type: String },
       stuId: { type: String },
       major: { type: String },
+      className: { type: String },
       birthday: { type: String },
       minority: { type: String },
       volk: { type: String },
