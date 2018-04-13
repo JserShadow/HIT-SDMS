@@ -19,12 +19,12 @@
       <van-collapse-item title="基本信息" name="1">
         <van-cell-group>
           <van-cell title="专业" :value="basicInfo.major" />
-          <van-cell title="班级" :value="basicInfo.calssName" />
-          <van-cell title="少数民族" :value="basicInfo.monitory" />
+          <van-cell title="班级" :value="basicInfo.className" />
+          <van-cell title="少数民族" :value="basicInfo.minority" />
           <van-cell title="民族" :value="basicInfo.volk" />
           <van-cell title="生日" :value="basicInfo.birthday" />
           <van-cell title="籍贯" :value="basicInfo.nativePlace" />
-          <van-cell title="寝室号" :value="basicInfo.domId" />
+          <van-cell title="寝室号" :value="basicInfo.dormId" />
           <van-cell title="入学方式" :value="basicInfo.enrolment" />
           <van-cell title="国防生" :value="basicInfo.NDstudent" />
           <van-cell title="党员" :value="basicInfo.partyMember" />
@@ -72,7 +72,7 @@ export default {
       personalInfo: '',
       familyInfo: '',
       graduateInfo: '',
-      Integrity: ''
+      Integrity: '0%'
     }
   },
   methods: {
@@ -102,18 +102,10 @@ export default {
   async mounted() {
     if (!localStorage.getItem('userID')) {
       const value = this.$router.currentRoute.query.userID;
+      console.log(value);
       localStorage.setItem('userID', value);
-      const wxUserInfo = await axios.post('/login/getUserInfo', { value });
-      this.wxUserInfo = wxUserInfo.data;
-      return;
-    }
-    const value = localStorage.getItem('userID');
-    const wxUserInfo = await axios.post('/login/getUserInfo', { value });
-    this.wxUserInfo = wxUserInfo.data;
-    const studentInfo = await axios.post('/info/studentInfo', { openId: value });
-    console.log(studentInfo);
-    if (!studentInfo.data.success) {
-      console.log(123);
+      const wxUserInfo = await axios.post('/login/getUserInfo', { val: value });
+      this.wxUserInfo = wxUserInfo.data[0];
       this.$dialog.alert({
         message: '您还没有填写过基本信息,请前往填写',
       }).then(() => {
@@ -121,10 +113,25 @@ export default {
       })
       return;
     }
-    this.basicInfo = studentInfo.data.studentInfo.basicInfo;
-    this.personalInfo = studentInfo.data.studentInfo.personalInfo;
-    this.familyInfo = studentInfo.data.studentInfo.familyInfo;
-    this.graduateInfo = studentInfo.data.studentInfo.graduateInfo;
+    const value = localStorage.getItem('userID');
+    const wxUserInfo = await axios.post('/login/getUserInfo', { value });
+    this.wxUserInfo = wxUserInfo.data[0];
+    console.log(wxUserInfo);
+    console.log(this.wxUserInfo);
+    const studentInfo = await axios.post('/info/studentInfo', { openId: value });
+    console.log(studentInfo);
+    if (!studentInfo.data.success) {
+      this.$dialog.alert({
+        message: '您还没有填写过基本信息,请前往填写',
+      }).then(() => {
+        this.$router.replace('/edit/basicInfo');
+      })
+      return;
+    }
+    this.basicInfo = studentInfo.data.studentInfo[0].basicInfo;
+    this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
+    this.familyInfo = studentInfo.data.studentInfo[0].familyInfo;
+    this.graduateInfo = studentInfo.data.studentInfo[0].graduateInfo;
     const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo, familyInfo: this.familyInfo, graduateInfo: this.graduateInfo };
     this.Integrity = this.calDataIntegrity(objToCal);
   }

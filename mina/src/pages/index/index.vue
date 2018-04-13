@@ -17,7 +17,7 @@ export default {
       // 调用登录接口
       const _this = this;
       wx.login({
-        success: (resp) => {
+        success: (resp) => {  
           wx.getUserInfo({
             success: (res) => {
               if (resp.code && resp.errMsg === 'login:ok') {
@@ -34,8 +34,7 @@ export default {
                     _this.cookie = newCookie;
                     wx.setStorageSync('cookie', newCookie);
                     const val = JSON.parse(newCookie).value;
-                    console.log(val);
-                    _this.webViewUrl = `${ utils.webViewUrl }/#/?userID=${ val }`;
+                    _this.webViewUrl = `${ utils.webViewUrl }?userID=${ val }`;
                   }
                 })
               }
@@ -50,7 +49,7 @@ export default {
     const cookie = wx.getStorageSync('cookie');
     if (cookie) {
       const val = JSON.parse(cookie).value;
-      this.webViewUrl = `${ utils.webViewUrl }/#/?userID=${ val }`;
+      this.webViewUrl = `${ utils.webViewUrl }?userID=${ val }`;
       console.log(this.webViewUrl);
       return;
     }
