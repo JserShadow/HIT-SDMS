@@ -1,9 +1,9 @@
 <template>
   <van-cell-group>
-    <van-field v-model="name" label="姓名" placeholder="请输入姓名" />
+    <van-field v-model="name" label="姓名" placeholder="请输入姓名" required/>
     <van-radio-group v-model="gender">
       <van-cell-group>
-        <van-cell>
+        <van-cell class="required">
           <div class="van-cell__title label">
             <span class="van-cell__text">性别</span>
           </div>
@@ -12,7 +12,7 @@
         </van-cell>
       </van-cell-group>
     </van-radio-group>
-    <van-field v-model="stuId" label="学号" placeholder="请输入学号" />
+    <van-field v-model="stuId" label="学号" placeholder="请输入学号" required/>
     <van-field v-model="major" label="专业" placeholder="请输入专业" />
     <van-field v-model="className" label="班级" placeholder="请输入班级" />
     <van-field v-model="birthday" label="生日" placeholder="如：1997-06-13" />
@@ -107,10 +107,21 @@ export default {
   min-width: 90px;
   display: inline-block;
   text-align: center;
-  /* line-height: 32px; */
+  line-height: 32px;
 }
 .radio {
   display: inline-block;
   padding: 0 5px;
+}
+.required::before {
+  content: '*';
+  position: absolute;
+  left: 7px;
+  padding-left: inherit;
+  font-size: 14px;
+  color: #f44;
+}
+.van-cell--required::before {
+  padding-left: inherit;
 }
 </style>

@@ -46,6 +46,20 @@ export default {
       this.$router.replace(this.lastRouter);
     },
     nextStep() {
+      const step = this.$store.state.form_step;
+      const data = this.$refs.form.$data;
+      console.log(data);
+      if (step === 0 ) {
+        if (data.name === '' || data.gender === '' || data.stuId === '') {
+          
+          this.$toast({
+            type: 'fail',
+            message: '重要数据不能为空',
+            duration: 2000
+          })
+          return;
+        }
+      }
       this.$store.commit('stepForward')
       this.$router.replace(this.nextRouter);
     },
@@ -115,7 +129,7 @@ export default {
 
 <style scoped>
 .buttons {
-  margin-top: 20px;
+  margin: 10px 0px;
   display: flex;
   justify-content: space-around;
 }

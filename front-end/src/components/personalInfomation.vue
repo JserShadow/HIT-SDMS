@@ -99,12 +99,12 @@ export default {
       return (filled/(filled+unfilled)*100).toFixed(1)+'%';
     }
   },
-  async mounted() {
+  async created() {
     if (!localStorage.getItem('userID')) {
       const value = this.$router.currentRoute.query.userID;
-      console.log(value);
       localStorage.setItem('userID', value);
-      const wxUserInfo = await axios.post('/login/getUserInfo', { val: value });
+      const wxUserInfo = await axios.post('/login/getUserInfo', { value });
+      console.log(wxUserInfo);
       this.wxUserInfo = wxUserInfo.data[0];
       this.$dialog.alert({
         message: '您还没有填写过基本信息,请前往填写',
@@ -116,10 +116,7 @@ export default {
     const value = localStorage.getItem('userID');
     const wxUserInfo = await axios.post('/login/getUserInfo', { value });
     this.wxUserInfo = wxUserInfo.data[0];
-    console.log(wxUserInfo);
-    console.log(this.wxUserInfo);
     const studentInfo = await axios.post('/info/studentInfo', { openId: value });
-    console.log(studentInfo);
     if (!studentInfo.data.success) {
       this.$dialog.alert({
         message: '您还没有填写过基本信息,请前往填写',
@@ -147,18 +144,16 @@ h3 {
 .avatar-container {
   width: 25vw;
   height: 25vw;
-  border-radius: 15vw;
-  border: 1px solid #cccccc;
   position: relative;
-  left: 50vw;
-  transform: translateX(-12.5vw);
+  left: 50%;
+  transform: translateX(-50%);
   background: white;
 }
 .avatar {
   display: inline-block;
-  width: 23vw;
-  height: 23vw;
-  border-radius: 10vw;
+  width: 25vw;
+  height: 25vw;
+  border-radius: 12.5vw;
   position: absolute;
   top: 50%;
   left: 50%;
