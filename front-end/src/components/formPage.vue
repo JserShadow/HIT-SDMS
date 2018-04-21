@@ -4,8 +4,6 @@
       <van-steps :active="active">
         <van-step>基本信息</van-step>
         <van-step>个人信息</van-step>
-        <van-step>家庭信息</van-step>
-        <van-step>毕业信息</van-step>
       </van-steps>
     </div>
     <router-view ref="form"></router-view>
@@ -69,7 +67,7 @@ export default {
       this.$router.replace('/')
     },
     handleRouter(val) {
-      if (val === 3) {
+      if (val === 1) {
         this.nextStepDisable = true;
         this.nextRouter = this.$store.state.routerList[val];
         this.lastRouter = this.$store.state.routerList[val-1];
@@ -77,21 +75,14 @@ export default {
         this.lastStepDisable = true;
         this.lastRouter = this.$store.state.routerList[val];
         this.nextRouter = this.$store.state.routerList[val+1];
-      } else {
-        this.lastRouter = this.$store.state.routerList[val-1];
-        this.nextRouter = this.$store.state.routerList[val+1];
-        this.lastStepDisable = false;
-        this.nextStepDisable = false;
       }
     },
     async saveData() {
-      const { graduateRoute, remark, schoolRollStatus } = this.$refs.form.$data;
-      const graduateInfo = { graduateRoute, remark, schoolRollStatus };
+      const { phoneNumber, QQ, EMail, wx, familyAddress } = this.$refs.form.$data;
       const basicInfo = JSON.parse(localStorage.getItem('basic'));
-      const personalInfo = JSON.parse(localStorage.getItem('personal'));
-      const familyInfo = JSON.parse(localStorage.getItem('family'));
+      const personalInfo = { phoneNumber, QQ, EMail, wx, familyAddress }
       
-      const stuInfo = { openId: this.openId, basicInfo, personalInfo, familyInfo, graduateInfo };
+      const stuInfo = { openId: this.openId, basicInfo, personalInfo };
       console.log(stuInfo);
       try {
         console.log('trying');

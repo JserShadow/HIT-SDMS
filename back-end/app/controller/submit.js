@@ -6,7 +6,6 @@ class SubmitController extends Controller {
   async studentInfo() {
     const { Studentinfo } = this.ctx.model;
     const newStudentInfo = this.ctx.request.body;
-    console.log(newStudentInfo);
     try {
       const findRes = await Studentinfo.find({ openId: newStudentInfo.openId });
       if (findRes.length === 0) {

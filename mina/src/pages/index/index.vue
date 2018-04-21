@@ -22,7 +22,7 @@ export default {
             success: (res) => {
               if (resp.code && resp.errMsg === 'login:ok') {
                 wx.request({
-                  url: 'http://localhost:7001/login',
+                  url: 'https://hit-sdms.xiaonei.io/login',
                   data: {
                     code: resp.code,
                     encry: res.encryptedData,

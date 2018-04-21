@@ -23,21 +23,8 @@ module.exports = app => {
       phoneNumber: { type: String },
       EMail: { type: String },
       QQ: { type: String },
-      IDCard: { type: String },
+      wx: { type: String },
       familyAddress: { type: String },
-    },
-    familyInfo: {
-      fatherName: { type: String },
-      fatherPhoneNumber: { type: String },
-      fatherWorkPlace: { type: String },
-      motherName: { type: String },
-      motherPhoneNumber: { type: String },
-      motherWorkPlace: { type: String },
-    },
-    graduateInfo: {
-      schoolRollStatus: { type: String },
-      graduateRoute: { type: String },
-      remark: { type: String },
     },
   });
   return mongoose.model('Studentinfo', StudentInfoSchema);

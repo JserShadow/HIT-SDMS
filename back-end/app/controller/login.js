@@ -34,10 +34,8 @@ class LoginController extends Controller {
   }
   async getUserInfo() {
     const value = this.ctx.request.body.value;
-    console.log(value);
     const { Users } = this.ctx.model;
     const mongoRes = await Users.find({ openId: value });
-    console.log(mongoRes);
     this.ctx.body = mongoRes;
   }
 }

@@ -1,5 +1,5 @@
 const util = {
-  webViewUrl: 'http://localhost:8081/#/'
+  webViewUrl: 'https://hit-sdms.xiaonei.io/index.html#/'
 }
 
 export default util;

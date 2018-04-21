@@ -35,25 +35,8 @@
           <van-cell title="手机号" :value="personalInfo.phoneNumber" />
           <van-cell title="QQ" :value="personalInfo.QQ" />
           <van-cell title="电子邮箱" :value="personalInfo.EMail" />
-          <van-cell title="身份证号" :value="personalInfo.IDCard" />
+          <van-cell title="微信号" :value="personalInfo.wx" />
           <van-cell title="家庭住址" :value="personalInfo.familyAddress" />
-        </van-cell-group>
-      </van-collapse-item>
-      <van-collapse-item title="家庭信息" name="3">
-        <van-cell-group>
-          <van-cell title="父亲姓名" :value="familyInfo.fatherName" />
-          <van-cell title="父亲工作单位" :value="familyInfo.fatherWorkPlace" />
-          <van-cell title="父亲手机号" :value="familyInfo.fatherPhoneNumber" />
-          <van-cell title="母亲姓名" :value="familyInfo.motherName" />
-          <van-cell title="母亲工作单位" :value="familyInfo.motherWorkPlace" />
-          <van-cell title="母亲手机号" :value="familyInfo.motherPhoneNumber" />
-        </van-cell-group>
-      </van-collapse-item>
-      <van-collapse-item title="毕业信息" name="4">
-        <van-cell-group>
-          <van-cell title="学籍去向" :value="graduateInfo.schoolRollStatus" />
-          <van-cell title="毕业状态" :value="graduateInfo.graduateRoute" />
-          <van-cell title="详情备注" :value="graduateInfo.remark" />
         </van-cell-group>
       </van-collapse-item>
     </van-collapse>
@@ -70,8 +53,6 @@ export default {
       wxUserInfo: '',
       basicInfo: '',
       personalInfo: '',
-      familyInfo: '',
-      graduateInfo: '',
       Integrity: '0%'
     }
   },
@@ -127,9 +108,7 @@ export default {
     }
     this.basicInfo = studentInfo.data.studentInfo[0].basicInfo;
     this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
-    this.familyInfo = studentInfo.data.studentInfo[0].familyInfo;
-    this.graduateInfo = studentInfo.data.studentInfo[0].graduateInfo;
-    const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo, familyInfo: this.familyInfo, graduateInfo: this.graduateInfo };
+    const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo };
     this.Integrity = this.calDataIntegrity(objToCal);
   }
 }

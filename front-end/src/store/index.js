@@ -9,8 +9,6 @@ export default new Vuex.Store({
     routerList: [
       '/edit/basicInfo',
       '/edit/personalInfo',
-      '/edit/familyInfo',
-      '/edit/graduateInfo',
     ],
   },
   mutations: {
