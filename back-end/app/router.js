@@ -13,4 +13,7 @@ module.exports = app => {
   router.post('/submit/studentInfo', controller.submit.studentInfo);
   // 获取信息
   router.post('/info/studentInfo', controller.info.studentInfo);
+  // 成绩相关
+  router.post('/score/addScore', controller.score.addScore);
+  router.post('/score/getAllScores', controller.score.getAllScores);
 };

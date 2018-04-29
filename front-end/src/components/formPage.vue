@@ -67,14 +67,17 @@ export default {
       this.$router.replace('/')
     },
     handleRouter(val) {
+      console.log(val);
       if (val === 1) {
         this.nextStepDisable = true;
+        this.lastStepDisable = false;
         this.nextRouter = this.$store.state.routerList[val];
-        this.lastRouter = this.$store.state.routerList[val-1];
+        this.lastRouter = this.$store.state.routerList[0];
       } else if (val === 0) {
         this.lastStepDisable = true;
+        this.nextStepDisable = false;
         this.lastRouter = this.$store.state.routerList[val];
-        this.nextRouter = this.$store.state.routerList[val+1];
+        this.nextRouter = this.$store.state.routerList[1];
       }
     },
     async saveData() {

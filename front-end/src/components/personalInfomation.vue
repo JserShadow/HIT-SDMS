@@ -15,45 +15,63 @@
       <span>学生信息(资料完成度：{{Integrity}})</span>
       <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
     </div>
-    <van-collapse v-model="activeName" accordion>
-      <van-collapse-item title="基本信息" name="1">
-        <van-cell-group>
-          <van-cell title="专业" :value="basicInfo.major" />
-          <van-cell title="班级" :value="basicInfo.className" />
-          <van-cell title="少数民族" :value="basicInfo.minority" />
-          <van-cell title="民族" :value="basicInfo.volk" />
-          <van-cell title="生日" :value="basicInfo.birthday" />
-          <van-cell title="籍贯" :value="basicInfo.nativePlace" />
-          <van-cell title="寝室号" :value="basicInfo.dormId" />
-          <van-cell title="入学方式" :value="basicInfo.enrolment" />
-          <van-cell title="国防生" :value="basicInfo.NDstudent" />
-          <van-cell title="党员" :value="basicInfo.partyMember" />
-        </van-cell-group>
-      </van-collapse-item>
-      <van-collapse-item title="个人信息" name="2">
-        <van-cell-group>
-          <van-cell title="手机号" :value="personalInfo.phoneNumber" />
-          <van-cell title="QQ" :value="personalInfo.QQ" />
-          <van-cell title="电子邮箱" :value="personalInfo.EMail" />
-          <van-cell title="微信号" :value="personalInfo.wx" />
-          <van-cell title="家庭住址" :value="personalInfo.familyAddress" />
-        </van-cell-group>
-      </van-collapse-item>
-    </van-collapse>
+    <BasicInfo :personalInfo="personalInfo" :basicInfo="basicInfo" class="collapse"></BasicInfo>
+    <div class="title">
+      <span>学习成绩</span>
+      <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
+    </div>
+    <Score class="collapse" :scores="scores"></Score>
+    <van-dialog
+      v-model="showAddModel"
+      show-cancel-button
+      @confirm="addModelConfirmed"
+      @cancel="addModelCanceled"
+      title="添加成绩"
+    >
+      <div class="cell-flex">
+        <div>学年</div>
+        <van-button size="small" type="primary">选择学年</van-button>
+      </div>
+      <div class="cell-flex">
+        <div>学期</div>
+        <van-button size="small" type="primary">选择学期</van-button>
+      </div>
+      <div style="display: flex;justify-content: space-around">
+        <span>是否通过考试</span>
+        <van-radio-group v-model="score.hasPass" @change="changeSelection" style="display: flex;justify-content: space-around">
+          <van-radio :name="0">通过</van-radio>
+          <van-radio :name="1">不及格</van-radio>
+        </van-radio-group>
+      </div>
+    </van-dialog>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import BasicInfo from './collapse/basicInfoCollapse';
+import Score from './collapse/scoreCollapse';
 export default {
   name: 'PersonalInfomation',
+  components: { BasicInfo, Score },
   data () {
     return {
-      activeName: '0',
       wxUserInfo: '',
       basicInfo: '',
       personalInfo: '',
-      Integrity: '0%'
+      Integrity: '0%',
+      showAddModel: false,
+      score: {
+        score: '',
+        gradeName: {
+          year: '',
+          term: ''
+        },
+        hasPass: '',
+        failingCourse: [],
+        failedCourse: [],
+      },
+      scores: []
     }
   },
   methods: {
@@ -78,6 +96,33 @@ export default {
         }
       }
       return (filled/(filled+unfilled)*100).toFixed(1)+'%';
+    },
+    toAddScore() {
+      this.showAddModel = true;
+    },
+    async addModelConfirmed() {
+      this.score.openId = localStorage.getItem('userID');
+      const res = await axios.post('/score/addScore', this.score);
+      if (res.data.message === 'ok') {
+        this.$toast.success('添加成功');
+      } else {
+        this.$toast.fail('添加失败');
+      }
+    },
+    addModelCanceled() {
+      this.score = {
+        score: '',
+        gradeName: {
+          year: '',
+          term: ''
+        },
+        hasPass: '',
+        failingCourse: [],
+        failedCourse: [],
+      }
+    },
+    changeSelection() {
+      console.log(this.score.hasPass);
     }
   },
   async created() {
@@ -151,5 +196,16 @@ h3 {
   height: 30px;
   line-height: 30px;
   margin-bottom: 20px;
+}
+.collapse {
+  margin-bottom: 10px;
+}
+.cell-flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+.van-dialog__header {
+  padding: 10px 0;
 }
 </style>
