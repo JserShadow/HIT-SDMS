@@ -21,29 +21,46 @@
       <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
     </div>
     <Score class="collapse" :scores="scores"></Score>
-    <van-dialog
+    <van-popup
       v-model="showAddModel"
-      show-cancel-button
-      @confirm="addModelConfirmed"
-      @cancel="addModelCanceled"
-      title="添加成绩"
+      position="right"
+      style="width: 100vw;height: 100vh"
     >
-      <div class="cell-flex">
-        <div>学年</div>
-        <van-button size="small" type="primary">选择学年</van-button>
+      <div class="popup-header">添加成绩</div>
+      <div class="cell-flex set-margin">
+        <div>学年: {{score.gradeName.year}}</div>
+        <van-button size="small" type="primary" @click="chooseYear">选择学年</van-button>
       </div>
-      <div class="cell-flex">
-        <div>学期</div>
-        <van-button size="small" type="primary">选择学期</van-button>
+      <div class="cell-flex set-margin">
+        <div>学期: {{score.gradeName.term}}</div>
+        <van-button size="small" type="primary" @click="chooseTerm">选择学期</van-button>
       </div>
-      <div style="display: flex;justify-content: space-around">
+      <van-cell-group>
+        <van-field label="平均学分绩" v-model="score.score" placeholder="请输入学分绩"/>
+      </van-cell-group>
+      <div style="display: flex;justify-content: space-between;padding: 0 10px;" class="set-margin">
         <span>是否通过考试</span>
         <van-radio-group v-model="score.hasPass" @change="changeSelection" style="display: flex;justify-content: space-around">
           <van-radio :name="0">通过</van-radio>
           <van-radio :name="1">不及格</van-radio>
         </van-radio-group>
       </div>
-    </van-dialog>
+      <van-cell-group v-if="score.hasPass" class="set-margin">
+        <van-field type="textarea" label="不及格科目" v-model="score.failingCourse" placeholder="学科之间请用英文逗号隔开"></van-field>
+        <van-field type="textarea" label="挂科科目" v-model="score.failedCourse" placeholder="学科之间请用英文逗号隔开"></van-field>
+      </van-cell-group>
+      <van-row>
+        <van-col span="12">
+          <van-button bottom-action @click="addScore">添加</van-button>
+        </van-col>
+        <van-col span="12">
+          <van-button type="primary" bottom-action @click="cancelAddScore">取消</van-button>
+        </van-col>
+      </van-row>
+    </van-popup>
+    <van-popup position="bottom" transition="popup-slide" style="width: 100vw;height: 30vh" v-model="showPicker">
+      <van-picker :columns="pickerColumn" show-toolbar @confirm="pickerConfirm"></van-picker>
+    </van-popup>
   </div>
 </template>
 
@@ -61,6 +78,10 @@ export default {
       personalInfo: '',
       Integrity: '0%',
       showAddModel: false,
+      showPicker: false,
+      pickerColumn: [],
+      yearColumn: ['2014','2015','2016','2017','2018','2019','2020'],
+      termColumn: ['春季学期','秋季学期'],
       score: {
         score: '',
         gradeName: {
@@ -100,16 +121,37 @@ export default {
     toAddScore() {
       this.showAddModel = true;
     },
-    async addModelConfirmed() {
+    async addScore() {
       this.score.openId = localStorage.getItem('userID');
-      const res = await axios.post('/score/addScore', this.score);
+      this.score.hasPass = this.score.hasPass === 1?false:true;
+      if (!this.score.hasPass) {
+        if (this.score.failingCourse && typeof this.score.failingCourse === 'string') {
+          this.score.failingCourse = this.score.failingCourse.split(',');
+        }
+        if (this.score.failedCourse && typeof this.score.failedCourse === 'string') {
+          this.score.failedCourse = this.score.failedCourse.split(',');
+        }
+      }
+      const res = await axios.post('/score/addScore', { score: this.score });
       if (res.data.message === 'ok') {
         this.$toast.success('添加成功');
       } else {
         this.$toast.fail('添加失败');
       }
+      this.score = {
+        score: '',
+        gradeName: {
+          year: '',
+          term: ''
+        },
+        hasPass: '',
+        failingCourse: [],
+        failedCourse: [],
+      };
+      this.showAddModel = false;
+      await this.getAllScores();
     },
-    addModelCanceled() {
+    cancelAddScore() {
       this.score = {
         score: '',
         gradeName: {
@@ -120,9 +162,30 @@ export default {
         failingCourse: [],
         failedCourse: [],
       }
+      this.showAddModel = false;
     },
     changeSelection() {
       console.log(this.score.hasPass);
+    },
+    chooseYear() {
+      this.pickerColumn = this.yearColumn.concat();
+      this.showPicker = true;
+    },
+    chooseTerm() {
+      this.pickerColumn = this.termColumn.concat();
+      this.showPicker = true;
+    },
+    pickerConfirm(value) {
+      if (isNaN(parseInt(value))) {
+        this.score.gradeName.term = value;
+      } else {
+        this.score.gradeName.year = value;
+      }
+      this.showPicker = false;
+    },
+    async getAllScores() {
+      const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
+      this.scores = scores.data.scores;
     }
   },
   async created() {
@@ -155,6 +218,7 @@ export default {
     this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
     const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo };
     this.Integrity = this.calDataIntegrity(objToCal);
+    await this.getAllScores();
   }
 }
 </script>
@@ -207,5 +271,19 @@ h3 {
 }
 .van-dialog__header {
   padding: 10px 0;
+}
+.popup-header {
+  font-size: 1.5625rem;
+  padding: 10px;
+  letter-spacing: 5px;
+}
+.set-margin {
+  margin-bottom: 15px;
+}
+.van-cell {
+  font-size: 1rem;
+}
+.van-cell__text {
+  font-size: 20px;
 }
 </style>

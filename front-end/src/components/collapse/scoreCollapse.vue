@@ -4,7 +4,7 @@
     暂无成绩数据
   </div>
   <van-collapse v-else v-model="activeName" accordion @change="changeGrade">
-    <van-collapse-item v-for="(item, index) in scores" :title="item.gradeName" :key="item.gradeName" :name="(index+1).toString()" >
+    <van-collapse-item v-for="(item, index) in scores" :title="item.gradeName.year+item.gradeName.term" :key="item._id" :name="(index+1).toString()" >
       <van-panel>
         <div slot="header" style="display: flex;justify-content: space-between">
           <div>平均学分绩</div>
@@ -22,19 +22,10 @@
 
 <script>
 export default {
+  props: ['scores'],
   data() {
     return {
       activeName: '0',
-      scores: [
-        {
-          gradeName: '2015第一学期',
-          score: 90,
-        },
-        {
-          gradeName: '2015第二学期',
-          score: 70
-        }
-      ]
     }
   },
   methods: {
