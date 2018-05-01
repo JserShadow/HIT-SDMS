@@ -15,5 +15,6 @@ module.exports = app => {
   router.post('/info/studentInfo', controller.info.studentInfo);
   // 成绩相关
   router.post('/score/addScore', controller.score.addScore);
+  router.post('/score/deleteScore', controller.score.deleteScore);
   router.post('/score/getAllScores', controller.score.getAllScores);
 };

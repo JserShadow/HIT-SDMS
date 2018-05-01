@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: ['scores'],
   data() {
@@ -41,11 +42,20 @@ export default {
         message: '确定要删除这条数据吗？删除后不可恢复',
         confirmButtonText: '删除',
         showCancelButton: true,
-      }).then(() => {
-        console.log('删除')
+      }).then(async () => {
+        const res = await axios.post('/score/deleteScore', { score: this.scores[index] });
+        if (res.data.message === 'ok') {
+          this.$toast.success('删除成功');
+          await this.getAllScores();
+        }
       }).catch(() => {
         return;
       });
+    },
+    async getAllScores() {
+      const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
+      this.$emit()
+      this.scores = scores.data.scores;
     }
   }
 }

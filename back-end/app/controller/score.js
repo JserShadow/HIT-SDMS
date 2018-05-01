@@ -24,5 +24,12 @@ class ScoreController extends Controller {
       this.ctx.body = { message: 'error' };
     }
   }
+  async deleteScore() {
+    const { score } = this.ctx.request.body;
+    const { Score } = this.ctx.model;
+    const res = Score.remove(score);
+    console.log(res);
+    this.ctx.body = { message: 'ok' };
+  }
 }
 module.exports = ScoreController;
