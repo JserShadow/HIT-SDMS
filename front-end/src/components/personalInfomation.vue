@@ -20,13 +20,13 @@
       <span>学习成绩</span>
       <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
     </div>
-    <Score class="collapse" :scores="scores"></Score>
+    <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
     <van-popup
       v-model="showAddModel"
       position="right"
       style="width: 100vw;height: 100vh"
     >
-      <div class="popup-header">添加成绩</div>
+      <div class="popup-header">{{popupTitle}}</div>
       <div class="cell-flex set-margin">
         <div>学年: {{score.gradeName.year}}</div>
         <van-button size="small" type="primary" @click="chooseYear">选择学年</van-button>
@@ -51,7 +51,8 @@
       </van-cell-group>
       <van-row>
         <van-col span="12">
-          <van-button bottom-action @click="addScore">添加</van-button>
+          <van-button v-if="popupTitle === '添加成绩'" bottom-action @click="addScore">添加</van-button>
+          <van-button v-else bottom-action @click="addScore('edit')">提交</van-button>
         </van-col>
         <van-col span="12">
           <van-button type="primary" bottom-action @click="cancelAddScore">取消</van-button>
@@ -92,7 +93,8 @@ export default {
         failingCourse: [],
         failedCourse: [],
       },
-      scores: []
+      scores: [],
+      popupTitle: '添加成绩',
     }
   },
   methods: {
@@ -118,10 +120,23 @@ export default {
       }
       return (filled/(filled+unfilled)*100).toFixed(1)+'%';
     },
-    toAddScore() {
+    toAddScore(score) {
+      if (score.gradeName) {
+        this.popupTitle = '编辑成绩';
+        this.score = score;
+        this.score.hasPass = this.score.hasPass ? 0 : 1;
+        if(this.score.failingCourse.length > 0) {
+          this.score.failingCourse = this.score.failingCourse.join(',');
+        }
+        if(this.score.failedCourse.length > 0) {
+          this.score.failedCourse = this.score.failedCourse.join(',');
+        }
+      } else {
+        this.popupTitle = '添加成绩';
+      }
       this.showAddModel = true;
     },
-    async addScore() {
+    async addScore(edit) {
       this.score.openId = localStorage.getItem('userID');
       this.score.hasPass = this.score.hasPass === 1?false:true;
       if (!this.score.hasPass) {
@@ -132,11 +147,20 @@ export default {
           this.score.failedCourse = this.score.failedCourse.split(',');
         }
       }
-      const res = await axios.post('/score/addScore', { score: this.score });
-      if (res.data.message === 'ok') {
-        this.$toast.success('添加成功');
+      if (edit === 'edit') {
+        const res = await axios.post('/score/updateScore', { score: this.score });
+        if (res.data.message === 'ok') {
+          this.$toast.success('添加成功');
+        } else {
+          this.$toast.fail('添加失败');
+        }
       } else {
-        this.$toast.fail('添加失败');
+        const res = await axios.post('/score/addScore', { score: this.score });
+        if (res.data.message === 'ok') {
+          this.$toast.success('添加成功');
+        } else {
+          this.$toast.fail('添加失败');
+        }
       }
       this.score = {
         score: '',
@@ -185,6 +209,7 @@ export default {
     },
     async getAllScores() {
       const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
+      console.log(123);
       this.scores = scores.data.scores;
     }
   },

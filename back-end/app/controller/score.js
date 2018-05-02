@@ -27,8 +27,13 @@ class ScoreController extends Controller {
   async deleteScore() {
     const { score } = this.ctx.request.body;
     const { Score } = this.ctx.model;
-    const res = Score.remove(score);
-    console.log(res);
+    const res = await Score.remove({ _id: score._id, openId: score.openId });
+    this.ctx.body = { message: 'ok' };
+  }
+  async updateScore() {
+    const { score } = this.ctx.request.body;
+    const { Score } = this.ctx.model;
+    await Score.update({ _id: score._id, openId: score.openId }, score);
     this.ctx.body = { message: 'ok' };
   }
 }

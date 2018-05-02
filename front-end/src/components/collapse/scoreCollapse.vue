@@ -10,6 +10,22 @@
           <div>平均学分绩</div>
           <div style="color: #ff3333">{{item.score}}</div>
         </div>
+        <div style="padding: 0px 13px;">
+          <div style="display: flex;justify-content: space-between;margin-bottom: 10px; margin-top: 10px;">
+            <div>是否通过考试</div>
+            <div>{{item.hasPass ? '是' : '否'}}</div>
+          </div>
+          <div v-if="!item.hasPass">
+            <div style="display: flex;justify-content: space-between;margin-bottom: 10px;">
+              <div>不及格科目</div>
+              <div>{{item.failingCourse.join(',')}}</div>
+            </div>
+            <div style="display: flex;justify-content: space-between;margin-bottom: 10px;">
+              <div>挂科科目</div>
+              <div>{{item.failedCourse.join(',')}}</div>
+            </div>
+          </div>
+        </div>
         <div slot="footer" style="display: flex;justify-content: space-around">
           <van-button size="small" @click="toEditScore(index)">编辑</van-button>
           <van-button size="small" type="danger" @click="toDeleteScore(index)">删除</van-button>
@@ -34,7 +50,7 @@ export default {
       console.log(act);
     },
     toEditScore(index) {
-      console.log(this.scores[index]);
+      this.$emit('toEditScore', this.scores[index]);
     },
     toDeleteScore(index) {
       this.$dialog.alert({
@@ -46,17 +62,12 @@ export default {
         const res = await axios.post('/score/deleteScore', { score: this.scores[index] });
         if (res.data.message === 'ok') {
           this.$toast.success('删除成功');
-          await this.getAllScores();
+          location.reload();
         }
       }).catch(() => {
         return;
       });
     },
-    async getAllScores() {
-      const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
-      this.$emit()
-      this.scores = scores.data.scores;
-    }
   }
 }
 </script>
@@ -66,5 +77,14 @@ export default {
   width: 100%;
   height: 1.25rem;
   color: #aaaaaa;
+}
+[class*=van-hairline]::after {
+  border-top: none;
+}
+.van-panel__header {
+  padding: 0px 15px 10px 15px;
+}
+.van-hairline--top-bottom::after {
+  border-bottom: none;
 }
 </style>
