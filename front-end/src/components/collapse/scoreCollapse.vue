@@ -68,6 +68,13 @@ export default {
         return;
       });
     },
+  },
+  mounted() {
+    const eles = document.getElementsByClassName('van-collapse-item__content')
+    for(let i = 0; i < eles.length; i++) {
+      eles[i].style.paddingTop = '0';
+      eles[i].style.paddingBottom = '0';
+    }
   }
 }
 </script>
@@ -80,9 +87,6 @@ export default {
 }
 [class*=van-hairline]::after {
   border-top: none;
-}
-.van-panel__header {
-  padding: 0px 15px 10px 15px;
 }
 .van-hairline--top-bottom::after {
   border-bottom: none;
