@@ -4,6 +4,7 @@ module.exports = app => {
   const mongoose = app.mongoose;
   const StudentInfoSchema = new mongoose.Schema({
     openId: { type: String },
+    status: { type: String },
     basicInfo: {
       name: { type: String },
       gender: { type: String },

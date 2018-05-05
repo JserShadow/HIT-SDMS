@@ -13,11 +13,13 @@
     </div>
     <div class="title">
       <span>学生信息(资料完成度：{{Integrity}})</span>
+      <el-tag :type="infoStatus === '待审核'?'info':infoStatus === '审核通过'?'success':'danger'">{{infoStatus}}</el-tag>
       <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
     </div>
     <BasicInfo :personalInfo="personalInfo" :basicInfo="basicInfo" class="collapse"></BasicInfo>
     <div class="title">
       <span>学习成绩</span>
+      <el-tag :type="scoreStatus === '待审核'?'info':scoreStatus === '审核通过'?'success':'danger'">{{scoreStatus}}</el-tag>
       <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
     </div>
     <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
@@ -77,6 +79,8 @@ export default {
       wxUserInfo: '',
       basicInfo: '',
       personalInfo: '',
+      infoStatus: '',
+      scoreStatus: '',
       Integrity: '0%',
       showAddModel: false,
       showPicker: false,
@@ -84,6 +88,7 @@ export default {
       yearColumn: ['2014','2015','2016','2017','2018','2019','2020'],
       termColumn: ['春季学期','秋季学期'],
       score: {
+        status: '待审核',
         score: '',
         gradeName: {
           year: '',
@@ -209,8 +214,8 @@ export default {
     },
     async getAllScores() {
       const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
-      console.log(123);
       this.scores = scores.data.scores;
+      this.scoreStatus = this.scores[0].status;
     }
   },
   async created() {
@@ -239,6 +244,7 @@ export default {
       })
       return;
     }
+    this.infoStatus = studentInfo.data.studentInfo[0].status;
     this.basicInfo = studentInfo.data.studentInfo[0].basicInfo;
     this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
     const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo };

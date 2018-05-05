@@ -4,6 +4,7 @@ module.exports = app => {
   const { mongoose } = app;
   const ScoreSchema = new mongoose.Schema({
     openId: { type: String },
+    status: { type: String },
     score: { type: String },
     gradeName: {
       year: { type: String },

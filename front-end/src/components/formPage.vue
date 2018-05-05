@@ -85,7 +85,7 @@ export default {
       const basicInfo = JSON.parse(localStorage.getItem('basic'));
       const personalInfo = { phoneNumber, QQ, EMail, wx, familyAddress }
       
-      const stuInfo = { openId: this.openId, basicInfo, personalInfo };
+      const stuInfo = { openId: this.openId, status: '待审核',  basicInfo, personalInfo };
       console.log(stuInfo);
       try {
         console.log('trying');
