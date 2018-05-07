@@ -27,8 +27,14 @@ export default {
       tableData5: []
     }
   },
-  async created() {
-    
+  methods: {
+    handleClick(row) {
+      console.log(row);
+    }
+  },
+  async mounted() {
+    const res = await axios.get('/admin/info/getAllInfos');
+    this.tableData5 = res.data.waiting;
   }
 }
 </script>

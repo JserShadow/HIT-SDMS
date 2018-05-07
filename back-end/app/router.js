@@ -19,5 +19,5 @@ module.exports = app => {
   router.post('/score/deleteScore', controller.score.deleteScore);
   router.post('/score/getAllScores', controller.score.getAllScores);
   // 管理相关
-  router.post('/admin/info/getAllInfos', controller.admin.getAllInfos);
+  router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
 };

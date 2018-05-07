@@ -13,19 +13,19 @@ class AdminController extends Controller {
     return arr;
   }
   async getAllInfos() {
-    const { Studentinfos } = this.ctx.model;
+    const { Studentinfo } = this.ctx.model;
     const Ids = await this.getOpenIds();
-    const waitingResult = [];
-    const successResult = [];
-    const failedResult = [];
+    let waitingResult = [];
+    let successResult = [];
+    let failedResult = [];
     try {
       for (const Id of Ids) {
-        const waitingRes = await Studentinfos.find({ openId: Id, status: '待审核' });
-        const successRes = await Studentinfos.find({ openId: Id, status: '审核通过' });
-        const failedRes = await Studentinfos.find({ openId: Id, status: '审核未通过' });
-        waitingResult.push(waitingRes);
-        successResult.push(successRes);
-        failedResult.push(failedRes);
+        const waitingRes = await Studentinfo.find({ openId: Id, status: '待审核' });
+        const successRes = await Studentinfo.find({ openId: Id, status: '审核通过' });
+        const failedRes = await Studentinfo.find({ openId: Id, status: '审核未通过' });
+        waitingResult = waitingRes;
+        successResult = successRes;
+        failedResult = failedRes;
       }
       this.ctx.body = {
         message: 'ok',

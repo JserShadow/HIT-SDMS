@@ -84,7 +84,7 @@ export default {
       const { phoneNumber, QQ, EMail, wx, familyAddress } = this.$refs.form.$data;
       const basicInfo = JSON.parse(localStorage.getItem('basic'));
       const personalInfo = { phoneNumber, QQ, EMail, wx, familyAddress }
-      
+      localStorage.setItem('personal',JSON.stringify(personalInfo));
       const stuInfo = { openId: this.openId, status: '待审核',  basicInfo, personalInfo };
       console.log(stuInfo);
       try {

@@ -13,14 +13,18 @@
     </div>
     <div class="title">
       <span>学生信息(资料完成度：{{Integrity}})</span>
-      <el-tag :type="infoStatus === '待审核'?'info':infoStatus === '审核通过'?'success':'danger'">{{infoStatus}}</el-tag>
-      <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
+      <div>
+        <el-tag :type="infoStatus === '待审核'?'info':infoStatus === '审核通过'?'success':'danger'">{{infoStatus}}</el-tag>
+        <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
+      </div>
     </div>
     <BasicInfo :personalInfo="personalInfo" :basicInfo="basicInfo" class="collapse"></BasicInfo>
     <div class="title">
       <span>学习成绩</span>
-      <el-tag :type="scoreStatus === '待审核'?'info':scoreStatus === '审核通过'?'success':'danger'">{{scoreStatus}}</el-tag>
-      <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
+      <div>
+        <el-tag :type="scoreStatus === '待审核'?'info':scoreStatus === '审核通过'?'success':'danger'">{{scoreStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
+      </div>
     </div>
     <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
     <van-popup
