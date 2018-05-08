@@ -40,6 +40,26 @@ class AdminController extends Controller {
       };
     }
   }
+  async pass() {
+    const { id } = this.ctx.request.body;
+    const { Studentinfo } = this.ctx.model;
+    const res = await Studentinfo.update({ _id: id }, { $set: { status: '审核通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok',
+      };
+    }
+  }
+  async fail() {
+    const { id } = this.ctx.request.body;
+    const { Studentinfo } = this.ctx.model;
+    const res = await Studentinfo.update({ _id: id }, { $set: { status: '审核未通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok',
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

@@ -66,7 +66,7 @@
       label="学号"
       prop="basicInfo.stuId">
     </el-table-column>
-    <el-table-column label="操作">
+    <el-table-column label="操作" v-if="needOperator">
       <template slot-scope="scope">
         <el-button
           size="mini"
@@ -81,21 +81,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  props: [ 'tableData5' ],
+  props: [ 'tableData5', 'needOperator' ],
   methods: {
-    handleSuccess(index, row) {
-      console.log(row);
+    async handleSuccess(index, row) {
+      const res = await axios.post('/admin/info/pass', { id: row._id });
+      if (res.data.message === 'ok') {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
+      }
+      this.$emit('refresh');
     },
-    handleFail(index, row) {
-      console.log(row);
+    async handleFail(index, row) {
+      const res = await axios.post('/admin/info/fail', { id: row._id });
+      if (res.data.message === 'ok') {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
+      }
+      this.$emit('refresh');
     },
   }
 }
 </script>
 
 <style scoped>
-.el-table td, .el-table th.is-leaf {
+.el-table th {
   text-align: center;
 }
 .layout {
