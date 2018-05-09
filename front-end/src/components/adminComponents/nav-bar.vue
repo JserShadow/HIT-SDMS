@@ -1,13 +1,12 @@
 <template>
   <el-menu
-      default-active="/admin/info"
+      :default-active="activeBar"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      :router="true">
+      :router="true"
+      @select="changeSelection">
       <el-menu-item index="/admin/info">
         <i class="el-icon-info"></i>
         <span slot="title">个人信息管理</span>
@@ -22,12 +21,14 @@
 <script>
 export default {
   name: 'NavBar',
+  data() {
+    return {
+      activeBar: '/admin/info'
+    }
+  },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    changeSelection(index) {
+      this.activeBar = index;
     }
   }
 }

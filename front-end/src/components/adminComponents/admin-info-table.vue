@@ -1,6 +1,6 @@
 <template>
   <el-table
-  :data="tableData5"
+  :data="infoData"
   style="width: 100%">
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -83,7 +83,7 @@
 <script>
 import axios from 'axios';
 export default {
-  props: [ 'tableData5', 'needOperator' ],
+  props: [ 'infoData', 'needOperator' ],
   methods: {
     async handleSuccess(index, row) {
       const res = await axios.post('/admin/info/pass', { id: row._id });

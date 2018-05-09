@@ -2,14 +2,14 @@
   <div>
     <el-tabs type="border-card" @tab-click="changeTab">
       <el-tab-pane label="待审核">
-        <admin-info-table @refresh="refreshData" :tableData5="tableData5" :needOperator="needOperator"></admin-info-table>
+        <admin-info-table @refresh="refreshData" :infoData="infoData" :needOperator="needOperator"></admin-info-table>
       </el-tab-pane>
     
       <el-tab-pane label="审核通过">
-        <admin-info-table @refresh="refreshData" :tableData5="tableData5" :needOperator="needOperator"></admin-info-table>
+        <admin-info-table @refresh="refreshData" :infoData="infoData" :needOperator="needOperator"></admin-info-table>
       </el-tab-pane>
       <el-tab-pane label="审核未通过">
-        <admin-info-table @refresh="refreshData" :tableData5="tableData5" :needOperator="needOperator"></admin-info-table>
+        <admin-info-table @refresh="refreshData" :infoData="infoData" :needOperator="needOperator"></admin-info-table>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      tableData5: [],
+      infoData: [],
       needOperator: true,
       requiredData: '',
     }
@@ -38,25 +38,25 @@ export default {
       }
       switch (tab.label) {
         case '待审核':
-          this.tableData5 = this.requiredData.waiting;
+          this.infoData = this.requiredData.waiting;
           break;
         case '审核通过':
-          this.tableData5 = this.requiredData.success;
+          this.infoData = this.requiredData.success;
           break;
         default:
-          this.tableData5 = this.requiredData.failed;
+          this.infoData = this.requiredData.failed;
           break;
       }
     },
     async refreshData() {
       const res = await axios.get('/admin/info/getAllInfos');
-      this.tableData5 = res.data.waiting;
+      this.infoData = res.data.waiting;
       this.requiredData = res.data;
     }
   },
   async mounted() {
     const res = await axios.get('/admin/info/getAllInfos');
-    this.tableData5 = res.data.waiting;
+    this.infoData = res.data.waiting;
     this.requiredData = res.data;
   }
 }

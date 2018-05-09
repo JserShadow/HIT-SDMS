@@ -22,4 +22,7 @@ module.exports = app => {
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);
   router.post('/admin/info/fail', controller.admin.fail);
+  router.get('/admin/score/getAllScores', controller.admin.getAllScores);
+  router.post('/admin/score/pass', controller.admin.scorePass);
+  router.post('/admin/score/fail', controller.admin.scoreFail);
 };
