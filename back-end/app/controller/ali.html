@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function getIntersection(...args) {
+      // your code here
+      let arr = [];
+       args = args.slice();
+      for (let i = 0; i < args.length; i++) {
+        if (typeof args[i][0] !== 'number' || typeof args[i][1] !== 'number') {
+          return null;
+        }
+        if (arr[i][0] < arr[i][1]) {
+          for (let j = arr[i][0]; j <= args[i][1]; j++) {
+            arr.push(j);
+          }
+        } else if (arr[i][0] = arr[i][1]) {
+          arr.push(arr[i][0]);
+        } else {
+          for (let k = arr[i][0]; k <= args[i][1]; k--) {
+            arr.push(k);
+          }
+        }
+      }
+      arr.sort(function (a, b) {
+        return a - b;
+      })
+      let result = [];
+      for (const item of arr) {
+        if (item.indexOf(arr) !== item.lastIndexOf(arr)) {
+          result.push(item);
+        }
+      }
+      return result;
+    }
+    console.log(getIntersection([1, 4], [3, 5]));
+  
+  </script>
+</body>
+</html>

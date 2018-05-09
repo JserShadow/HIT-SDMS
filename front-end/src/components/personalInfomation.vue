@@ -27,6 +27,11 @@
       </div>
     </div>
     <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
+    <el-cascader
+      :options="positionSelectOptions"
+      v-model="selectedPosition"
+      @change="handleChange">
+    </el-cascader>
     <van-popup
       v-model="showAddModel"
       position="right"
@@ -104,6 +109,8 @@ export default {
       },
       scores: [],
       popupTitle: '添加成绩',
+      positionSelectOptions: [],
+      selectedPosition: []
     }
   },
   methods: {
@@ -220,7 +227,10 @@ export default {
       const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
       this.scores = scores.data.scores;
       this.scoreStatus = this.scores[0].status;
-    }
+    },
+    handleChange(value) {
+      console.log(value);
+    },
   },
   async created() {
     if (!localStorage.getItem('userID')) {
@@ -254,6 +264,8 @@ export default {
     const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo };
     this.Integrity = this.calDataIntegrity(objToCal);
     await this.getAllScores();
+    const positions = await axios.get('/position/getAllPositions');
+    this.positionSelectOptions = positions.data.positions;
   }
 }
 </script>

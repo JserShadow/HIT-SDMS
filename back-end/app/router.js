@@ -18,6 +18,8 @@ module.exports = app => {
   router.post('/score/updateScore', controller.score.updateScore);
   router.post('/score/deleteScore', controller.score.deleteScore);
   router.post('/score/getAllScores', controller.score.getAllScores);
+  // 职位相关
+  router.get('/position/getAllPositions', controller.positions.getAllPositions);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);
