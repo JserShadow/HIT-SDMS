@@ -20,6 +20,8 @@ module.exports = app => {
   router.post('/score/getAllScores', controller.score.getAllScores);
   // 职位相关
   router.get('/position/getAllPositions', controller.positions.getAllPositions);
+  router.post('/position/getAllSecondclassInfo', controller.positions.getAllSecondclassInfo);
+  router.post('/position/submitSecondclass', controller.positions.submitSecondclass);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);

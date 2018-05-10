@@ -27,11 +27,16 @@
       </div>
     </div>
     <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
-    <el-cascader
-      :options="positionSelectOptions"
-      v-model="selectedPosition"
-      @change="handleChange">
-    </el-cascader>
+    <div class="title">
+      <span>德育表现</span>
+      <div>
+        <el-tag :type="secondClassStatus === '待审核'?'info':secondClassStatus === '审核通过'?'success':'danger'">{{secondClassStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddSecondClass">添加</van-button>
+      </div>
+    </div>
+    <SecondClass :secondClassInfo="secondClassInfo"></SecondClass>
+
+
     <van-popup
       v-model="showAddModel"
       position="right"
@@ -73,6 +78,99 @@
     <van-popup position="bottom" transition="popup-slide" style="width: 100vw;height: 30vh" v-model="showPicker">
       <van-picker :columns="pickerColumn" show-toolbar @confirm="pickerConfirm"></van-picker>
     </van-popup>
+
+
+    <van-popup v-model="addSceondClass" position="right" style="width: 100vw;height: 100vh">
+      <div class="popup-header">德育表现</div>
+      <div class="flex-selector">
+        <span>社会职务</span>
+        <div>
+          <el-cascader
+            :options="SelectOptions.positions"
+            v-model="selectedPosition">
+          </el-cascader>
+          <el-button @click="addSceondClassInfo('position')">添加</el-button>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(position, index) in selected.position" style="display: flex;justify-content: space-between;padding: 0 10px;margin-top: 10px">
+          <div>{{position.name}}</div>
+          <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.position)" round>删除</el-button>
+        </li>
+      </ul>
+      <div class="flex-selector">
+        <span>荣誉称号</span>
+        <div>
+          <el-cascader
+            :options="SelectOptions.honor"
+            v-model="selectedPosition">
+          </el-cascader>
+          <el-button @click="addSceondClassInfo('honor')">添加</el-button>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(honor, index) in selected.honor" style="display: flex;justify-content: space-between;padding: 0 10px;margin-top: 10px">
+          <div>{{honor.name}}</div>
+          <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.honor)" round>删除</el-button>
+        </li>
+      </ul>
+      <div class="flex-selector">
+        <span>社会活动</span>
+        <div>
+          <el-cascader
+            :options="SelectOptions.activities"
+            v-model="selectedPosition">
+          </el-cascader>
+          <el-button @click="addSceondClassInfo('activities')">添加</el-button>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(activities, index) in selected.activities" style="display: flex;justify-content: space-between;padding: 0 10px;margin-top: 10px">
+          <div>{{activities.name}}</div>
+          <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.activities)" round>删除</el-button>
+        </li>
+      </ul>
+      <div class="flex-selector">
+        <span>寝室建设</span>
+        <div>
+          <el-cascader
+            :options="SelectOptions.dorm"
+            v-model="selectedPosition">
+          </el-cascader>
+          <el-button @click="addSceondClassInfo('dorm')">添加</el-button>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(dorm, index) in selected.dorm" style="display: flex;justify-content: space-between;padding: 0 10px;margin-top: 10px">
+          <div>{{dorm.name}}</div>
+          <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.dorm)" round>删除</el-button>
+        </li>
+      </ul>
+      <div class="flex-selector">
+        <span>减分项</span>
+        <div>
+          <el-cascader
+            :options="SelectOptions.decrease"
+            v-model="selectedPosition">
+          </el-cascader>
+          <el-button @click="addSceondClassInfo('decrease')">添加</el-button>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(decrease, index) in selected.decrease" style="display: flex;justify-content: space-between;padding: 0 10px;margin-top: 10px">
+          <div>{{decrease.name}}</div>
+          <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.decrease)" round>删除</el-button>
+        </li>
+      </ul>
+      <van-row>
+        <van-col span="12">
+          <van-button bottom-action @click="submitSecondclass">提交</van-button>
+        </van-col>
+        <van-col span="12">
+          <van-button type="primary" bottom-action @click="cancelAddSecondclass">取消</van-button>
+        </van-col>
+      </van-row>
+    </van-popup>
   </div>
 </template>
 
@@ -80,9 +178,11 @@
 import axios from 'axios';
 import BasicInfo from './collapse/basicInfoCollapse';
 import Score from './collapse/scoreCollapse';
+import SecondClass from './collapse/secondClassCollapse';
+
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score },
+  components: { BasicInfo, Score, SecondClass },
   data () {
     return {
       wxUserInfo: '',
@@ -90,6 +190,7 @@ export default {
       personalInfo: '',
       infoStatus: '',
       scoreStatus: '',
+      secondClassStatus: '',
       Integrity: '0%',
       showAddModel: false,
       showPicker: false,
@@ -109,8 +210,23 @@ export default {
       },
       scores: [],
       popupTitle: '添加成绩',
-      positionSelectOptions: [],
-      selectedPosition: []
+      SelectOptions: {
+        positions: [],
+        activities: [],
+        honor: [],
+        dorm: [],
+        decrease: [],
+      },
+      selectedPosition: [],
+      addSceondClass: false,
+      selected: {
+        position: [],
+        activities: [],
+        honor: [],
+        dorm: [],
+        decrease: [],
+      },
+      secondClassInfo: ''
     }
   },
   methods: {
@@ -228,16 +344,84 @@ export default {
       this.scores = scores.data.scores;
       this.scoreStatus = this.scores[0].status;
     },
-    handleChange(value) {
-      console.log(value);
+    toAddSecondClass() {
+      const { position, activities, dorm, honor, decrease } = this.secondClassInfo;
+      this.selected = { position, activities, dorm, honor, decrease }
+      this.addSceondClass = true;
     },
+    findWeight(type, array) {
+      const { positions, activities, dorm, honor, decrease } = this.SelectOptions;
+      let arr;
+      switch (type) {
+        case 'position': arr = positions;break;
+        case 'activities': arr = activities;break;
+        case 'dorm': arr = dorm;break;
+        case 'honor': arr = honor;break;
+        case 'decrease': arr = decrease;break;
+        default: break;
+      }
+      for (const item of arr) {
+        if (array[0] === item.value) {
+          if (array[1]) {
+            for (const child of item.children) {
+              if (array[1] === child.value) {
+                return child.weight;
+              }
+            }
+          }
+          return item.weight;
+        }
+      }
+    },
+    addSceondClassInfo(type) {
+      const result = {
+        name: this.selectedPosition.join('/'),
+        weight: this.findWeight(type, this.selectedPosition),
+      }
+      switch (type) {
+        case 'position': this.selected.position.push(result);break;
+        case 'honor': this.selected.honor.push(result);break;
+        case 'activities': this.selected.activities.push(result);break;
+        case 'dorm': this.selected.dorm.push(result);break;
+        case 'decrease': this.selected.decrease.push(result);break;
+        default: break;
+      }
+    },
+    cancelAddSecondclass() {
+      this.addSceondClass = false;
+    },
+    async submitSecondclass() {
+      this.selected.openId = localStorage.getItem('userID');
+      this.selected.status = '待审核';
+      const res = await axios.post('/position/submitSecondclass', {
+        openId: localStorage.getItem('userID'),
+        selected: this.selected
+      });
+      if (res.data.message === 'ok') {
+        this.addSceondClass = false;
+        this.$message({
+          type: 'success',
+          message: '提交成功'
+        })
+      };
+      await this.reloadSecondclass();
+    },
+    deleteSecondclass(index, arr) {
+      arr.splice(index, 1);
+    },
+    async reloadSecondclass() {
+      const res = await axios.post('/position/getAllSecondclassInfo', { openId: localStorage.getItem('userID') });
+      if (res.data.message === 'ok') {
+        this.secondClassStatus = res.data.res[0].status;
+        this.secondClassInfo = res.data.res[0];
+      }
+    }
   },
   async created() {
     if (!localStorage.getItem('userID')) {
       const value = this.$router.currentRoute.query.userID;
       localStorage.setItem('userID', value);
       const wxUserInfo = await axios.post('/login/getUserInfo', { value });
-      console.log(wxUserInfo);
       this.wxUserInfo = wxUserInfo.data[0];
       this.$dialog.alert({
         message: '您还没有填写过基本信息,请前往填写',
@@ -265,7 +449,8 @@ export default {
     this.Integrity = this.calDataIntegrity(objToCal);
     await this.getAllScores();
     const positions = await axios.get('/position/getAllPositions');
-    this.positionSelectOptions = positions.data.positions;
+    this.SelectOptions = positions.data;
+    await this.reloadSecondclass();
   }
 }
 </script>
@@ -332,5 +517,11 @@ h3 {
 }
 .van-cell__text {
   font-size: 20px;
+}
+.flex-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding: 0 .3125rem;
 }
 </style>
