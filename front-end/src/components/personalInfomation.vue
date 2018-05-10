@@ -54,10 +54,10 @@
       <van-cell-group>
         <van-field label="平均学分绩" v-model="score.score" placeholder="请输入学分绩"/>
       </van-cell-group>
-      <div style="display: flex;justify-content: space-between;padding: 0 10px;" class="set-margin">
+      <div style="display: flex;justify-content: space-between;padding: 0 10px; margin-top: 6px" class="set-margin">
         <span>是否通过考试</span>
         <van-radio-group v-model="score.hasPass" @change="changeSelection" style="display: flex;justify-content: space-around">
-          <van-radio :name="0">通过</van-radio>
+          <van-radio style="margin-right: 10px" :name="0">通过</van-radio>
           <van-radio :name="1">不及格</van-radio>
         </van-radio-group>
       </div>
@@ -65,7 +65,7 @@
         <van-field type="textarea" label="不及格科目" v-model="score.failingCourse" placeholder="学科之间请用英文逗号隔开"></van-field>
         <van-field type="textarea" label="挂科科目" v-model="score.failedCourse" placeholder="学科之间请用英文逗号隔开"></van-field>
       </van-cell-group>
-      <van-row>
+      <van-row class="btn-position">
         <van-col span="12">
           <van-button v-if="popupTitle === '添加成绩'" bottom-action @click="addScore">添加</van-button>
           <van-button v-else bottom-action @click="addScore('edit')">提交</van-button>
@@ -80,7 +80,7 @@
     </van-popup>
 
 
-    <van-popup v-model="addSceondClass" position="right" style="width: 100vw;height: 100vh">
+    <van-popup v-model="addSceondClass" position="right" style="width: 100vw;height: 100vh;overflow-y: scroll">
       <div class="popup-header">德育表现</div>
       <div class="flex-selector">
         <span>社会职务</span>
@@ -162,7 +162,7 @@
           <el-button type="danger" size="mini" @click="deleteSecondclass(index, selected.decrease)" round>删除</el-button>
         </li>
       </ul>
-      <van-row>
+      <van-row class="btn-position">
         <van-col span="12">
           <van-button bottom-action @click="submitSecondclass">提交</van-button>
         </van-col>
@@ -196,7 +196,7 @@ export default {
       showPicker: false,
       pickerColumn: [],
       yearColumn: ['2014','2015','2016','2017','2018','2019','2020'],
-      termColumn: ['春季学期','秋季学期'],
+      termColumn: ['春季学期', '夏季学期','秋季学期'],
       score: {
         status: '待审核',
         score: '',
@@ -514,6 +514,7 @@ h3 {
 }
 .van-cell {
   font-size: 1rem;
+  padding: 10px 5px;
 }
 .van-cell__text {
   font-size: 20px;
@@ -523,5 +524,8 @@ h3 {
   justify-content: space-between;
   margin-top: 15px;
   padding: 0 .3125rem;
+}
+.btn-position {
+  margin-top: 20px;
 }
 </style>
