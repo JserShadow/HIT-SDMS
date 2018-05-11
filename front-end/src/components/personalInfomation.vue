@@ -342,7 +342,11 @@ export default {
     async getAllScores() {
       const scores = await axios.post('/score/getAllScores', { openId: localStorage.getItem('userID') });
       this.scores = scores.data.scores;
-      this.scoreStatus = this.scores[0].status;
+      if (this.scores.length === 0) {
+        this.scoreStatus = '待填写';
+      } else {
+        this.scoreStatus = this.scores[0].status;
+      }
     },
     toAddSecondClass() {
       const { position, activities, dorm, honor, decrease } = this.secondClassInfo;
@@ -411,9 +415,22 @@ export default {
     },
     async reloadSecondclass() {
       const res = await axios.post('/position/getAllSecondclassInfo', { openId: localStorage.getItem('userID') });
+      console.log(res.data);
       if (res.data.message === 'ok') {
-        this.secondClassStatus = res.data.res[0].status;
-        this.secondClassInfo = res.data.res[0];
+        if (res.data.res.length === 0) {
+          this.secondClassStatus = '待填写';
+          this.secondClassInfo = {
+            position: [],
+            activities: [],
+            honor: [],
+            dorm: [],
+            decrease: [],
+          }
+        } else {
+          this.secondClassStatus = res.data.res[0].status;
+          this.secondClassInfo = res.data.res[0];
+        }
+        console.log(this.secondClassStatus)
       }
     }
   },

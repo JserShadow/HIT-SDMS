@@ -7,6 +7,7 @@ import Personal from '@/components/forms/personal';
 import Admin from '@/components/admin'
 import AdminInfo from '@/components/adminComponents/admin-info';
 import AdminScore from '@/components/adminComponents/admin-score';
+import AdminSecondClass from '@/components/adminComponents/admin-secondclass';
 
 Vue.use(Router)
 
@@ -48,7 +49,12 @@ export default new Router({
           path: 'score',
           name: 'AdminScore',
           component: AdminScore
-        }
+        },
+        {
+          path: 'secondclass',
+          name: 'AdminSecondClass',
+          component: AdminSecondClass
+        },
       ]
     }
   ]

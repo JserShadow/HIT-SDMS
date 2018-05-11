@@ -15,6 +15,10 @@
         <i class="el-icon-edit-outline"></i>
         <span slot="title">分数信息管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/secondclass">
+        <i class="el-icon-tickets"></i>
+        <span slot="title">德育表现管理</span>
+      </el-menu-item>
     </el-menu>
 </template>
 
