@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .nav {
-  width: 10vw;
+  width: 20vw;
   height: 100vh;
 }
 .container {

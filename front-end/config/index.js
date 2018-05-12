@@ -35,6 +35,10 @@ module.exports = {
         target: 'http://localhost:7001',
         changeOrigin: true
       },
+      '/scholarship/*': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
     },
 
     // Various Dev Server settings

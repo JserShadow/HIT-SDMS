@@ -22,6 +22,9 @@ module.exports = app => {
   router.get('/position/getAllPositions', controller.positions.getAllPositions);
   router.post('/position/getAllSecondclassInfo', controller.positions.getAllSecondclassInfo);
   router.post('/position/submitSecondclass', controller.positions.submitSecondclass);
+  // 奖学金相关
+  router.post('/scholarship/getAllScholarships', controller.scholarship.getAllScholarships);
+  router.post('/scholarship/updateScholarships', controller.scholarship.updateScholarships);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);
@@ -29,4 +32,10 @@ module.exports = app => {
   router.get('/admin/score/getAllScores', controller.admin.getAllScores);
   router.post('/admin/score/pass', controller.admin.scorePass);
   router.post('/admin/score/fail', controller.admin.scoreFail);
+  router.get('/admin/secondclass/getAllSecondClassInfos', controller.admin.getAllSecondClassInfos);
+  router.post('/admin/secondclass/pass', controller.admin.secondclassPass);
+  router.post('/admin/secondclass/fail', controller.admin.secondclassFail);
+  router.post('/admin/scholarship/addScholarship', controller.admin.addScholarship);
+  router.post('/admin/scholarship/removeScholarship', controller.admin.removeScholarship);
+  router.get('/admin/scholarship/getAllScholarships', controller.admin.getAllScholarships);
 };

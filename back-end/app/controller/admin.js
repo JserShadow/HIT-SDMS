@@ -129,6 +129,102 @@ class AdminController extends Controller {
       message: 'ok',
     };
   }
+  async getAllSecondClassInfos() {
+    const Ids = await this.getOpenIds();
+    const { Secondclass, Studentinfo } = this.ctx.model;
+    let waitingarr = [];
+    let successarr = [];
+    let failarr = [];
+    for (const id of Ids) {
+      const infores = await Studentinfo.find({ openId: id });
+      const waiting = {};
+      const success = {};
+      const fail = {};
+      let waitingres = await Secondclass.findOne({ openId: id, status: '待审核' });
+      let successres = await Secondclass.findOne({ openId: id, status: '审核通过' });
+      let failres = await Secondclass.findOne({ openId: id, status: '审核未通过' });
+      Object.assign(waiting, waitingres);
+      Object.assign(success, successres);
+      Object.assign(fail, failres);
+      waiting.name = infores[0].basicInfo.name;
+      waiting.stuId = infores[0].basicInfo.stuId;
+      success.name = infores[0].basicInfo.name;
+      success.stuId = infores[0].basicInfo.stuId;
+      fail.name = infores[0].basicInfo.name;
+      fail.stuId = infores[0].basicInfo.stuId;
+      if (waitingres !== null) {
+        waitingarr.push(waiting);
+      }
+      if (successres !== null) {
+        successarr.push(success);
+      }
+      if (failres !== null) {
+        failarr.push(fail);
+      }
+    }
+    this.ctx.body = {
+      message: 'ok',
+      waiting: waitingarr,
+      success: successarr,
+      fail: failarr,
+    }
+  }
+  async secondclassPass() {
+    const { row } = this.ctx.request.body;
+    const { Secondclass } = this.ctx.model;
+    const res = await Secondclass.update({ _id: row._id }, { $set: { status: '审核通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      }
+    }
+  }
+  async secondclassFail() {
+    const { row } = this.ctx.request.body;
+    const { Secondclass } = this.ctx.model;
+    const res = await Secondclass.update({ _id: row._id }, { $set: { status: '审核未通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      }
+    }
+  }
+  async getAllScholarships() {
+    const { Adminscholarship } = this.ctx.model;
+    const res = await Adminscholarship.find({});
+    this.ctx.body = {
+      message: 'ok',
+      scholarships: res
+    }
+  }
+  async addScholarship() {
+    const { scholarshipName } = this.ctx.request.body;
+    const doc = {
+      name: scholarshipName
+    }
+    const { Adminscholarship } = this.ctx.model;
+    const res = await Adminscholarship.find({ name: scholarshipName });
+    if (res.length !== 0) {
+      this.ctx.body = {
+        message: 'fail',
+        resMessage: '该奖学金已经存在'
+      }
+      return;
+    }
+    const newscholarship = new Adminscholarship(doc);
+    await newscholarship.save();
+    this.ctx.body = {
+      message: 'ok',
+    }
+  }
+  async removeScholarship() {
+    const { id } = this.ctx.request.body;
+    const { Adminscholarship } = this.ctx.model;
+    const res = await Adminscholarship.remove({ _id: id });
+    this.ctx.body = {
+      message: 'ok'
+    }
+  }
 }
 
 module.exports = AdminController;

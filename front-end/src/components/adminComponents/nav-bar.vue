@@ -19,6 +19,10 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">德育表现管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/scholarship">
+        <i class="el-icon-star-on"></i>
+        <span slot="title">奖学金管理</span>
+      </el-menu-item>
     </el-menu>
 </template>
 

@@ -35,6 +35,14 @@
       </div>
     </div>
     <SecondClass :secondClassInfo="secondClassInfo"></SecondClass>
+    <div class="title">
+      <span>奖学金</span>
+      <div>
+        <el-tag :type="scholarshipStatus === '待审核'?'info':scholarshipStatus === '审核通过'?'success':'danger'">{{scholarshipStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScholarship">添加</van-button>
+      </div>
+    </div>
+    <Scholarship :scholarships="scholarships"></Scholarship>
 
 
     <van-popup
@@ -179,10 +187,11 @@ import axios from 'axios';
 import BasicInfo from './collapse/basicInfoCollapse';
 import Score from './collapse/scoreCollapse';
 import SecondClass from './collapse/secondClassCollapse';
+import Scholarship from './collapse/scholarshipCollapse';
 
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score, SecondClass },
+  components: { BasicInfo, Score, SecondClass, Scholarship },
   data () {
     return {
       wxUserInfo: '',
@@ -226,7 +235,10 @@ export default {
         dorm: [],
         decrease: [],
       },
-      secondClassInfo: ''
+      secondClassInfo: '',
+      scholarshipStatus: '',
+      scholarships: [],
+      showScholarshipPopup: false
     }
   },
   methods: {
@@ -432,6 +444,21 @@ export default {
         }
         console.log(this.secondClassStatus)
       }
+    },
+    toAddScholarship() {
+      this.scholarshipStatus = true;
+    },
+    async reloadScholarships() {
+      const res = await axios.post('/scholarship/getAllScholarships', { openId: localStorage.getItem('userID') });
+      if (res.data.message === 'ok') {
+        if (res.data.scholarships.length === 0) {
+          this.scholarshipStatus = '待填写';
+          this.scholarships.scholarships = [];
+        } else {
+          this.scholarships = res.data.scholarships[0];
+          this.scholarshipStatus = res.data.scholarships[0].status;
+        }
+      }
     }
   },
   async created() {
@@ -468,6 +495,7 @@ export default {
     const positions = await axios.get('/position/getAllPositions');
     this.SelectOptions = positions.data;
     await this.reloadSecondclass();
+    await this.reloadScholarships();
   }
 }
 </script>

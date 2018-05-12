@@ -8,6 +8,7 @@ import Admin from '@/components/admin'
 import AdminInfo from '@/components/adminComponents/admin-info';
 import AdminScore from '@/components/adminComponents/admin-score';
 import AdminSecondClass from '@/components/adminComponents/admin-secondclass';
+import AdminScholarship from '@/components/adminComponents/admin-scholarship';
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
           path: 'secondclass',
           name: 'AdminSecondClass',
           component: AdminSecondClass
+        },
+        {
+          path: 'scholarship',
+          name: 'AdminScholarship',
+          component: AdminScholarship
         },
       ]
     }
