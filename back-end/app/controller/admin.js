@@ -287,6 +287,69 @@ class AdminController extends Controller {
       };
     }
   }
+  async getAllTechnologys() {
+    const Ids = await this.getOpenIds();
+    const { Technology, Studentinfo } = this.ctx.model;
+    let waitingArr = [];
+    let successArr = [];
+    let failArr = [];
+    for (const id of Ids) {
+      let waitingObj = {};
+      let successObj = {};
+      let failObj = {};
+      const infores = await Studentinfo.findOne({ openId: id });
+      const waiting = await Technology.findOne({ openId: id, status: '待审核' });
+      const success = await Technology.findOne({ openId: id, status: '审核通过' });
+      const fail = await Technology.findOne({ openId: id, status: '审核未通过' });
+      if (waiting) {
+        Object.assign(waitingObj, waiting._doc);
+        waitingObj.name = infores.basicInfo.name;
+        waitingObj.stuId = infores.basicInfo.stuId;
+        waitingArr.push(waitingObj);
+      }
+      if (success) {
+        Object.assign(successObj, success._doc);
+        successObj.name = infores.basicInfo.name;
+        successObj.stuId = infores.basicInfo.stuId;
+        successArr.push(successObj);
+      }
+      if (fail) {
+        Object.assign(failObj, fail._doc);
+        failObj.name = infores.basicInfo.name;
+        failObj.stuId = infores.basicInfo.stuId;
+        failArr.push(failObj);
+      }
+    }
+    console.log(waitingArr.length);
+    this.ctx.body = {
+      message: 'ok',
+      technologys: {
+        waiting: waitingArr,
+        success: successArr,
+        fail: failArr
+      }
+    }
+  }
+  async technologyPass() {
+    const { id } = this.ctx.request.body;
+    const { Technology } = this.ctx.model;
+    const res = await Technology.update({ _id: id }, { $set: { status: '审核通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
+  async technologyFail() {
+    const { id } = this.ctx.request.body;
+    const { Technology } = this.ctx.model;
+    const res = await Technology.update({ _id: id }, { $set: { status: '审核未通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

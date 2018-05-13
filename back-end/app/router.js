@@ -46,4 +46,7 @@ module.exports = app => {
   router.get('/admin/scholarship/getAllStudentScholarships', controller.admin.getAllStudentScholarships);
   router.post('/admin/scholarship/pass', controller.admin.scholarshipPass);
   router.post('/admin/scholarship/fail', controller.admin.scholarshipFail);
+  router.get('/admin/technology/getAllTechnologys', controller.admin.getAllTechnologys);
+  router.post('/admin/technology/pass', controller.admin.technologyPass);
+  router.post('/admin/technology/fail', controller.admin.technologyFail);
 };

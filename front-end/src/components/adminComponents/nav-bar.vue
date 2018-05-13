@@ -23,6 +23,10 @@
         <i class="el-icon-star-on"></i>
         <span slot="title">奖学金管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/technology">
+        <i class="el-icon-setting"></i>
+        <span slot="title">科技创新表现管理</span>
+      </el-menu-item>
     </el-menu>
 </template>
 

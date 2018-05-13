@@ -79,7 +79,6 @@ export default {
     },
     async refreshData() {
       const res = await axios.get('/admin/scholarship/getAllStudentScholarships');
-      console.log(res.data);
       if (res.data.message === 'ok') {
         this.requiredData = res.data.studentScholarships;
       }

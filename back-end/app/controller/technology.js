@@ -6,7 +6,7 @@ class TechnologyController extends Controller {
   async getAllTechnologys() {
     const { openId } = this.ctx.request.body;
     const { Technology } = this.ctx.model;
-    const res = await Technology.find({ openId });
+    const res = await Technology.findOne({ openId });
     this.ctx.body = {
       message: 'ok',
       technology: res,

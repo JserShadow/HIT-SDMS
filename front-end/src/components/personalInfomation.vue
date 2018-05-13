@@ -492,12 +492,12 @@ export default {
     async reloadTechnologys() {
       const res = await axios.post('/technology/getAllTechnologys', { openId: localStorage.getItem('userID') });
       if (res.data.message === 'ok') {
-        if (res.data.technology.length === 0) {
+        if (res.data.technology === null || res.data.technology.technologys.length === 0) {
           this.technologyStatus = '待填写';
           this.technologys.technologys = [];
         } else {
-          this.technologys = res.data.technology[0];
-          this.technologyStatus = res.data.technology[0].status;
+          this.technologys = res.data.technology;
+          this.technologyStatus = res.data.technology.status;
         }
       }
     }
