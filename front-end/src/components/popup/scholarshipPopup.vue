@@ -9,7 +9,14 @@
       <div>学期: {{scholarshipObj.term}}</div>
       <van-button size="small" type="primary" @click="chooseScholarshipTerm">选择学期</van-button>
     </div>
-    <van-field v-model="scholarshipObj.name" placeholder="请输入奖学金名称" />
+    <el-select v-model="scholarshipObj.name" placeholder="请选择奖学金">
+      <el-option
+        v-for="item in adminScholarships"
+        :key="item._id"
+        :label="item.name"
+        :value="item.name">
+      </el-option>
+    </el-select>
     <van-row class="btn-position">
       <van-col span="12">
         <van-button bottom-action @click="updateScholarship">提交</van-button>
@@ -28,7 +35,7 @@
 import axios from 'axios';
 export default {
   name: 'ScholarshipPopup',
-  props: ['showScholarshipPopup'],
+  props: ['showScholarshipPopup', 'adminScholarships'],
   data() {
     return {
       pickerColumn: [],

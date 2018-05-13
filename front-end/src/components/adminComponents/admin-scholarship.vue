@@ -14,17 +14,37 @@
         <el-button size="mini" round @click="removeScholarship(scholarship)" type="danger">删除</el-button>
       </div>
     </el-card>
+    <el-tabs type="border-card" style="margin-top: 20px">
+      <el-tab-pane label="待审核">
+        <admin-scholarship-table @refresh="refreshData" :requiredData="requiredData.waiting" :needOperator="true"></admin-scholarship-table>
+      </el-tab-pane>
+      <el-tab-pane label="审核通过">
+        <admin-scholarship-table @refresh="refreshData" :requiredData="requiredData.success" :needOperator="false"></admin-scholarship-table>
+      </el-tab-pane>
+      <el-tab-pane label="审核未通过">
+        <admin-scholarship-table @refresh="refreshData" :requiredData="requiredData.fail" :needOperator="false"></admin-scholarship-table>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import AdminScholarshipTable from './admin-scholarship-table';
 export default {
   name: 'AdminScholarship',
+  components: {
+    AdminScholarshipTable
+  },
   data() {
     return {
       scholarshipName: '',
       scholarships: [],
+      requiredData: {
+        waiting: [],
+        success: [],
+        fail: []
+      }
     }
   },
   methods: {
@@ -56,10 +76,18 @@ export default {
         });
         await this.reloadScholarships();
       }
+    },
+    async refreshData() {
+      const res = await axios.get('/admin/scholarship/getAllStudentScholarships');
+      console.log(res.data);
+      if (res.data.message === 'ok') {
+        this.requiredData = res.data.studentScholarships;
+      }
     }
   },
   async mounted() {
     await this.reloadScholarships();
+    await this.refreshData();
   }
 }
 </script>

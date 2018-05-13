@@ -39,4 +39,7 @@ module.exports = app => {
   router.post('/admin/scholarship/addScholarship', controller.admin.addScholarship);
   router.post('/admin/scholarship/removeScholarship', controller.admin.removeScholarship);
   router.get('/admin/scholarship/getAllScholarships', controller.admin.getAllScholarships);
+  router.get('/admin/scholarship/getAllStudentScholarships', controller.admin.getAllStudentScholarships);
+  router.post('/admin/scholarship/pass', controller.admin.scholarshipPass);
+  router.post('/admin/scholarship/fail', controller.admin.scholarshipFail);
 };

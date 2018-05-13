@@ -181,7 +181,7 @@
     </van-popup>
 
 
-    <ScholarshipPopup :showScholarshipPopup="showScholarshipPopup" @closeScholarshipPopup="closeScholarshipPopup" @reloadScholarships="reloadScholarships"></ScholarshipPopup>
+    <ScholarshipPopup :showScholarshipPopup="showScholarshipPopup" @closeScholarshipPopup="closeScholarshipPopup" @reloadScholarships="reloadScholarships" :adminScholarships="adminScholarships"></ScholarshipPopup>
   </div>
 </template>
 
@@ -242,7 +242,8 @@ export default {
       secondClassInfo: '',
       scholarshipStatus: '',
       scholarships: {},
-      showScholarshipPopup: false
+      showScholarshipPopup: false,
+      adminScholarships: []
     }
   },
   methods: {
@@ -502,6 +503,8 @@ export default {
     const positions = await axios.get('/position/getAllPositions');
     this.SelectOptions = positions.data;
     await this.reloadSecondclass();
+    const scholarships = await axios.get('/admin/scholarship/getAllScholarships');
+    this.adminScholarships = scholarships.data.scholarships;
     await this.reloadScholarships();
   }
 }
