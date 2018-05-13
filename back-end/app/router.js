@@ -25,6 +25,7 @@ module.exports = app => {
   // 奖学金相关
   router.post('/scholarship/getAllScholarships', controller.scholarship.getAllScholarships);
   router.post('/scholarship/updateScholarships', controller.scholarship.updateScholarships);
+  router.post('/scholarship/removeScholarships', controller.scholarship.removeScholarships);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);

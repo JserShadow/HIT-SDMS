@@ -1,5 +1,6 @@
 <template>
-  <van-popup v-model="showScholarshipPopup" position="right" :overlay="false">
+  <van-popup v-model="showScholarshipPopup" position="right" :overlay="false" style="height:100vh;width: 100vw;overflow-y: scroll">
+    <div class="popup-header">添加奖学金</div>
     <div class="cell-flex set-margin">
       <div>学年: {{scholarshipObj.year}}</div>
       <van-button size="small" type="primary" @click="chooseScholarshipYear">选择学年</van-button>
@@ -8,7 +9,7 @@
       <div>学期: {{scholarshipObj.term}}</div>
       <van-button size="small" type="primary" @click="chooseScholarshipTerm">选择学期</van-button>
     </div>
-    
+    <van-field v-model="scholarshipObj.name" placeholder="请输入奖学金名称" />
     <van-row class="btn-position">
       <van-col span="12">
         <van-button bottom-action @click="updateScholarship">提交</van-button>
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'ScholarshipPopup',
   props: ['showScholarshipPopup'],
@@ -37,7 +39,8 @@ export default {
         year: '',
         term: '',
       },
-      scholarships: []
+      scholarships: [],
+      showPicker: false,
     }
   },
   methods: {
@@ -55,12 +58,29 @@ export default {
       } else {
         this.scholarshipObj.year = val;
       }
+      this.showPicker = false;
     },
-    updateScholarship() {
-
+    async updateScholarship() {
+      const res = await axios.post('/scholarship/updateScholarships', {
+        openId: localStorage.getItem('userID'),
+        scholarship: this.scholarshipObj,
+      });
+      if (res.data.message === 'ok') {
+        this.$message({
+          type: 'success',
+          message: '提交成功'
+        })
+        this.cancelUpdateScholarship();
+        this.$emit('reloadScholarships');
+      }
     },
     cancelUpdateScholarship() {
-      
+      this.scholarshipObj = {
+        year: '',
+        term: '',
+        name: ''
+      };
+      this.$emit('closeScholarshipPopup');
     }
   }
 }
@@ -77,5 +97,10 @@ export default {
 }
 .btn-position {
   margin-top: 20px;
+}
+.popup-header {
+  font-size: 1.5625rem;
+  padding: 10px;
+  letter-spacing: 5px;
 }
 </style>

@@ -42,7 +42,7 @@
         <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScholarship">添加</van-button>
       </div>
     </div>
-    <Scholarship :scholarships="scholarships"></Scholarship>
+    <Scholarship :scholarships="scholarships" :scholarshipStatus="scholarshipStatus" @reloadScholarships="reloadScholarships"></Scholarship>
 
 
     <van-popup
@@ -179,6 +179,9 @@
         </van-col>
       </van-row>
     </van-popup>
+
+
+    <ScholarshipPopup :showScholarshipPopup="showScholarshipPopup" @closeScholarshipPopup="closeScholarshipPopup" @reloadScholarships="reloadScholarships"></ScholarshipPopup>
   </div>
 </template>
 
@@ -188,10 +191,11 @@ import BasicInfo from './collapse/basicInfoCollapse';
 import Score from './collapse/scoreCollapse';
 import SecondClass from './collapse/secondClassCollapse';
 import Scholarship from './collapse/scholarshipCollapse';
+import ScholarshipPopup from './popup/scholarshipPopup'
 
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score, SecondClass, Scholarship },
+  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup },
   data () {
     return {
       wxUserInfo: '',
@@ -237,7 +241,7 @@ export default {
       },
       secondClassInfo: '',
       scholarshipStatus: '',
-      scholarships: [],
+      scholarships: {},
       showScholarshipPopup: false
     }
   },
@@ -446,7 +450,10 @@ export default {
       }
     },
     toAddScholarship() {
-      this.scholarshipStatus = true;
+      this.showScholarshipPopup = true;
+    },
+    closeScholarshipPopup() {
+      this.showScholarshipPopup = false;
     },
     async reloadScholarships() {
       const res = await axios.post('/scholarship/getAllScholarships', { openId: localStorage.getItem('userID') });
