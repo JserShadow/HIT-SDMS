@@ -26,6 +26,10 @@ module.exports = app => {
   router.post('/scholarship/getAllScholarships', controller.scholarship.getAllScholarships);
   router.post('/scholarship/updateScholarships', controller.scholarship.updateScholarships);
   router.post('/scholarship/removeScholarships', controller.scholarship.removeScholarships);
+  // 科技创新相关
+  router.post('/technology/getAllTechnologys', controller.technology.getAllTechnologys);
+  router.post('/technology/updateTechnologys', controller.technology.updateTechnologys);
+  router.post('/technology/removeTechnologys', controller.technology.removeTechnologys);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);

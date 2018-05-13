@@ -43,6 +43,14 @@
       </div>
     </div>
     <Scholarship :scholarships="scholarships" :scholarshipStatus="scholarshipStatus" @reloadScholarships="reloadScholarships"></Scholarship>
+    <div class="title">
+      <span>科技创新表现</span>
+      <div>
+        <el-tag :type="technologyStatus === '待审核'?'info':technologyStatus === '审核通过'?'success':'danger'">{{technologyStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddTechnology">添加</van-button>
+      </div>
+    </div>
+    <Technology :technologys="technologys" :technologyStatus="technologyStatus" @reloadTechnologys="reloadTechnologys"></Technology>
 
 
     <van-popup
@@ -182,6 +190,7 @@
 
 
     <ScholarshipPopup :showScholarshipPopup="showScholarshipPopup" @closeScholarshipPopup="closeScholarshipPopup" @reloadScholarships="reloadScholarships" :adminScholarships="adminScholarships"></ScholarshipPopup>
+    <TechnologyPopup :showTechnologyPopup="showTechnologyPopup" @closeTechnologyPopup="closeTechnologyPopup" @reloadTechnologys="reloadTechnologys" :technologySelections="technologySelections"></TechnologyPopup>
   </div>
 </template>
 
@@ -191,11 +200,13 @@ import BasicInfo from './collapse/basicInfoCollapse';
 import Score from './collapse/scoreCollapse';
 import SecondClass from './collapse/secondClassCollapse';
 import Scholarship from './collapse/scholarshipCollapse';
-import ScholarshipPopup from './popup/scholarshipPopup'
+import ScholarshipPopup from './popup/scholarshipPopup';
+import Technology from './collapse/technologyCollapse';
+import TechnologyPopup from './popup/technologyPopup';
 
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup },
+  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup, Technology, TechnologyPopup },
   data () {
     return {
       wxUserInfo: '',
@@ -243,7 +254,11 @@ export default {
       scholarshipStatus: '',
       scholarships: {},
       showScholarshipPopup: false,
-      adminScholarships: []
+      adminScholarships: [],
+      technologyStatus: '',
+      technologys: {},
+      technologySelections: [],
+      showTechnologyPopup: false
     }
   },
   methods: {
@@ -467,6 +482,24 @@ export default {
           this.scholarshipStatus = res.data.scholarships[0].status;
         }
       }
+    },
+    toAddTechnology() {
+      this.showTechnologyPopup = true;
+    },
+    closeTechnologyPopup() {
+      this.showTechnologyPopup = false;
+    },
+    async reloadTechnologys() {
+      const res = await axios.post('/technology/getAllTechnologys', { openId: localStorage.getItem('userID') });
+      if (res.data.message === 'ok') {
+        if (res.data.technology.length === 0) {
+          this.technologyStatus = '待填写';
+          this.technologys.technologys = [];
+        } else {
+          this.technologys = res.data.technology[0];
+          this.technologyStatus = res.data.technology[0].status;
+        }
+      }
     }
   },
   async created() {
@@ -506,6 +539,8 @@ export default {
     const scholarships = await axios.get('/admin/scholarship/getAllScholarships');
     this.adminScholarships = scholarships.data.scholarships;
     await this.reloadScholarships();
+    this.technologySelections = positions.data.tech;
+    await this.reloadTechnologys();
   }
 }
 </script>

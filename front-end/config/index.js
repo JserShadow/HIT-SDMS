@@ -39,6 +39,10 @@ module.exports = {
         target: 'http://localhost:7001',
         changeOrigin: true
       },
+      '/technology/*': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
     },
 
     // Various Dev Server settings
