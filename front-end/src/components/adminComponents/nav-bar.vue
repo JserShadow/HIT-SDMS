@@ -31,6 +31,10 @@
         <i class="el-icon-document"></i>
         <span slot="title">其他证书管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/socialpractice">
+        <i class="el-icon-news"></i>
+        <span slot="title">社会实践管理</span>
+      </el-menu-item>
     </el-menu>
 </template>
 

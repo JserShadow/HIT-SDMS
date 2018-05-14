@@ -386,6 +386,132 @@ class AdminController extends Controller {
       message: 'ok'
     }
   }
+  async getAllStudentCertificates() {
+    const Ids = await this.getOpenIds();
+    const { Certificate, Studentinfo } = this.ctx.model;
+    let waitingArr = [];
+    let successArr = [];
+    let failArr = [];
+    for (const id of Ids) {
+      let waitingObj = {};
+      let successObj = {};
+      let failObj = {};
+      const infores = await Studentinfo.findOne({ openId: id });
+      const waiting = await Certificate.findOne({ openId: id, status: '待审核' });
+      const success = await Certificate.findOne({ openId: id, status: '审核通过' });
+      const fail = await Certificate.findOne({ openId: id, status: '审核未通过' });
+      if (waiting) {
+        Object.assign(waitingObj, waiting._doc);
+        waitingObj.name = infores.basicInfo.name;
+        waitingObj.stuId = infores.basicInfo.stuId;
+        waitingArr.push(waitingObj);
+      }
+      if (success) {
+        Object.assign(successObj, success._doc);
+        successObj.name = infores.basicInfo.name;
+        successObj.stuId = infores.basicInfo.stuId;
+        successArr.push(successObj);
+      }
+      if (fail) {
+        Object.assign(failObj, fail._doc);
+        failObj.name = infores.basicInfo.name;
+        failObj.stuId = infores.basicInfo.stuId;
+        failArr.push(failObj);
+      }
+    }
+    console.log(waitingArr.length);
+    this.ctx.body = {
+      message: 'ok',
+      certificates: {
+        waiting: waitingArr,
+        success: successArr,
+        fail: failArr
+      }
+    }
+  }
+  async certificatePass() {
+    const { id } = this.ctx.request.body;
+    const { Certificate } = this.ctx.model;
+    const res = await Certificate.update({ _id: id }, { $set: { status: '审核通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
+  async certificateFail() {
+    const { id } = this.ctx.request.body;
+    const { Certificate } = this.ctx.model;
+    const res = await Certificate.update({ _id: id }, { $set: { status: '审核未通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
+  async getAllSocialPractices() {
+    const Ids = await this.getOpenIds();
+    const { Socialpractice, Studentinfo } = this.ctx.model;
+    let waitingArr = [];
+    let successArr = [];
+    let failArr = [];
+    for (const id of Ids) {
+      let waitingObj = {};
+      let successObj = {};
+      let failObj = {};
+      const infores = await Studentinfo.findOne({ openId: id });
+      const waiting = await Socialpractice.findOne({ openId: id, status: '待审核' });
+      const success = await Socialpractice.findOne({ openId: id, status: '审核通过' });
+      const fail = await Socialpractice.findOne({ openId: id, status: '审核未通过' });
+      if (waiting) {
+        Object.assign(waitingObj, waiting._doc);
+        waitingObj.name = infores.basicInfo.name;
+        waitingObj.stuId = infores.basicInfo.stuId;
+        waitingArr.push(waitingObj);
+      }
+      if (success) {
+        Object.assign(successObj, success._doc);
+        successObj.name = infores.basicInfo.name;
+        successObj.stuId = infores.basicInfo.stuId;
+        successArr.push(successObj);
+      }
+      if (fail) {
+        Object.assign(failObj, fail._doc);
+        failObj.name = infores.basicInfo.name;
+        failObj.stuId = infores.basicInfo.stuId;
+        failArr.push(failObj);
+      }
+    }
+    console.log(waitingArr.length);
+    this.ctx.body = {
+      message: 'ok',
+      socialPractices: {
+        waiting: waitingArr,
+        success: successArr,
+        fail: failArr
+      }
+    }
+  }
+  async socialPracticePass() {
+    const { id } = this.ctx.request.body;
+    const { Socialpractice } = this.ctx.model;
+    const res = await Socialpractice.update({ _id: id }, { $set: { status: '审核通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
+  async socialPracticeFail() {
+    const { id } = this.ctx.request.body;
+    const { Socialpractice } = this.ctx.model;
+    const res = await Socialpractice.update({ _id: id }, { $set: { status: '审核未通过' } });
+    if (res.ok === 1) {
+      this.ctx.body = {
+        message: 'ok'
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

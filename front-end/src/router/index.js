@@ -11,6 +11,7 @@ import AdminSecondClass from '@/components/adminComponents/admin-secondclass';
 import AdminScholarship from '@/components/adminComponents/admin-scholarship';
 import AdminTechnology from '@/components/adminComponents/admin-technology';
 import AdminCertificate from '@/components/adminComponents/admin-certificate';
+import AdminSocialPractice from '@/components/adminComponents/admin-socialPractice';
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
           path: 'certificate',
           name: 'AdminCertificate',
           component: AdminCertificate
+        },
+        {
+          path: 'socialpractice',
+          name: 'AdminSocialPractice',
+          component: AdminSocialPractice
         },
       ]
     }

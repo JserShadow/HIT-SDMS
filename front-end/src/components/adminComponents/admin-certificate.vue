@@ -14,13 +14,28 @@
       <el-button size="mini" round @click="removeCertificate(certificate)" type="danger">删除</el-button>
     </div>
   </el-card>
+  <el-tabs type="border-card" style="margin-top: 20px">
+    <el-tab-pane label="待审核">
+      <admin-certificate-table @refresh="refreshData" :requiredData="requiredData.waiting" :needOperator="true"></admin-certificate-table>
+    </el-tab-pane>
+    <el-tab-pane label="审核通过">
+      <admin-certificate-table @refresh="refreshData" :requiredData="requiredData.success" :needOperator="false"></admin-certificate-table>
+    </el-tab-pane>
+    <el-tab-pane label="审核未通过">
+      <admin-certificate-table @refresh="refreshData" :requiredData="requiredData.fail" :needOperator="false"></admin-certificate-table>
+    </el-tab-pane>
+  </el-tabs>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+import AdminCertificateTable from './admin-certificate-table';
 export default {
   name: 'AdminCertificate',
+  components: {
+    AdminCertificateTable
+  },
   data() {
     return {
       certificateName: '',
@@ -62,9 +77,17 @@ export default {
         await this.reloadCertificates();
       }
     },
+    async refreshData() {
+      const res = await axios.get('/admin/certificate/getAllStudentCertificates');
+      console.log(res.data);
+      if (res.data.message === 'ok') {
+        this.requiredData = res.data.certificates;
+      }
+    }
   },
   async mounted() {
     await this.reloadCertificates();
+    await this.refreshData();
   }
 }
 </script>

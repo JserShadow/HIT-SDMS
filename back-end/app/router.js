@@ -60,4 +60,10 @@ module.exports = app => {
   router.post('/admin/certificate/addCertificate', controller.admin.addCertificate);
   router.post('/admin/certificate/removeCertificate', controller.admin.removeCertificate);
   router.get('/admin/certificate/getAllCertificates', controller.admin.getAllCertificates);
+  router.get('/admin/certificate/getAllStudentCertificates', controller.admin.getAllStudentCertificates);
+  router.post('/admin/certificate/pass', controller.admin.certificatePass);
+  router.post('/admin/certificate/fail', controller.admin.certificateFail);
+  router.get('/admin/socialPractice/getAllSocialPractices', controller.admin.getAllSocialPractices);
+  router.post('/admin/socialPractice/pass', controller.admin.socialPracticePass);
+  router.post('/admin/socialPractice/fail', controller.admin.socialPracticeFail);
 };
