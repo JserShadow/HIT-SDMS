@@ -27,6 +27,10 @@
         <i class="el-icon-setting"></i>
         <span slot="title">科技创新表现管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/certificate">
+        <i class="el-icon-document"></i>
+        <span slot="title">其他证书管理</span>
+      </el-menu-item>
     </el-menu>
 </template>
 

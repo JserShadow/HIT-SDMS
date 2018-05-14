@@ -38,6 +38,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.flex-collapse {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  font-size: .875rem;
+  color: #333;
+}
 </style>

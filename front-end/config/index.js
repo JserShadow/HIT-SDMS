@@ -43,6 +43,14 @@ module.exports = {
         target: 'http://localhost:7001',
         changeOrigin: true
       },
+      '/certificate/*': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
+      '/socialPractice/*': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
     },
 
     // Various Dev Server settings

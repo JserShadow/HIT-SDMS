@@ -51,6 +51,22 @@
       </div>
     </div>
     <Technology :technologys="technologys" :technologyStatus="technologyStatus" @reloadTechnologys="reloadTechnologys"></Technology>
+    <div class="title">
+      <span>其他证书</span>
+      <div>
+        <el-tag :type="certificateStatus === '待审核'?'info':certificateStatus === '审核通过'?'success':'danger'">{{certificateStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddCertificate">添加</van-button>
+      </div>
+    </div>
+    <Certificate :certificates="certificates" :certificateStatus="certificateStatus" @reloadCertificates="reloadCertificates"></Certificate>
+    <div class="title">
+      <span>社会实践</span>
+      <div>
+        <el-tag :type="socialPracticeStatus === '待审核'?'info':socialPracticeStatus === '审核通过'?'success':'danger'">{{socialPracticeStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddSocialPractice">添加</van-button>
+      </div>
+    </div>
+    <social-practice :socialPractices="socialPractices" :socialPracticeStatus="socialPracticeStatus" @reloadSocialPractices="reloadSocialPractices"></social-practice>
 
 
     <van-popup
@@ -191,6 +207,8 @@
 
     <ScholarshipPopup :showScholarshipPopup="showScholarshipPopup" @closeScholarshipPopup="closeScholarshipPopup" @reloadScholarships="reloadScholarships" :adminScholarships="adminScholarships"></ScholarshipPopup>
     <TechnologyPopup :showTechnologyPopup="showTechnologyPopup" @closeTechnologyPopup="closeTechnologyPopup" @reloadTechnologys="reloadTechnologys" :technologySelections="technologySelections"></TechnologyPopup>
+    <CertificatePopup :showCertificatePopup="showCertificatePopup" @closeCertificatePopup="closeCertificatePopup" @reloadCertificates="reloadCertificates" :certificateSelections="adminCertificates"></CertificatePopup>
+    <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
   </div>
 </template>
 
@@ -203,10 +221,14 @@ import Scholarship from './collapse/scholarshipCollapse';
 import ScholarshipPopup from './popup/scholarshipPopup';
 import Technology from './collapse/technologyCollapse';
 import TechnologyPopup from './popup/technologyPopup';
+import Certificate from './collapse/certificateCollapse';
+import CertificatePopup from './popup/certificatePopup';
+import SocialPractice from './collapse/socialPracticeCollapse';
+import SocialPracticePopup from './popup/socialPracticePopup';
 
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup, Technology, TechnologyPopup },
+  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup, Technology, TechnologyPopup, Certificate, CertificatePopup, SocialPractice, SocialPracticePopup },
   data () {
     return {
       wxUserInfo: '',
@@ -258,7 +280,14 @@ export default {
       technologyStatus: '',
       technologys: {},
       technologySelections: [],
-      showTechnologyPopup: false
+      showTechnologyPopup: false,
+      certificates: {},
+      certificateStatus: '',
+      adminCertificates: [],
+      showCertificatePopup: false,
+      socialPracticeStatus: '',
+      socialPractices: {},
+      showSocialPracticePopup: false,
     }
   },
   methods: {
@@ -500,6 +529,42 @@ export default {
           this.technologyStatus = res.data.technology.status;
         }
       }
+    },
+    toAddCertificate() {
+      this.showCertificatePopup = true;
+    },
+    closeCertificatePopup() {
+      this.showCertificatePopup = false;
+    },
+    async reloadCertificates() {
+      const res = await axios.post('/certificate/getAllCertificates', { openId: localStorage.getItem('userID') });
+      if (res.data.message === 'ok') {
+        if (res.data.certificate === null || res.data.certificate.certificates.length === 0) {
+          this.certificateStatus = '待填写';
+          this.certificates.certificates = [];
+        } else {
+          this.certificates = res.data.certificate;
+          this.certificateStatus = res.data.certificate.status;
+        }
+      }
+    },
+    toAddSocialPractice() {
+      this.showSocialPracticePopup = true;
+    },
+    closeSocialPracticePopup() {
+      this.showSocialPracticePopup = false;
+    },
+    async reloadSocialPractices() {
+      const res = await axios.post('/socialPractice/getAllSocialPractices', { openId: localStorage.getItem('userID') });
+      if (res.data.message === 'ok') {
+        if (res.data.socialPractice === null || res.data.socialPractice.socialPractices.length === 0) {
+          this.socialPracticeStatus = '待填写';
+          this.socialPractices.socialPractices = [];
+        } else {
+          this.socialPractices = res.data.socialPractice;
+          this.socialPracticeStatus = res.data.socialPractice.status;
+        }
+      }
     }
   },
   async created() {
@@ -541,6 +606,11 @@ export default {
     await this.reloadScholarships();
     this.technologySelections = positions.data.tech;
     await this.reloadTechnologys();
+    const certificates = await axios.get('/admin/certificate/getAllCertificates');
+    this.adminCertificates = certificates.data.certificates;
+    await this.reloadCertificates();
+    await this.reloadSocialPractices();
+    console.log(this.socialPractices);
   }
 }
 </script>

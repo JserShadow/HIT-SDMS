@@ -30,6 +30,14 @@ module.exports = app => {
   router.post('/technology/getAllTechnologys', controller.technology.getAllTechnologys);
   router.post('/technology/updateTechnologys', controller.technology.updateTechnologys);
   router.post('/technology/removeTechnologys', controller.technology.removeTechnologys);
+  // 其他证书相关
+  router.post('/certificate/getAllCertificates', controller.certificate.getAllCertificates);
+  router.post('/certificate/updateCertificates', controller.certificate.updateCertificates);
+  router.post('/certificate/removeCertificates', controller.certificate.removeCertificates);
+  // 社会实践相关
+  router.post('/socialPractice/getAllSocialPractices', controller.socialPractice.getAllSocialPractices);
+  router.post('/socialPractice/updateSocialPractices', controller.socialPractice.updateSocialPractices);
+  router.post('/socialPractice/removeSocialPractices', controller.socialPractice.removeSocialPractices);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);
@@ -49,4 +57,7 @@ module.exports = app => {
   router.get('/admin/technology/getAllTechnologys', controller.admin.getAllTechnologys);
   router.post('/admin/technology/pass', controller.admin.technologyPass);
   router.post('/admin/technology/fail', controller.admin.technologyFail);
+  router.post('/admin/certificate/addCertificate', controller.admin.addCertificate);
+  router.post('/admin/certificate/removeCertificate', controller.admin.removeCertificate);
+  router.get('/admin/certificate/getAllCertificates', controller.admin.getAllCertificates);
 };

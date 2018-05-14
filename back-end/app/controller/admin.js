@@ -350,6 +350,42 @@ class AdminController extends Controller {
       };
     }
   }
+  async getAllCertificates() {
+    const { Admincertificate } = this.ctx.model;
+    const res = await Admincertificate.find({});
+    this.ctx.body = {
+      message: 'ok',
+      certificates: res
+    }
+  }
+  async addCertificate() {
+    const { certificateName } = this.ctx.request.body;
+    const doc = {
+      name: certificateName
+    }
+    const { Admincertificate } = this.ctx.model;
+    const res = await Admincertificate.find({ name: certificateName });
+    if (res.length !== 0) {
+      this.ctx.body = {
+        message: 'fail',
+        resMessage: '该证书已经存在'
+      }
+      return;
+    }
+    const newscholarship = new Admincertificate(doc);
+    await newscholarship.save();
+    this.ctx.body = {
+      message: 'ok',
+    }
+  }
+  async removeCertificate() {
+    const { id } = this.ctx.request.body;
+    const { Admincertificate } = this.ctx.model;
+    const res = await Admincertificate.remove({ _id: id });
+    this.ctx.body = {
+      message: 'ok'
+    }
+  }
 }
 
 module.exports = AdminController;
