@@ -2,11 +2,11 @@
 <div>
   <el-card class="box-card" shadow="hover">
     <div slot="header" class="clearfix" style="display: flex;justify-content: space-between">
+      <span>其他证书内容管理</span>
       <div>
-        <span>其他证书内容管理</span>
-        <el-input v-model="certificateName" placeholder="请输入证书名称" size="mini"></el-input>
+        <el-input v-model="certificateName" placeholder="请输入证书名称" size="mini" style="margin-right: 6px"></el-input>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="addCertificate">添加</el-button>
       </div>
-      <el-button style="float: right; padding: 3px 0" type="text" @click="addCertificate">添加</el-button>
     </div>
     <div v-if="!certificates.length" style="color: #cccccc">暂无数据</div>
     <div v-else v-for="certificate in certificates" :key="certificate._id" class="flex-list">

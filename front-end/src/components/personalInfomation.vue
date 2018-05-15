@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 10px;">
+  <div style="padding: 10px;" v-loading="loadData">
     <div class="avatar-container">
       <img :src="wxUserInfo.avatarUrl" alt="avatar" class="avatar">
     </div>
@@ -231,6 +231,7 @@ export default {
   components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup, Technology, TechnologyPopup, Certificate, CertificatePopup, SocialPractice, SocialPracticePopup },
   data () {
     return {
+      loadData: false,
       wxUserInfo: '',
       basicInfo: '',
       personalInfo: '',
@@ -580,6 +581,7 @@ export default {
       })
       return;
     }
+    this.loadData = true;
     const value = localStorage.getItem('userID');
     const wxUserInfo = await axios.post('/login/getUserInfo', { value });
     this.wxUserInfo = wxUserInfo.data[0];
@@ -610,7 +612,7 @@ export default {
     this.adminCertificates = certificates.data.certificates;
     await this.reloadCertificates();
     await this.reloadSocialPractices();
-    console.log(this.socialPractices);
+    this.loadData = false;
   }
 }
 </script>

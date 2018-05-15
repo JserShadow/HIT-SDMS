@@ -2,11 +2,11 @@
   <div>
     <el-card class="box-card" shadow="hover">
       <div slot="header" class="clearfix" style="display: flex;justify-content: space-between">
+        <span>奖学金内容管理</span>
         <div>
-          <span>奖学金内容管理</span>
-          <el-input v-model="scholarshipName" placeholder="请输入奖学金名称" size="mini"></el-input>
+          <el-input v-model="scholarshipName" placeholder="请输入奖学金名称" size="mini" style="margin-right: 6px;"></el-input>
+          <el-button style="float: right; padding: 3px 0" type="text" @click="addScholarship">添加</el-button>
         </div>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="addScholarship">添加</el-button>
       </div>
       <div v-if="!scholarships.length" style="color: #cccccc">暂无数据</div>
       <div v-else v-for="scholarship in scholarships" :key="scholarship._id" class="flex-list">

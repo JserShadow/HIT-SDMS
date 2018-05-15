@@ -1,5 +1,5 @@
 <template>
-  <el-tabs type="border-card" style="margin-top: 20px">
+  <el-tabs type="border-card">
     <el-tab-pane label="待审核">
       <admin-social-practice-table @refresh="refreshData" :requiredData="requiredData.waiting" :needOperator="true"></admin-social-practice-table>
     </el-tab-pane>
