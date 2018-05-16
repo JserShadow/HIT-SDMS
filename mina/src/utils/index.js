@@ -1,5 +1,9 @@
 const util = {
-  webViewUrl: 'https://hit-sdms.xiaonei.io/index.html#/'
+  webViewUrl: 'https://hit-sdms.xiaonei.io/#/',
+  title: {
+    indexTitle: 'WELCOME',
+    hitTitle: 'HIT-SDMS'
+  },
 }
 
 export default util;
