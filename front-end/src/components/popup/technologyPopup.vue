@@ -9,10 +9,19 @@
       <div>学期: {{technologyObj.term}}</div>
       <van-button size="small" type="primary" @click="chooseTechnologyTerm">选择学期</van-button>
     </div>
-    <el-cascader
-      :options="technologySelections"
-      v-model="selectedOptions">
-    </el-cascader>
+    <div class="cell-flex set-margin">
+      <div>选择科技创新类型: </div>
+      <el-cascader
+        :options="technologySelections"
+        v-model="selectedOptions"
+        @focus="clearModel"
+        size="small">
+      </el-cascader>
+    </div>
+    <div class="cell-flex set-margin">
+      <div>填写详细内容: </div>
+      <el-input v-model="technologyObj.detail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
+    </div>
     <van-row class="btn-position">
       <van-col span="12">
         <van-button bottom-action @click="updateTechnology">提交</van-button>
@@ -43,6 +52,7 @@ export default {
         weight: 0,
         year: '',
         term: '',
+        detail: ''
       },
       technologys: [],
       showPicker: false,
@@ -106,6 +116,11 @@ export default {
         name: ''
       };
       this.$emit('closeTechnologyPopup');
+    },
+    clearModel(e) {
+      if (e.relatedTarget === null) {
+        this.selectedOptions = [];
+      }
     }
   }
 }
@@ -127,5 +142,9 @@ export default {
   font-size: 1.5625rem;
   padding: 10px;
   letter-spacing: 5px;
+}
+.el-cascader-menu {
+  width: 50vw;
+  max-width: 50vw;
 }
 </style>

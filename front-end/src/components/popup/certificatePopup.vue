@@ -9,14 +9,21 @@
       <div>学期: {{certificateObj.term}}</div>
       <van-button size="small" type="primary" @click="chooseCertificateTerm">选择学期</van-button>
     </div>
-    <el-select v-model="selectedOptions" placeholder="请选择证书">
-      <el-option
-        v-for="item in certificateSelections"
-        :key="item.name"
-        :label="item.name"
-        :value="item.name">
-      </el-option>
-    </el-select>
+    <div class="cell-flex set-margin">
+      <div>选择证书类型: </div>
+      <el-select v-model="selectedOptions" placeholder="请选择证书">
+        <el-option
+          v-for="item in certificateSelections"
+          :key="item.name"
+          :label="item.name"
+          :value="item.name">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="cell-flex set-margin">
+      <div>填写详细内容: </div>
+      <el-input v-model="certificateDetail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
+    </div>
     <van-row class="btn-position">
       <van-col span="12">
         <van-button bottom-action @click="updateCertificate">提交</van-button>
@@ -46,9 +53,11 @@ export default {
         name: '',
         year: '',
         term: '',
+        detail: ''
       },
       certificates: [],
       showPicker: false,
+      certificateDetail: ''
     }
   },
   methods: {
@@ -70,6 +79,7 @@ export default {
     },
     async updateCertificate() {
       this.certificateObj.name = this.selectedOptions;
+      this.certificateObj.detail = this.certificateDetail;
       const res = await axios.post('/certificate/updateCertificates', {
         openId: localStorage.getItem('userID'),
         certificate: this.certificateObj,
