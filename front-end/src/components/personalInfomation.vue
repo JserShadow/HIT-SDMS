@@ -492,7 +492,6 @@ export default {
           this.secondClassStatus = res.data.res[0].status;
           this.secondClassInfo = res.data.res[0];
         }
-        console.log(this.secondClassStatus)
       }
     },
     toAddScholarship() {
@@ -613,6 +612,7 @@ export default {
     await this.reloadCertificates();
     await this.reloadSocialPractices();
     this.loadData = false;
+    console.log(123123213);
   }
 }
 </script>
