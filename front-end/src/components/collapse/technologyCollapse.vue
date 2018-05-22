@@ -3,11 +3,11 @@
     <div v-if="technologyStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(technology, index) in technologys.technologys" :key="technology._id" class="flex-collapse">
-        <div>
+        <div class="innerflex">
           <span>{{technology.detail}}</span>
-          <span>{{technology.year + technology.term}}</span>
+          <span class="time">{{technology.year + technology.term}}</span>
         </div>
-        <el-button type="danger" size="mini" round @click="removeTechnology(index)">删除</el-button>
+        <el-button style="color: #ff3333" type="text" size="mini" round @click="removeTechnology(index)">删除</el-button>
       </div>
     </div>
   </div>
@@ -45,5 +45,14 @@ export default {
   padding: 5px 15px;
   font-size: .875rem;
   color: #333;
+}
+.innerflex {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.time {
+  color: #cccccc;
 }
 </style>

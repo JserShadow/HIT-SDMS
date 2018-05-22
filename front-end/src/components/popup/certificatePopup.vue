@@ -33,7 +33,7 @@
       </van-col>
     </van-row>
     <van-popup position="bottom" transition="popup-slide" style="width: 100vw;height: 30vh" v-model="showPicker">
-      <van-picker :columns="pickerColumn" show-toolbar @confirm="pickerConfirm"></van-picker>
+      <van-picker :columns="pickerColumn" show-toolbar @cancel="pickerCancel" @confirm="pickerConfirm"></van-picker>
     </van-popup>
   </van-popup>
 </template>
@@ -75,6 +75,9 @@ export default {
       } else {
         this.certificateObj.year = val;
       }
+      this.showPicker = false;
+    },
+    pickerCancel() {
       this.showPicker = false;
     },
     async updateCertificate() {

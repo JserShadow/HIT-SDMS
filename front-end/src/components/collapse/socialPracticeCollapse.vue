@@ -3,11 +3,11 @@
     <div v-if="socialPracticeStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(socialPractice, index) in socialPractices.socialPractices" :key="socialPractice._id" class="flex-collapse">
-        <div>
-          <span>{{socialPractice.detail}}</span>
-          <span>{{socialPractice.year + socialPractice.term}}</span>
+        <div class="innerflex">
+          <span>{{socialPractice.name}}</span>
+          <span class="time">{{socialPractice.year + socialPractice.term}}</span>
         </div>
-        <el-button type="danger" size="mini" round @click="removeSocialPractice(index)">删除</el-button>
+        <el-button style="color: #ff3333" type="text" size="mini" round @click="removeSocialPractice(index)">删除</el-button>
       </div>
     </div>
   </div>
@@ -50,5 +50,14 @@ export default {
   padding: 5px 15px;
   font-size: .875rem;
   color: #333;
+}
+.innerflex {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.time {
+  color: #cccccc;
 }
 </style>
