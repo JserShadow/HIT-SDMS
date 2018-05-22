@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="socialPracticeStatus === '待填写'">暂无数据</div>
+  <div style="margin-bottom: 10px">
+    <div v-if="socialPracticeStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(socialPractice, index) in socialPractices.socialPractices" :key="socialPractice._id" class="flex-collapse">
         <div>
-          <span>{{socialPractice.name}}</span>
+          <span>{{socialPractice.detail}}</span>
           <span>{{socialPractice.year + socialPractice.term}}</span>
         </div>
         <el-button type="danger" size="mini" round @click="removeSocialPractice(index)">删除</el-button>
@@ -39,6 +39,11 @@ export default {
 </script>
 
 <style>
+.no-data {
+  width: 100%;
+  height: 1.25rem;
+  color: #aaaaaa;
+}
 .flex-collapse {
   display: flex;
   justify-content: space-between;

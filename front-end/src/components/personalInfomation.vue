@@ -11,6 +11,7 @@
         <h3>{{basicInfo.stuId}}</h3>
       </div>
     </div>
+    <el-button type="warning" style="margin-bottom: 20px">查看成绩单</el-button>
     <div class="title">
       <span>学生信息(资料完成度：{{Integrity}})</span>
       <div>
@@ -502,8 +503,9 @@ export default {
     },
     async reloadScholarships() {
       const res = await axios.post('/scholarship/getAllScholarships', { openId: localStorage.getItem('userID') });
+      console.log(res.data)
       if (res.data.message === 'ok') {
-        if (res.data.scholarships.length === 0) {
+        if (res.data.scholarships[0].scholarships.length === 0) {
           this.scholarshipStatus = '待填写';
           this.scholarships.scholarships = [];
         } else {
@@ -547,6 +549,7 @@ export default {
           this.certificateStatus = res.data.certificate.status;
         }
       }
+      console.log(this.certificateStatus)
     },
     toAddSocialPractice() {
       this.showSocialPracticePopup = true;
@@ -612,7 +615,6 @@ export default {
     await this.reloadCertificates();
     await this.reloadSocialPractices();
     this.loadData = false;
-    console.log(123123213);
   }
 }
 </script>

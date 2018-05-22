@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="scholarshipStatus === '待填写'">暂无数据</div>
+  <div style="margin-bottom: 10px">
+    <div v-if="scholarshipStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(scholarship, index) in scholarships.scholarships" :key="scholarship._id" class="flex-collapse">
         <div>
-          <span>{{scholarship.name}}</span>
+          <span>{{scholarship.detail}}</span>
           <span>{{scholarship.year + scholarship.term}}</span>
         </div>
         <el-button type="danger" size="mini" round @click="removeScholarship(index)">删除</el-button>

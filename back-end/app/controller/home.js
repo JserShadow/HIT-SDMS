@@ -7,7 +7,6 @@ class HomeController extends Controller {
   async index() {
     console.log(fs.readFileSync(__dirname+'/../public/index.html'));
     this.ctx.body = fs.readFileSync(__dirname+'/../public/index.html', 'utf8');
-    // this.ctx.body = __dirname+'../public/index.html';
   }
 }
 

@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="certificateStatus === '待填写'">暂无数据</div>
+  <div style="margin-bottom: 10px">
+    <div v-if="certificateStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(certificate, index) in certificates.certificates" :key="certificate._id" class="flex-collapse">
         <div>
-          <span>{{certificate.name}}</span>
+          <span>{{certificate.detail}}</span>
           <span>{{certificate.year + certificate.term}}</span>
         </div>
         <el-button type="danger" size="mini" round @click="removeCertificate(index)">删除</el-button>

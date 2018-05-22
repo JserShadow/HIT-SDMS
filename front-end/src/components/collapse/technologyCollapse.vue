@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="technologyStatus === '待填写'">暂无数据</div>
+  <div style="margin-bottom: 10px">
+    <div v-if="technologyStatus === '待填写'" class="no-data">暂无数据</div>
     <div v-else>
       <div v-for="(technology, index) in technologys.technologys" :key="technology._id" class="flex-collapse">
         <div>
-          <span>{{technology.name}}</span>
+          <span>{{technology.detail}}</span>
           <span>{{technology.year + technology.term}}</span>
         </div>
         <el-button type="danger" size="mini" round @click="removeTechnology(index)">删除</el-button>
