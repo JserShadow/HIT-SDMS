@@ -113,7 +113,6 @@ export default {
   methods: {
     changeCatagory(val) {
       this.selectorInfo = eval('this.SelectOptions.' + val);
-      console.log(this.selectorInfo)
     },
     changeContent(val) {
       const arr = val.split('/');
@@ -126,15 +125,12 @@ export default {
       }
     },
     async updateSecondClass() {
-      console.log(this.secondClassObj);
       const obj = {
         openId: localStorage.getItem('userID'),
         catagory: this.catagory,
         content: this.secondClassObj
       };
-      console.log(obj);
       const res = await axios.post('/position/submitSecondclass', obj);
-      console.log(res);
       if (res.data.message === 'ok') {
         this.$message({
           type: 'success',

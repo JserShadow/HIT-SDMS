@@ -3,7 +3,7 @@
   <div v-if="!scores.length" class="no-data">
     暂无成绩数据
   </div>
-  <van-collapse v-else v-model="activeName" accordion @change="changeGrade">
+  <van-collapse v-else v-model="activeName" accordion>
     <van-collapse-item v-for="(item, index) in scores" :title="item.gradeName.year+item.gradeName.term" :key="item._id" :name="(index+1).toString()" >
       <van-panel>
         <div slot="header" style="display: flex;justify-content: space-between">
@@ -46,9 +46,6 @@ export default {
     }
   },
   methods: {
-    changeGrade(act) {
-      console.log(act);
-    },
     toEditScore(index) {
       this.$emit('toEditScore', this.scores[index]);
     },

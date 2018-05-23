@@ -46,7 +46,6 @@ export default {
     nextStep() {
       const step = this.$store.state.form_step;
       const data = this.$refs.form.$data;
-      console.log(data);
       if (step === 0 ) {
         if (data.name === '' || data.gender === '' || data.stuId === '') {
           
@@ -67,7 +66,6 @@ export default {
       this.$router.replace('/')
     },
     handleRouter(val) {
-      console.log(val);
       if (val === 1) {
         this.nextStepDisable = true;
         this.lastStepDisable = false;
@@ -86,12 +84,9 @@ export default {
       const personalInfo = { phoneNumber, QQ, EMail, wx, familyAddress }
       localStorage.setItem('personal',JSON.stringify(personalInfo));
       const stuInfo = { openId: this.openId, status: '待审核',  basicInfo, personalInfo };
-      console.log(stuInfo);
       try {
-        console.log('trying');
         await axios.post('/submit/studentInfo', stuInfo);
       } catch (error) {
-        console.log(error);
         this.$toast({
           type: 'fail',
           duation: 2000,

@@ -173,7 +173,6 @@ export default {
         dorm: [],
         decrease: [],
       },
-      selectedPosition: [],
       addSceondClass: false,
       selected: {
         position: [],
@@ -292,7 +291,6 @@ export default {
       this.showAddModel = false;
     },
     changeSelection() {
-      console.log(this.score.hasPass);
     },
     chooseYear() {
       this.pickerColumn = this.yearColumn.concat();
@@ -326,7 +324,6 @@ export default {
     },
     async reloadSecondclass() {
       const res = await axios.post('/position/getAllSecondclassInfo', { openId: localStorage.getItem('userID') });
-      console.log(res.data);
       if (res.data.message === 'ok') {
         if (res.data.res.length === 0) {
           this.secondClassStatus = '待填写';
@@ -354,7 +351,6 @@ export default {
     },
     async reloadScholarships() {
       const res = await axios.post('/scholarship/getAllScholarships', { openId: localStorage.getItem('userID') });
-      console.log(res.data)
       if (res.data.message === 'ok') {
         if (res.data.scholarships[0].scholarships.length === 0) {
           this.scholarshipStatus = '待填写';
@@ -400,7 +396,6 @@ export default {
           this.certificateStatus = res.data.certificate.status;
         }
       }
-      console.log(this.certificateStatus)
     },
     toAddSocialPractice() {
       this.showSocialPracticePopup = true;
