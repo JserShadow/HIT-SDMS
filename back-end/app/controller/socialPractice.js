@@ -29,7 +29,6 @@ class SocialPracticeController extends Controller {
   }
   async updateSocialPractices() {
     const { openId, socialPractice } = this.ctx.request.body;
-    console.log(socialPractice);
     const { Socialpractice } = this.ctx.model;
     const findRes = await Socialpractice.find({ openId });
     if (findRes.length) {

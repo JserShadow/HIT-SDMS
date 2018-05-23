@@ -19,10 +19,34 @@ class PositionsController extends Controller {
       tech,
     };
   }
+  sortArr(arr) {
+    arr.sort((a,b) => {
+      return a.year - b.year;
+    })
+    for (let i = 1; i < arr.length; i++) {
+      if (!arr[1]) {
+        break;
+      }
+      if (arr[i].year === arr[i-1].year) {
+        if (arr[i].term === '春季学期' && arr[i-1].term === '夏季学期'||arr[i].term === '夏季学期' && arr[i-1].term === '秋季学期'||arr[i].term === '春季学期' && arr[i-1].term === '秋季学期') {
+          let a = arr[i];
+          arr[i] = arr[i-1];
+          arr[i-1] = a;
+        }
+      }
+    }
+    return arr;
+  }
   async getAllSecondclassInfo() {
     const { openId } = this.ctx.request.body;
     const { Secondclass } = this.ctx.model;
     const res = await Secondclass.find({ openId });
+    res[0].position = this.sortArr(res[0].position);
+    res[0].activities = this.sortArr(res[0].activities);
+    res[0].honor = this.sortArr(res[0].honor);
+    res[0].dorm = this.sortArr(res[0].dorm);
+    res[0].decrease = this.sortArr(res[0].decrease);
+    console.log(res);
     this.ctx.body = {
       message: 'ok',
       res
@@ -63,6 +87,16 @@ class PositionsController extends Controller {
       const newObj = this.pushIntoArr(findres[0], catagory, content);
       newObj.status = '待审核';
       const res = await Secondclass.update({ openId }, newObj);
+      this.ctx.body = {
+        message: 'ok'
+      }
+    }
+  }
+  async updateDelete() {
+    const { openId, result } = this.ctx.request.body;
+    const { Secondclass } = this.ctx.model;
+    const res = await Secondclass.update({ openId }, result);
+    if (res.ok === 1) {
       this.ctx.body = {
         message: 'ok'
       }

@@ -11,12 +11,19 @@
     </div>
     <div class="cell-flex set-margin">
       <div>选择科技创新类型: </div>
-      <el-cascader
-        :options="technologySelections"
-        v-model="selectedOptions"
-        @focus="clearModel"
-        size="small">
-      </el-cascader>
+      <el-select v-model="selectedOptions" placeholder="请选择" @change="changeTechChoice">
+        <el-option-group
+          v-for="group in technologySelections"
+          :key="group.label"
+          :label="group.label">
+          <el-option
+            v-for="item in group.children"
+            :key="item.value"
+            :label="item.label"
+            :value="group.label+'/'+item.value+'/'+item.weight">
+          </el-option>
+        </el-option-group>
+      </el-select>
     </div>
     <div class="cell-flex set-margin">
       <div>填写详细内容: </div>
@@ -78,26 +85,13 @@ export default {
     pickerCancel() {
       this.showPicker = false;
     },
-    findWeight(array) {
-      if (array === []) {
-        return 0;
-      }
-      for (const item of this.technologySelections) {
-        if (array[0] === item.value) {
-          if (array[1]) {
-            for (const child of item.children) {
-              if (array[1] === child.value) {
-                return child.weight;
-              }
-            }
-          }
-          return item.weight;
-        }
-      }
+    changeTechChoice(val) {
+      const arr = val.split('/');
+      this.technologyObj.weight = parseInt(arr[2]);
+      arr.splice(2,1);
+      this.technologyObj.name = arr.join('/');
     },
     async updateTechnology() {
-      this.technologyObj.weight = this.findWeight(this.selectedOptions);
-      this.technologyObj.name = this.selectedOptions.join('/');
       const res = await axios.post('/technology/updateTechnologys', {
         openId: localStorage.getItem('userID'),
         technology: this.technologyObj,
@@ -120,11 +114,6 @@ export default {
       };
       this.$emit('closeTechnologyPopup');
     },
-    clearModel(e) {
-      if (e.relatedTarget === null) {
-        this.selectedOptions = [];
-      }
-    }
   }
 }
 </script>

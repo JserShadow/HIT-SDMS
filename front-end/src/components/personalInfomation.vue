@@ -35,7 +35,7 @@
         <van-button size="small" style="font-size: 14px" type="primary" @click="toAddSecondClass">添加</van-button>
       </div>
     </div>
-    <SecondClass :secondClassInfo="secondClassInfo"></SecondClass>
+    <SecondClass :secondClassInfo="secondClassInfo" @reloadSecondclass="reloadSecondclass"></SecondClass>
     <div class="title">
       <span>奖学金</span>
       <div>

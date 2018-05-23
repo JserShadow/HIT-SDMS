@@ -22,6 +22,7 @@ module.exports = app => {
   router.get('/position/getAllPositions', controller.positions.getAllPositions);
   router.post('/position/getAllSecondclassInfo', controller.positions.getAllSecondclassInfo);
   router.post('/position/submitSecondclass', controller.positions.submitSecondclass);
+  router.post('/position/updateDelete', controller.positions.updateDelete);
   // 奖学金相关
   router.post('/scholarship/getAllScholarships', controller.scholarship.getAllScholarships);
   router.post('/scholarship/updateScholarships', controller.scholarship.updateScholarships);

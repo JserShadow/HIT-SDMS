@@ -25,7 +25,6 @@ class CertificateController extends Controller {
     const { Certificate } = this.ctx.model;
     const res = await Certificate.findOne({ openId });
     res.certificates = this.sortArr(res.certificates);
-    console.log(res);
     this.ctx.body = {
       message: 'ok',
       certificate: res,
