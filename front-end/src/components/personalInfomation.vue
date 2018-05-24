@@ -11,7 +11,7 @@
         <h3>{{basicInfo.stuId}}</h3>
       </div>
     </div>
-    <el-button type="warning" style="margin-bottom: 20px">查看成绩单</el-button>
+    <!-- <el-button type="warning" style="margin-bottom: 20px">查看成绩单</el-button> -->
     <div class="title">
       <span>学生信息(资料完成度：{{Integrity}})</span>
       <div>
