@@ -25,7 +25,10 @@ class TechnologyController extends Controller {
     const { openId } = this.ctx.request.body;
     const { Technology } = this.ctx.model;
     const res = await Technology.findOne({ openId });
-    res.technologys = this.sortArr(res.technologys);
+    if (res !== null) {
+      res.technologys = this.sortArr(res.technologys);
+      
+    }
     this.ctx.body = {
       message: 'ok',
       technology: res,

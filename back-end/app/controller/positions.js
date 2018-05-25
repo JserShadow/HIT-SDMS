@@ -41,12 +41,13 @@ class PositionsController extends Controller {
     const { openId } = this.ctx.request.body;
     const { Secondclass } = this.ctx.model;
     const res = await Secondclass.find({ openId });
-    res[0].position = this.sortArr(res[0].position);
-    res[0].activities = this.sortArr(res[0].activities);
-    res[0].honor = this.sortArr(res[0].honor);
-    res[0].dorm = this.sortArr(res[0].dorm);
-    res[0].decrease = this.sortArr(res[0].decrease);
-    console.log(res);
+    if (res[0]) {
+      res[0].position = this.sortArr(res[0].position);
+      res[0].activities = this.sortArr(res[0].activities);
+      res[0].honor = this.sortArr(res[0].honor);
+      res[0].dorm = this.sortArr(res[0].dorm);
+      res[0].decrease = this.sortArr(res[0].decrease);
+    }
     this.ctx.body = {
       message: 'ok',
       res

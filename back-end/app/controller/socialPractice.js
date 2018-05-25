@@ -7,18 +7,20 @@ class SocialPracticeController extends Controller {
     const { openId } = this.ctx.request.body;
     const { Socialpractice } = this.ctx.model;
     const res = await Socialpractice.findOne({ openId });
-    res.socialPractices.sort((a,b) => {
-      return a.year - b.year;
-    });
-    for (let i = 1; i < res.socialPractices.length; i++) {
-      if (!res.socialPractices[1]) {
-        break;
-      }
-      if (res.socialPractices[i].year === res.socialPractices[i-1].year) {
-        if (res.socialPractices[i].term === '春季学期' && res.socialPractices[i-1].term === '夏季学期'||res.socialPractices[i].term === '春季学期' && res.socialPractices[i-1].term === '秋季学期'||res.socialPractices[i].term === '夏季学期' && res.socialPractices[i-1].term === '秋季学期') {
-          let a = res.socialPractices[i];
-          res.socialPractices[i] = res.socialPractices[i-1];
-          res.socialPractices[i-1] = a;
+    if (res !== null) {
+      res.socialPractices.sort((a,b) => {
+        return a.year - b.year;
+      });
+      for (let i = 1; i < res.socialPractices.length; i++) {
+        if (!res.socialPractices[1]) {
+          break;
+        }
+        if (res.socialPractices[i].year === res.socialPractices[i-1].year) {
+          if (res.socialPractices[i].term === '春季学期' && res.socialPractices[i-1].term === '夏季学期'||res.socialPractices[i].term === '春季学期' && res.socialPractices[i-1].term === '秋季学期'||res.socialPractices[i].term === '夏季学期' && res.socialPractices[i-1].term === '秋季学期') {
+            let a = res.socialPractices[i];
+            res.socialPractices[i] = res.socialPractices[i-1];
+            res.socialPractices[i-1] = a;
+          }
         }
       }
     }

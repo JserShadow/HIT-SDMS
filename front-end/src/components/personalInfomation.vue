@@ -351,7 +351,13 @@ export default {
     },
     async reloadScholarships() {
       const res = await axios.post('/scholarship/getAllScholarships', { openId: localStorage.getItem('userID') });
+      console.log(res.data)
       if (res.data.message === 'ok') {
+        if (res.data.scholarships.length === 0) {
+          this.scholarshipStatus = '待填写';
+          this.scholarships.scholarships = [];
+          return;
+        }
         if (res.data.scholarships[0].scholarships.length === 0) {
           this.scholarshipStatus = '待填写';
           this.scholarships.scholarships = [];
@@ -359,6 +365,8 @@ export default {
           this.scholarships = res.data.scholarships[0];
           this.scholarshipStatus = res.data.scholarships[0].status;
         }
+        // if (res.data.scholarships[0].scholarships.length === 0 || ) {
+        // } 
       }
     },
     toAddTechnology() {
