@@ -1,0 +1,47 @@
+{% block scoreTitle %}
+  学习成绩
+{% endblock %}
+{% block score %}
+  <div class="score-container">
+    <div>
+      <div class="score-inner-title">学期</div>
+      <ul class="score-inner-content">
+        <li>2014学年 春季学期 平均学分绩: 81.8889</li>
+      </ul>
+    </div>
+    <div>
+      <div class="score-inner-title">奖学金</div>
+      <ul class="score-inner-content">
+        <li>2014学年 春季学期 奖学金: 二等人民奖学金</li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+{% block secondClassTitle %}
+  德育表现
+{% endblock %}
+{% block secondClass %}
+  <ul class="bigger-inner-content">
+    <li>
+      2016学年 春季学期 &nbsp;&nbsp;&nbsp; 班建系列, 校三好班级成员
+    </li>
+  </ul>
+{% endblock %}
+{% block technologyTitle %}
+  科技创新表现
+{% endblock %}
+{% block technology %}
+  <ul class="bigger-inner-content">
+    <li>
+      2016学年 春季学期 &nbsp;&nbsp;&nbsp; 级别: 科技创新竞赛, 国际或国家竞赛一等奖或集体项目第一作者 名称: 第七届培元大学生力学竞赛三等奖
+    </li>
+  </ul>
+{% endblock %}
+
+{% block certificateTitle %}
+  所获其他证书
+{% endblock %}
+
+{% block socialPracticeTitle %}
+  社会实践活动
+{% endblock %}

@@ -1,0 +1,54 @@
+/* main template */
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header {
+  border-bottom: 25px solid darkred;
+  text-align: center;
+  font-size: 60px;
+  margin: 10px 30px;
+}
+
+.inner-header {
+  margin: 15px 30px;
+  border-bottom: 2px solid darkred;
+  font-size: 40px;
+}
+/* personalInfomation template */
+.personal-list {
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.personal-list>li {
+  display: block;
+  width: 30vw;
+  font-size: 28px;
+}
+/* otherInfomation template */
+.score-container {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.score-inner-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.score-inner-content {
+  font-size: 24px;
+  margin-left: 0;
+}
+.bigger-inner-content>li {
+  font-size: 19px;
+  margin-left: 0;
+}

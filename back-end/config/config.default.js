@@ -42,5 +42,14 @@ module.exports = appInfo => {
     dynamic: true,
   };
 
+  // 后端渲染 nunjucks 配置
+  config.view = {
+    defaultViewEngine: 'nunjucks', // 默认后端模板渲染引擎, 不写则会根据后缀名进行匹配
+    defaultExtention: '.nj', // 默认扩展名，在render时可以不写扩展名
+    root: [
+      path.join(appInfo.baseDir, 'app/view'),
+    ].join(',') // 配置根目录
+  };
+
   return config;
 };

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/transcript.css"/>
+    <title>学生成绩单</title>
+  </head>
+  <body>
+    <h1 class="header">
+      {% block header %}
+        航天学院学生成长全记录
+      {% endblock %}
+    </h1>
+    <div class="inner-header">
+      {% include "layout/personalInfomation.nj" %}
+    </div>
+    <div class="inner-header">
+      {% include "layout/otherInfomation.nj" %}
+    </div>
+  </body>
+</html>

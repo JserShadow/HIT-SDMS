@@ -67,4 +67,7 @@ module.exports = app => {
   router.get('/admin/socialPractice/getAllSocialPractices', controller.admin.getAllSocialPractices);
   router.post('/admin/socialPractice/pass', controller.admin.socialPracticePass);
   router.post('/admin/socialPractice/fail', controller.admin.socialPracticeFail);
+
+  // 学生成绩单
+  router.get('/transcript', controller.transcript.getPage);
 };

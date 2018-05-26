@@ -1,0 +1,23 @@
+{# {% extends "transcript.html" %} #}
+
+{% block personalInfomationTitle %}
+  个人信息
+{% endblock %}
+{% block personalInfomation %}
+  <ul class="personal-list">
+    <li>姓名: </li>
+    <li>性别: </li>
+    <li>出生年月: </li>
+    <li>籍贯: </li>
+    <li>民族: </li>
+    <li>政治面貌: </li>
+    <li>专业: </li>
+    <li>学号: </li>
+    <li>入党时间: </li>
+    <li>寝室: </li>
+    <li>入学方式: </li>
+    <li>毕业去向: </li>
+    <li>手机: </li>
+    <li>电子邮箱: </li>
+  </ul>
+{% endblock %}
