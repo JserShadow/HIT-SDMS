@@ -1,5 +1,7 @@
 {% block scoreTitle %}
-  学习成绩
+  <div class="inner-title">
+    学习成绩
+  </div>
 {% endblock %}
 {% block score %}
   <div class="score-container">
@@ -18,7 +20,9 @@
   </div>
 {% endblock %}
 {% block secondClassTitle %}
-  德育表现
+  <div class="inner-title">
+    德育表现
+  </div>
 {% endblock %}
 {% block secondClass %}
   <ul class="bigger-inner-content">
@@ -28,7 +32,9 @@
   </ul>
 {% endblock %}
 {% block technologyTitle %}
-  科技创新表现
+  <div class="inner-title">
+    科技创新表现
+  </div>
 {% endblock %}
 {% block technology %}
   <ul class="bigger-inner-content">
@@ -39,9 +45,28 @@
 {% endblock %}
 
 {% block certificateTitle %}
-  所获其他证书
+  <div class="inner-title">
+    所获其他证书
+  </div>
 {% endblock %}
 
+{% block certificate %}
+  <ul class="bigger-inner-content">
+    <li>
+      2016学年 春季学期 &nbsp;&nbsp;&nbsp; 级别: 科技创新竞赛, 国际或国家竞赛一等奖或集体项目第一作者 名称: 第七届培元大学生力学竞赛三等奖
+    </li>
+  </ul>
+{% endblock %}
 {% block socialPracticeTitle %}
-  社会实践活动
+  <div class="inner-title">
+    社会实践活动
+  </div>
+{% endblock %}
+
+{% block socialPractice %}
+  <ul class="bigger-inner-content">
+    <li>
+      2016学年 春季学期 &nbsp;&nbsp;&nbsp; 级别: 科技创新竞赛, 国际或国家竞赛一等奖或集体项目第一作者 名称: 第七届培元大学生力学竞赛三等奖
+    </li>
+  </ul>
 {% endblock %}

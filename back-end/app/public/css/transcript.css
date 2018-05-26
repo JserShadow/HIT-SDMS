@@ -6,20 +6,22 @@
 }
 
 .header {
-  border-bottom: 25px solid darkred;
+  border-bottom: 15px solid darkred;
   text-align: center;
-  font-size: 60px;
-  margin: 10px 30px;
+  font-size: 28px;
+  margin: 10px 20px;
 }
 
 .inner-header {
-  margin: 15px 30px;
+  margin: 10px 20px;
   border-bottom: 2px solid darkred;
-  font-size: 40px;
+  font-size: 18px;
+  padding-bottom: 10px;
 }
 /* personalInfomation template */
+
 .personal-list {
-  font-size: 20px;
+  font-size: 14px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -28,10 +30,19 @@
 
 .personal-list>li {
   display: block;
-  width: 30vw;
-  font-size: 28px;
+  width: 25vw;
+  font-size: 12px;
 }
 /* otherInfomation template */
+.second-inner-header {
+  margin: 15px 20px;
+  border-bottom: 2px solid darkred;
+  padding-bottom: 10px;
+}
+
+.inner-title {
+  font-size: 18px;
+}
 .score-container {
   margin: 0;
   display: flex;
@@ -40,15 +51,17 @@
 }
 
 .score-inner-title {
-  font-size: 40px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .score-inner-content {
-  font-size: 24px;
+  margin-bottom: 20px;
+  font-size: 12px;
   margin-left: 0;
 }
 .bigger-inner-content>li {
-  font-size: 19px;
+  margin-bottom: 20px;
+  font-size: 12px;
   margin-left: 0;
 }
