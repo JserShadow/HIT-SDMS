@@ -17,6 +17,7 @@
   border-bottom: 2px solid darkred;
   font-size: 18px;
   padding-bottom: 10px;
+  height: 15vh;
 }
 /* personalInfomation template */
 
@@ -31,13 +32,14 @@
 .personal-list>li {
   display: block;
   width: 29vw;
-  font-size: 12px;
+  font-size: 14px;
 }
 /* otherInfomation template */
 .second-inner-header {
   margin: 15px 20px;
   border-bottom: 2px solid darkred;
   padding-bottom: 10px;
+  height: 70vh;
 }
 
 .inner-title {
@@ -50,6 +52,10 @@
   flex-wrap: wrap;
 }
 
+.score {
+  width: 50vw;
+}
+
 .score-inner-title {
   font-size: 16px;
   font-weight: bold;
@@ -57,21 +63,15 @@
 
 .score-inner-content {
   margin-bottom: 20px;
-  font-size: 12px;
-  margin-left: 0;
-}
-.bigger-inner-content>li {
-  margin-bottom: 20px;
-  font-size: 12px;
+  font-size: 14px;
   margin-left: 0;
 }
 
 .score-position {
-  width: 100vw;
+  width: 50vw;
 }
 
-@media screen and ( min-width: 400px ) {
-  .score-position {
-    width: 50vw;
-  }
+.bottom {
+  position: absolute;
+  bottom: 60px;
 }

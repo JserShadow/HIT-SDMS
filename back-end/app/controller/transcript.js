@@ -17,7 +17,7 @@ class TranscriptController extends Controller {
     data.personalInfo = stuInfo.personalInfo;
     data.scoreInfo = score;
     data.scholarships = scholarship.scholarships;
-    data.secondClass = [...secondClass.decrease, ...secondClass.honor, ...secondClass.dorm, ...secondClass.activities, ...secondClass.position];
+    data.secondClass = [...secondClass.position, ...secondClass.honor, ...secondClass.activities,...secondClass.dorm,  ...secondClass.decrease];
     data.technologys = technology.technologys;
     data.certificates = certificate.certificates;
     data.socialPractices = socialPractice.socialPractices;

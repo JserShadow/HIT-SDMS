@@ -5,7 +5,7 @@
 {% endblock %}
 {% block score %}
   <div class="score-container">
-    <div>
+    <div class="score">
       <div class="score-inner-title">学期</div>
       <ul class="score-inner-content">
       {% for item in scoreInfo %}
@@ -29,7 +29,7 @@
   </div>
 {% endblock %}
 {% block secondClass %}
-  <ul class="bigger-inner-content">
+  <ul class="score-inner-content">
   {% for item in secondClass %}
     <li>
       {{item.year}}学年 {{item.term}} &nbsp;&nbsp;&nbsp; {{item.name[0]}}, {{item.name[1]}}
@@ -43,7 +43,7 @@
   </div>
 {% endblock %}
 {% block technology %}
-  <ul class="bigger-inner-content">
+  <ul class="score-inner-content">
   {% for item in technologys %}
     <li>
       {{item.year}}学年 {{item.term}} &nbsp;&nbsp;&nbsp; 级别: {{item.name}} 名称: {{item.detail}}
@@ -59,7 +59,7 @@
 {% endblock %}
 
 {% block certificate %}
-  <ul class="bigger-inner-content">
+  <ul class="score-inner-content">
     {% for item in certificates %}
     <li>
       {{item.year}}学年 {{item.term}} &nbsp;&nbsp;&nbsp; 级别: {{item.name}} 名称: {{item.detail}}
@@ -74,7 +74,7 @@
 {% endblock %}
 
 {% block socialPractice %}
-  <ul class="bigger-inner-content">
+  <ul class="score-inner-content">
     {% for item in socialPractices %}
     <li>
       {{item.year}}学年 {{item.term}} &nbsp;&nbsp;&nbsp; {{item.name}}
@@ -84,9 +84,11 @@
 {% endblock %}
 
 {% block rank %}
-  <div>六学期综合测评成绩: &nbsp;&nbsp;&nbsp; {{mainScore}}</div>
-  <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;margin-bottom: 50px;">
-    <div class="score-position">个人排名/专业人数: &nbsp;&nbsp;&nbsp; {{scorePosition}}/80</div>
-    <div>辅导员签字</div>
+  <div class="bottom">
+    <div>六学期综合测评成绩: &nbsp;&nbsp;&nbsp; {{mainScore}}</div>
+    <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;margin-bottom: 50px;">
+      <div class="score-position">个人排名/专业人数: &nbsp;&nbsp;&nbsp; {{scorePosition}}/80</div>
+      <div>辅导员签字</div>
+    </div>
   </div>
 {% endblock %}
