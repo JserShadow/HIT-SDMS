@@ -26,7 +26,7 @@ export default {
         success(loginData) {
           console.log(loginData)
           wx.request({
-            url: 'https://hit-sdms.xiaonei.io/login',
+            url: 'http://localhost:7001/login',
             data: {
               code: loginData.code,
               encry: resp.mp.detail.encryptedData,

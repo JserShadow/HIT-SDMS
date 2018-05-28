@@ -69,7 +69,7 @@ class PositionsController extends Controller {
     const { Secondclass } = this.ctx.model;
     const findres = await Secondclass.find({ openId });
     if (findres.length === 0) {
-      const doc = {
+      let doc = {
         openId,
         status: '待审核',
         decrease: [],

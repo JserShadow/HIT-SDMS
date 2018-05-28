@@ -439,8 +439,10 @@ export default {
     }
     this.loadData = true;
     const value = localStorage.getItem('userID');
+    console.log(value);
     const wxUserInfo = await axios.post('/login/getUserInfo', { value });
     this.wxUserInfo = wxUserInfo.data[0];
+    console.log(this.wxUserInfo);
     const studentInfo = await axios.post('/info/studentInfo', { openId: value });
     if (!studentInfo.data.success) {
       this.$dialog.alert({

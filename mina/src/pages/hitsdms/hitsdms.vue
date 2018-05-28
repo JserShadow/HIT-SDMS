@@ -10,7 +10,7 @@ export default {
       webViewUrl: ''
     }
   },
-  created() {
+  mounted() {
     const openID = wx.getStorageSync('openID');
     this.webViewUrl = `${utils.webViewUrl}?userID=${openID}`;
   }

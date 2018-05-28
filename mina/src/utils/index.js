@@ -1,5 +1,5 @@
 const util = {
-  webViewUrl: 'https://hit-sdms.xiaonei.io/#/',
+  webViewUrl: 'http://localhost:7001/#/',
   title: {
     indexTitle: 'WELCOME',
     hitTitle: 'HIT-SDMS'

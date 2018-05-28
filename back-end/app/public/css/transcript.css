@@ -30,7 +30,7 @@
 
 .personal-list>li {
   display: block;
-  width: 25vw;
+  width: 29vw;
   font-size: 12px;
 }
 /* otherInfomation template */
@@ -46,7 +46,7 @@
 .score-container {
   margin: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -64,4 +64,14 @@
   margin-bottom: 20px;
   font-size: 12px;
   margin-left: 0;
+}
+
+.score-position {
+  width: 100vw;
+}
+
+@media screen and ( min-width: 400px ) {
+  .score-position {
+    width: 50vw;
+  }
 }
