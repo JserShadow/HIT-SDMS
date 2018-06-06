@@ -7,18 +7,18 @@
   <ul class="personal-list">
     <li>姓名: {{basicInfo.name}}</li>
     <li>性别: {{basicInfo.gender}}</li>
-    <li>出生年月: {{basicInfo.birthday}}</li>
+    {# <li>出生年月: {{basicInfo.birthday}}</li>
     <li>籍贯: {{basicInfo.nativePlace}}</li>
     <li>民族: {{basicInfo.volk}}</li>
-    <li>政治面貌: {{basicInfo.partyMember}}</li>
+    <li>政治面貌: {{basicInfo.partyMember}}</li> #}
     <li>专业: {{basicInfo.major}}</li>
     <li>学号: {{basicInfo.stuId}}</li>
-    <li>寝室: {{basicInfo.dormId}}</li>
-    <li>入学方式: {{basicInfo.enrolment}}</li>
-    <li>手机: {{personalInfo.phoneNumber}}</li>
-    <li>微信号: {{personalInfo.wx}}</li>
-    <li>QQ: {{personalInfo.QQ}}</li>
-    <li>电子邮箱: {{personalInfo.EMail}}</li>
+    {# <li>寝室: {{basicInfo.dormId}}</li>
+    <li>入学方式: {{basicInfo.enrolment}}</li> #}
+    <li>手机: {{basicInfo.phoneNumber}}</li>
+    <li>微信号: {{basicInfo.wx}}</li>
+    {# <li>QQ: {{personalInfo.QQ}}</li>
+    <li>电子邮箱: {{personalInfo.EMail}}</li> #}
   </ul>
-  <div style="font-size: 14px">家庭住址: {{personalInfo.familyAddress}}</div>
+  {# <div style="font-size: 14px">家庭住址: {{personalInfo.familyAddress}}</div> #}
 {% endblock %}

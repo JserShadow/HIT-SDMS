@@ -15,7 +15,9 @@
     <van-field v-model="stuId" label="学号" placeholder="请输入学号" required/>
     <van-field v-model="major" label="专业" placeholder="请输入专业" />
     <van-field v-model="className" label="班级" placeholder="请输入班级" />
-    <van-field v-model="birthday" label="生日" placeholder="如：1997-06-13" />
+    <van-field v-model="phoneNumber" placeholder="请输入手机号" label="手机号" />
+    <van-field v-model="wx" placeholder="请输入微信号" label="微信号" />
+    <!-- <van-field v-model="birthday" label="生日" placeholder="如：1997-06-13" />
     <van-radio-group v-model="minority">
       <van-cell-group>
         <van-cell>
@@ -52,7 +54,7 @@
           <van-radio name="否" class="radio">否</van-radio>
         </van-cell>
       </van-cell-group>
-    </van-radio-group>
+    </van-radio-group> -->
   </van-cell-group>
 </template>
 
@@ -65,14 +67,16 @@ export default {
       stuId: '',
       major: '',
       className: '',
-      birthday: '',
-      minority: '',
-      volk: '',
-      nativePlace: '',
-      dormId: '',
-      enrolment: '',
-      NDstudent: '',
-      partyMember: ''
+      phoneNumber: '',
+      wx: ''
+      // birthday: '',
+      // minority: '',
+      // volk: '',
+      // nativePlace: '',
+      // dormId: '',
+      // enrolment: '',
+      // NDstudent: '',
+      // partyMember: ''
     }
   },
   mounted() {
@@ -83,14 +87,16 @@ export default {
         this.stuId = form.stuId;
         this.major = form.major;
         this.className = form.className;
-        this.birthday = form.birthday;
-        this.minority = form.minority;
-        this.volk = form.volk;
-        this.nativePlace = form.nativePlace;
-        this.dormId = form.dormId;
-        this.enrolment = form.enrolment;
-        this.NDstudent = form.NDstudent;
-        this.partyMember = form.partyMember;
+        this.phoneNumber = form.phoneNumber;
+        this.wx = form.wx;
+        // this.birthday = form.birthday;
+        // this.minority = form.minority;
+        // this.volk = form.volk;
+        // this.nativePlace = form.nativePlace;
+        // this.dormId = form.dormId;
+        // this.enrolment = form.enrolment;
+        // this.NDstudent = form.NDstudent;
+        // this.partyMember = form.partyMember;
       }
   }
 }

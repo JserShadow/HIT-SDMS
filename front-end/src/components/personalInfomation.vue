@@ -11,7 +11,7 @@
         <h3>{{basicInfo.stuId}}</h3>
       </div>
     </div>
-    <!-- <el-button type="warning" style="margin-bottom: 20px">查看成绩单</el-button> -->
+    <el-button type="warning" @click="toTranscript" style="margin-bottom: 20px">查看成绩单</el-button>
     <div class="title">
       <span>学生信息(资料完成度：{{Integrity}})</span>
       <div>
@@ -19,7 +19,9 @@
         <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
       </div>
     </div>
-    <BasicInfo :personalInfo="personalInfo" :basicInfo="basicInfo" class="collapse"></BasicInfo>
+    <BasicInfo 
+    :basicInfo="basicInfo" 
+    class="collapse"></BasicInfo>
     <div class="title">
       <span>学习成绩</span>
       <div>
@@ -117,6 +119,10 @@
     <TechnologyPopup :showTechnologyPopup="showTechnologyPopup" @closeTechnologyPopup="closeTechnologyPopup" @reloadTechnologys="reloadTechnologys" :technologySelections="technologySelections"></TechnologyPopup>
     <CertificatePopup :showCertificatePopup="showCertificatePopup" @closeCertificatePopup="closeCertificatePopup" @reloadCertificates="reloadCertificates" :certificateSelections="adminCertificates"></CertificatePopup>
     <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
+    <van-dialog v-model="showTrans">
+      <p>成绩单请在电脑端查看</p>
+      <p>{{transcriptUrl}}</p>
+    </van-dialog>
   </div>
 </template>
 
@@ -143,7 +149,7 @@ export default {
       loadData: false,
       wxUserInfo: '',
       basicInfo: '',
-      personalInfo: '',
+      // personalInfo: '',
       infoStatus: '',
       scoreStatus: '',
       secondClassStatus: '',
@@ -197,6 +203,8 @@ export default {
       socialPracticeStatus: '',
       socialPractices: {},
       showSocialPracticePopup: false,
+      showTrans: false,
+      transcriptUrl: ''
     }
   },
   methods: {
@@ -422,6 +430,10 @@ export default {
           this.socialPracticeStatus = res.data.socialPractice.status;
         }
       }
+    },
+    toTranscript() {
+      this.transcriptUrl = `https://hit-sdms.xiaonei.io/#/transcript?userID=${localStorage.getItem('userID')}`
+      this.showTrans = true;
     }
   },
   async created() {
@@ -454,8 +466,11 @@ export default {
     }
     this.infoStatus = studentInfo.data.studentInfo[0].status;
     this.basicInfo = studentInfo.data.studentInfo[0].basicInfo;
-    this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
-    const objToCal = { basicInfo: this.basicInfo, personalInfo: this.personalInfo };
+    // this.personalInfo = studentInfo.data.studentInfo[0].personalInfo;
+    const objToCal = { 
+      basicInfo: this.basicInfo, 
+      // personalInfo: this.personalInfo 
+      };
     this.Integrity = this.calDataIntegrity(objToCal);
     await this.getAllScores();
     const positions = await axios.get('/position/getAllPositions');

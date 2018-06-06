@@ -21,7 +21,7 @@
       </el-select>
     </div>
     <div class="cell-flex set-margin">
-      <div>填写详细内容: </div>
+      <div>填写金额: </div>
       <el-input v-model="scholarshipObj.detail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
     </div>
     <van-row class="btn-position">

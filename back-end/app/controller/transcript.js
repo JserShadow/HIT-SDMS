@@ -13,8 +13,9 @@ class TranscriptController extends Controller {
     const certificate = await Certificate.findOne({ openId: userID });
     const socialPractice = await Socialpractice.findOne({ openId: userID });
     let data = {};
-    data.basicInfo = stuInfo.basicInfo;
-    data.personalInfo = stuInfo.personalInfo;
+    if (stuInfo) {
+      data.basicInfo = stuInfo.basicInfo;
+    }
     data.scoreInfo = score;
     data.scholarships = scholarship.scholarships;
     data.secondClass = [...secondClass.position, ...secondClass.honor, ...secondClass.activities,...secondClass.dorm,  ...secondClass.decrease];
@@ -32,8 +33,6 @@ class TranscriptController extends Controller {
         }
       }
     }
-    data.basicInfo.partyMember = data.basicInfo.partyMember === '' ? '' : data.basicInfo.partyMember === '是' ? '中共党员': '共青团员';
-    data.basicInfo.birthday = data.basicInfo.birthday.replace(/\-/g, '/');
     await this.ctx.render('transcript', data);
   }
 }
