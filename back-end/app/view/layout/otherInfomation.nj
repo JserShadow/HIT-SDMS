@@ -87,7 +87,7 @@
   <div class="bottom">
     <div>六学期综合测评成绩: &nbsp;&nbsp;&nbsp; {{mainScore}}</div>
     <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;margin-bottom: 50px;">
-      <div class="score-position">个人排名/专业人数: &nbsp;&nbsp;&nbsp; {{scorePosition}}/80</div>
+      <div class="score-position">个人排名/专业人数: &nbsp;&nbsp;&nbsp; 1/80</div>
       <div>辅导员签字</div>
     </div>
   </div>

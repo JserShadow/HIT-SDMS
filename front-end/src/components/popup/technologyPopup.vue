@@ -29,6 +29,10 @@
       <div>填写详细内容: </div>
       <el-input v-model="technologyObj.detail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
     </div>
+    <div class="cell-flex set-margin">
+      <div>备注: </div>
+      <el-input v-model="technologyObj.remark" style="width: 50vw"></el-input>
+    </div>
     <van-row class="btn-position">
       <van-col span="12">
         <van-button bottom-action @click="updateTechnology">提交</van-button>
@@ -59,7 +63,8 @@ export default {
         weight: 0,
         year: '',
         term: '',
-        detail: ''
+        detail: '',
+        remark: ''
       },
       technologys: [],
       showPicker: false,

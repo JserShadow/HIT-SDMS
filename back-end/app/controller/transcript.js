@@ -22,6 +22,11 @@ class TranscriptController extends Controller {
     data.technologys = technology.technologys;
     data.certificates = certificate.certificates;
     data.socialPractices = socialPractice.socialPractices;
+    let allScore = 0;
+    for (const item of score) {
+      allScore+=parseFloat(item.score);
+    }
+    data.mainScore = (allScore / score.length).toFixed(4);
     for (const key in data) {
       if (key === 'technologys' || key === 'certificates') {
         for (const j of data[key]) {
