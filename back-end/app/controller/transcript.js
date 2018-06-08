@@ -17,11 +17,21 @@ class TranscriptController extends Controller {
       data.basicInfo = stuInfo.basicInfo;
     }
     data.scoreInfo = score;
-    data.scholarships = scholarship.scholarships;
-    data.secondClass = [...secondClass.position, ...secondClass.honor, ...secondClass.activities,...secondClass.dorm,  ...secondClass.decrease];
-    data.technologys = technology.technologys;
-    data.certificates = certificate.certificates;
-    data.socialPractices = socialPractice.socialPractices;
+    if (scholarship) {
+      data.scholarships = scholarship.scholarships;
+    }
+    if (secondClass) {
+      data.secondClass = [...secondClass.position, ...secondClass.honor, ...secondClass.activities,...secondClass.dorm,  ...secondClass.decrease];
+    }
+    if (technology) {
+      data.technologys = technology.technologys;
+    }
+    if (certificate) {
+      data.certificates = certificate.certificates;
+    }
+    if (socialPractice) {
+      data.socialPractices = socialPractice.socialPractices;
+    }
     let allScore = 0;
     for (const item of score) {
       allScore+=parseFloat(item.score);

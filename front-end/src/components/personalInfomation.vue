@@ -432,7 +432,7 @@ export default {
       }
     },
     toTranscript() {
-      this.transcriptUrl = `https://hit-sdms.xiaonei.io/#/transcript?userID=${localStorage.getItem('userID')}`
+      this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript#/?userID=${localStorage.getItem('userID')}`
       this.showTrans = true;
     }
   },

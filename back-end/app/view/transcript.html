@@ -8,11 +8,14 @@
     <title>学生成绩单</title>
   </head>
   <body>
-    <h1 class="header">
-      {% block header %}
+    <div style="display: flex;justify-content: flex-start;border-bottom: 15px solid darkred;margin: 10px 20px;">
+      <h1 class="header" style="line-height: 100px;height: 100px;width: 80vw;padding-left: 100px;">
+        {% block header %}
         航天学院学生成长全记录
-      {% endblock %}
-    </h1>
+        {% endblock %}
+      </h1>
+      <img src="/img/icon.jpg" alt="HIT-ICON" style="display: inline-block;width: 100px;height: 100px;">
+    </div>
     <div class="inner-header">
       {% include "layout/personalInfomation.nj" %}
     </div>
