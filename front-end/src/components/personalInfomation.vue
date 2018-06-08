@@ -121,7 +121,7 @@
     <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
     <van-dialog v-model="showTrans">
       <p>成绩单请在电脑端查看(长按复制链接)</p>
-      <p>{{transcriptUrl}}</p>
+      <p style="padding: 0 20px;word-wrap: break-word;">{{transcriptUrl}}</p>
     </van-dialog>
   </div>
 </template>
