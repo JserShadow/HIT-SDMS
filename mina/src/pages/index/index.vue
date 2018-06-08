@@ -24,9 +24,16 @@ export default {
       const _this = this;
       wx.login({
         success(loginData) {
-          console.log(loginData)
+          if (wx.getStorageSync('openID')) {
+            console.log('已登录过')
+            wx.navigateTo({
+              url: '/pages/hitsdms/main'
+            });
+            return;
+          }
+          console.log('第一次登录');
           wx.request({
-            url: 'http://localhost:7001/login',
+            url: 'https://hit-sdms.xiaonei.io/login',
             data: {
               code: loginData.code,
               encry: resp.mp.detail.encryptedData,
@@ -40,7 +47,6 @@ export default {
               const val = JSON.parse(newCookie).value;
               wx.setStorageSync('openID', val);
               wx.hideLoading();
-              console.log(val);
               wx.navigateTo({
                 url: '/pages/hitsdms/main'
               });

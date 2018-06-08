@@ -17,6 +17,14 @@ module.exports = appInfo => {
     url: 'mongodb://127.0.0.1:27017/sdms',
     options: {},
   };
+  config.redis = {
+    client: {
+      port: 6379,          // Redis port
+      host: '127.0.0.1',   // Redis host
+      password: 'auth',
+      db: 0,
+    },
+  }
   config.cors = {
     allowMethods: 'GET',
     credentials: true,
