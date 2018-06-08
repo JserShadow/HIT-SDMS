@@ -13,7 +13,7 @@
     </div>
     <el-button type="warning" @click="toTranscript" style="margin-bottom: 20px">查看成绩单</el-button>
     <div class="title">
-      <span>学生信息(资料完成度：{{Integrity}})</span>
+      <span>学生信息</span>
       <div>
         <el-tag :type="infoStatus === '待审核'?'info':infoStatus === '审核通过'?'success':'danger'">{{infoStatus}}</el-tag>
         <van-button size="small" type="default" class="edit-btn" @click="toEditStudentInfo">编辑</van-button>
@@ -120,7 +120,7 @@
     <CertificatePopup :showCertificatePopup="showCertificatePopup" @closeCertificatePopup="closeCertificatePopup" @reloadCertificates="reloadCertificates" :certificateSelections="adminCertificates"></CertificatePopup>
     <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
     <van-dialog v-model="showTrans">
-      <p>成绩单请在电脑端查看</p>
+      <p>成绩单请在电脑端查看(长按复制链接)</p>
       <p>{{transcriptUrl}}</p>
     </van-dialog>
   </div>
@@ -432,7 +432,7 @@ export default {
       }
     },
     toTranscript() {
-      this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript#/?userID=${localStorage.getItem('userID')}`
+      this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript?userID=${localStorage.getItem('userID')}#/`
       this.showTrans = true;
     }
   },

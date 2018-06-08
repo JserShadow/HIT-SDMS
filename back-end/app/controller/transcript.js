@@ -3,7 +3,7 @@
 const { Controller } = require('egg');
 class TranscriptController extends Controller {
   async getPage() {
-    const { userID } = this.ctx.query;
+    const { userID } = this.ctx.request.query;
     const { Studentinfo, Score, Secondclass, Scholarship, Technology, Certificate, Socialpractice } = this.ctx.model;
     const stuInfo = await Studentinfo.findOne({ openId: userID });
     const score = await Score.find({ openId: userID });
@@ -15,6 +15,7 @@ class TranscriptController extends Controller {
     let data = {};
     if (stuInfo) {
       data.basicInfo = stuInfo.basicInfo;
+      console.log(stuInfo.basicInfo);
     }
     data.scoreInfo = score;
     if (scholarship) {
@@ -36,7 +37,8 @@ class TranscriptController extends Controller {
     for (const item of score) {
       allScore+=parseFloat(item.score);
     }
-    data.mainScore = (allScore / score.length).toFixed(4);
+    const mainScore = (allScore / score.length).toFixed(4);
+    data.mainScore = isNaN(mainScore)?0:mainScore;
     for (const key in data) {
       if (key === 'technologys' || key === 'certificates') {
         for (const j of data[key]) {
