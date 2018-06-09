@@ -437,22 +437,17 @@ export default {
     }
   },
   async created() {
-    localStorage.removeItem('userID');
-    const value = this.$router.currentRoute.query.userID;
-    localStorage.setItem('userID', value);
+    let value;
+    if (this.$router.currentRoute.query.from === 'mina') {
+      localStorage.removeItem('userID');
+      value = this.$router.currentRoute.query.userID;
+      localStorage.setItem('userID', value);
+    } else {
+      value = localStorage.getItem('userID');
+    }
     const wxUserInfo = await axios.post('/login/getUserInfo', { value });
     this.wxUserInfo = wxUserInfo.data[0];
-    // this.$dialog.alert({
-    //   message: '您还没有填写过基本信息,请前往填写',
-    // }).then(() => {
-    //   this.$router.replace('/edit/basicInfo');
-    // })
     this.loadData = true;
-    // const value = localStorage.getItem('userID');
-    // console.log(value);
-    // const wxUserInfo = await axios.post('/login/getUserInfo', { value });
-    // this.wxUserInfo = wxUserInfo.data[0];
-    // console.log(this.wxUserInfo);
     const studentInfo = await axios.post('/info/studentInfo', { openId: value });
     if (!studentInfo.data.success) {
       this.$dialog.alert({

@@ -12,7 +12,7 @@ export default {
   },
   mounted() {
     const openID = wx.getStorageSync('openID');
-    this.webViewUrl = `${utils.webViewUrl}?userID=${openID}`;
+    this.webViewUrl = `${utils.webViewUrl}?userID=${openID}&from=mina`;
   }
 }
 </script>
