@@ -54,7 +54,11 @@ module.exports = {
       '/transcript': {
         target: 'http://localhost:7001',
         changeOrigin: true
-      }
+      },
+      '/remark/*': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
     },
 
     // Various Dev Server settings

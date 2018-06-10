@@ -83,7 +83,23 @@
   </ul>
 {% endblock %}
 
-{% block rank %}
+{% block remarkTitle %}
+  <div class="inner-title">
+    备注
+  </div>
+{% endblock %}
+
+{% block remark %}
+  <ul class="score-inner-content">
+    {% for item in remarks %}
+      <li>
+        {{item.year}}学年 {{item.term}} &nbsp;&nbsp;&nbsp; {{item.remark}}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{# {% block rank %}
   <div class="bottom">
     <div>六学期综合测评成绩: &nbsp;&nbsp;&nbsp; {{mainScore}}</div>
     <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;margin-bottom: 50px;">
@@ -91,4 +107,4 @@
       <div>辅导员签字</div>
     </div>
   </div>
-{% endblock %}
+{% endblock %} #}

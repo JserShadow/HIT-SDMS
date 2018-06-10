@@ -39,6 +39,10 @@ module.exports = app => {
   router.post('/socialPractice/getAllSocialPractices', controller.socialPractice.getAllSocialPractices);
   router.post('/socialPractice/updateSocialPractices', controller.socialPractice.updateSocialPractices);
   router.post('/socialPractice/removeSocialPractices', controller.socialPractice.removeSocialPractices);
+  // 备注相关
+  router.post('/remark/getAllRemarks', controller.remark.getAllRemarks);
+  router.post('/remark/updateRemarks', controller.remark.updateRemarks);
+  router.post('/remark/removeRemarks', controller.remark.removeRemarks);
   // 管理相关
   router.get('/admin/info/getAllInfos', controller.admin.getAllInfos);
   router.post('/admin/info/pass', controller.admin.pass);

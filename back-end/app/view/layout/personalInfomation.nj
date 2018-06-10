@@ -17,6 +17,10 @@
     <li>入学方式: {{basicInfo.enrolment}}</li> #}
     <li>手机: {{basicInfo.phoneNumber}}</li>
     <li>微信号: {{basicInfo.wx}}</li>
+    <li>生日: {{basicInfo.birthday}}</li>
+    <li>民族: {{basicInfo.volk}}</li>
+    <li>籍贯: {{basicInfo.nativePlace}}</li>
+    <li>政治面貌: {{basicInfo.partyMember}}</li>
     {# <li>QQ: {{personalInfo.QQ}}</li>
     <li>电子邮箱: {{personalInfo.EMail}}</li> #}
   </ul>

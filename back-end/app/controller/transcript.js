@@ -4,7 +4,7 @@ const { Controller } = require('egg');
 class TranscriptController extends Controller {
   async getPage() {
     const { userID } = this.ctx.request.query;
-    const { Studentinfo, Score, Secondclass, Scholarship, Technology, Certificate, Socialpractice } = this.ctx.model;
+    const { Studentinfo, Score, Secondclass, Scholarship, Technology, Certificate, Socialpractice, Remark } = this.ctx.model;
     const stuInfo = await Studentinfo.findOne({ openId: userID });
     const score = await Score.find({ openId: userID });
     const scholarship = await Scholarship.findOne({ openId: userID });
@@ -12,10 +12,10 @@ class TranscriptController extends Controller {
     const technology = await Technology.findOne({ openId: userID });
     const certificate = await Certificate.findOne({ openId: userID });
     const socialPractice = await Socialpractice.findOne({ openId: userID });
+    const remark = await Remark.findOne({ openId: userID });
     let data = {};
     if (stuInfo) {
       data.basicInfo = stuInfo.basicInfo;
-      console.log(stuInfo.basicInfo);
     }
     data.scoreInfo = score;
     if (scholarship) {
@@ -32,6 +32,9 @@ class TranscriptController extends Controller {
     }
     if (socialPractice) {
       data.socialPractices = socialPractice.socialPractices;
+    }
+    if (remark) {
+      data.remarks = remark.remarks;
     }
     let allScore = 0;
     for (const item of score) {

@@ -11,7 +11,7 @@
     </div>
     <div class="cell-flex set-margin">
       <div>选择证书类型: </div>
-      <el-select v-model="selectedOptions" placeholder="请选择证书">
+      <el-select v-model="selectedOptions" placeholder="请选择证书" @click="clg">
         <el-option
           v-for="item in certificateSelections"
           :key="item.name"
@@ -21,8 +21,8 @@
       </el-select>
     </div>
     <div class="cell-flex set-margin">
-      <div>填写详细内容: </div>
-      <el-input v-model="certificateDetail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
+      <div>填写分数: </div>
+      <el-input v-model="certificateDetail" placeholder="请输入分数" style="width: 50vw"></el-input>
     </div>
     <van-row class="btn-position">
       <van-col span="12">
@@ -61,6 +61,9 @@ export default {
     }
   },
   methods: {
+    clg() {
+      console.log(this.certificateSelections);
+    },
     chooseCertificateYear() {
       this.pickerColumn = this.yearColumn.concat();
       this.showPicker = true;

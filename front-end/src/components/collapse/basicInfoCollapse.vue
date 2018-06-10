@@ -6,14 +6,14 @@
         <van-cell title="班级" :value="basicInfo.className" />
         <van-cell title="手机号" :value="basicInfo.phoneNumber" />
         <van-cell title="微信号" :value="basicInfo.wx" />
-        <!-- <van-cell title="少数民族" :value="basicInfo.minority" />
-        <van-cell title="民族" :value="basicInfo.volk" />
         <van-cell title="生日" :value="basicInfo.birthday" />
+        <van-cell title="民族" :value="basicInfo.volk" />
         <van-cell title="籍贯" :value="basicInfo.nativePlace" />
+        <van-cell title="政治面貌" :value="basicInfo.partyMember" />
+        <!-- <van-cell title="少数民族" :value="basicInfo.minority" />
         <van-cell title="寝室号" :value="basicInfo.dormId" />
         <van-cell title="入学方式" :value="basicInfo.enrolment" />
-        <van-cell title="国防生" :value="basicInfo.NDstudent" />
-        <van-cell title="党员" :value="basicInfo.partyMember" /> -->
+        <van-cell title="国防生" :value="basicInfo.NDstudent" /> -->
       </van-cell-group>
     </van-collapse-item>
     <!-- <van-collapse-item title="个人信息" name="2">

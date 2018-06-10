@@ -15,7 +15,7 @@
             <el-form-item label="班级">
               <span>{{ props.row.basicInfo.className }}</span>
             </el-form-item>
-            <el-form-item label="少数民族">
+            <!-- <el-form-item label="少数民族">
               <span>{{ props.row.basicInfo.minority }}</span>
             </el-form-item>
             <el-form-item label="民族">
@@ -38,23 +38,23 @@
             </el-form-item>
             <el-form-item label="党员">
               <span>{{ props.row.basicInfo.partyMember }}</span>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="手机号">
-              <span>{{ props.row.personalInfo.phoneNumber }}</span>
+              <span>{{ props.row.basicInfo.phoneNumber }}</span>
             </el-form-item>
-            <el-form-item label="QQ">
+            <!-- <el-form-item label="QQ">
               <span>{{ props.row.personalInfo.QQ }}</span>
             </el-form-item>
             <el-form-item label="电子邮箱">
-              <span>{{ props.row.personalInfo.EMail }}</span>
-            </el-form-item>
+              <span>{{ props.row.personalInfo.EMail }}</span> -->
+            <!-- </el-form-item> -->
             <el-form-item label="微信号">
-              <span>{{ props.row.personalInfo.wx }}</span>
+              <span>{{ props.row.basicInfo.wx }}</span>
             </el-form-item>
           </div>
-          <el-form-item label="家庭住址" class="self" style="text-align: left">
+          <!-- <el-form-item label="家庭住址" class="self" style="text-align: left">
             <span>{{ props.row.personalInfo.familyAddress }}</span>
-          </el-form-item>
+          </el-form-item> -->
         </el-form>
       </template>
     </el-table-column>

@@ -4,7 +4,7 @@
     <div v-else>
       <div v-for="(certificate, index) in certificates.certificates" :key="certificate._id" class="flex-collapse">
         <div class="innerflex">
-          <span>{{certificate.detail}}</span>
+          <span>{{certificate.name}}/{{certificate.detail}}</span>
           <span class="time">{{certificate.year + certificate.term}}</span>
         </div>
         <el-button style="color: #ff3333" type="text" size="mini" round @click="removeCertificate(index)">删除</el-button>

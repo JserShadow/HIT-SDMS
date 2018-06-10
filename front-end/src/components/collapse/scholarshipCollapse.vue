@@ -4,7 +4,7 @@
     <div v-else>
       <div v-for="(scholarship, index) in scholarships.scholarships" :key="scholarship._id" class="flex-collapse">
         <div class="innerflex">
-          <span>{{scholarship.detail}}</span>
+          <span>{{scholarship.name}}/{{scholarship.detail}}</span>
           <span class="time">{{scholarship.year + scholarship.term}}</span>
         </div>
         <el-button style="color: #ff3333" type="text" size="mini" round @click="removeScholarship(index)">删除</el-button>

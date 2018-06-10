@@ -70,7 +70,14 @@
       </div>
     </div>
     <social-practice :socialPractices="socialPractices" :socialPracticeStatus="socialPracticeStatus" @reloadSocialPractices="reloadSocialPractices"></social-practice>
-
+    <div class="title">
+      <span>备注</span>
+      <div>
+        <el-tag :type="remarkStatus === '待审核'?'info':remarkStatus === '审核通过'?'success':'danger'">{{remarkStatus}}</el-tag>
+        <van-button size="small" style="font-size: 14px" type="primary" @click="toAddRemark">添加</van-button>
+      </div>
+    </div>
+    <Remark :remarks="remarks" :remarkStatus="remarkStatus" @reloadRemarks="reloadRemarks"></Remark>
 
     <van-popup
       v-model="showAddModel"
@@ -119,6 +126,7 @@
     <TechnologyPopup :showTechnologyPopup="showTechnologyPopup" @closeTechnologyPopup="closeTechnologyPopup" @reloadTechnologys="reloadTechnologys" :technologySelections="technologySelections"></TechnologyPopup>
     <CertificatePopup :showCertificatePopup="showCertificatePopup" @closeCertificatePopup="closeCertificatePopup" @reloadCertificates="reloadCertificates" :certificateSelections="adminCertificates"></CertificatePopup>
     <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
+    <RemarkPopup :showRemarkPopup="showRemarkPopup" @closeRemarkPopup="closeRemarkPopup" @reloadRemarks="reloadRemarks"></RemarkPopup>
     <van-dialog v-model="showTrans">
       <p>成绩单请在电脑端查看(长按复制链接)</p>
       <p style="padding: 0 20px;word-wrap: break-word;">{{transcriptUrl}}</p>
@@ -132,6 +140,7 @@ import BasicInfo from './collapse/basicInfoCollapse';
 import Score from './collapse/scoreCollapse';
 import SecondClass from './collapse/secondClassCollapse';
 import Scholarship from './collapse/scholarshipCollapse';
+import Remark from './collapse/remarkCollapse';
 import ScholarshipPopup from './popup/scholarshipPopup';
 import Technology from './collapse/technologyCollapse';
 import TechnologyPopup from './popup/technologyPopup';
@@ -140,10 +149,11 @@ import CertificatePopup from './popup/certificatePopup';
 import SocialPractice from './collapse/socialPracticeCollapse';
 import SocialPracticePopup from './popup/socialPracticePopup';
 import SecondClassPopup from './popup/secondClassPopup';
+import RemarkPopup from './popup/remarkPopup';
 
 export default {
   name: 'PersonalInfomation',
-  components: { BasicInfo, Score, SecondClass, Scholarship, ScholarshipPopup, Technology, TechnologyPopup, Certificate, CertificatePopup, SocialPractice, SocialPracticePopup, SecondClassPopup },
+  components: { BasicInfo, Score, SecondClass, Scholarship, Remark, ScholarshipPopup, Technology, TechnologyPopup, Certificate, CertificatePopup, SocialPractice, SocialPracticePopup, SecondClassPopup, RemarkPopup },
   data () {
     return {
       loadData: false,
@@ -204,7 +214,10 @@ export default {
       socialPractices: {},
       showSocialPracticePopup: false,
       showTrans: false,
-      transcriptUrl: ''
+      transcriptUrl: '',
+      showRemarkPopup: false,
+      remarkStatus: '',
+      remarks: {}
     }
   },
   methods: {
@@ -434,6 +447,26 @@ export default {
     toTranscript() {
       this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript?userID=${localStorage.getItem('userID')}#/`
       this.showTrans = true;
+    },
+    closeRemarkPopup() {
+      this.showRemarkPopup = false;
+    },
+    async reloadRemarks() {
+      const res = await axios.post('/remark/getAllRemarks', {
+        openId: localStorage.getItem('userID')
+      });
+      if (res.data.message === 'ok') {
+        if (res.data.remarks === null || res.data.remarks.remarks.length === 0) {
+          this.remarkStatus = '待填写';
+          this.remarks.remarks = []
+        } else {
+          this.remarks = res.data.remarks;
+          this.remarkStatus = res.data.remarks.status;
+        }
+      }
+    },
+    toAddRemark() {
+      this.showRemarkPopup = true;
     }
   },
   async created() {
@@ -478,6 +511,7 @@ export default {
     this.adminCertificates = certificates.data.certificates;
     await this.reloadCertificates();
     await this.reloadSocialPractices();
+    await this.reloadRemarks();
     this.loadData = false;
   }
 }

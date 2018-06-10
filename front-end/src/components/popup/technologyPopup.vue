@@ -26,8 +26,8 @@
       </el-select>
     </div>
     <div class="cell-flex set-margin">
-      <div>填写详细内容: </div>
-      <el-input v-model="technologyObj.detail" placeholder="请输入详细内容" style="width: 50vw"></el-input>
+      <div>填写项目名称: </div>
+      <el-input v-model="technologyObj.detail" placeholder="请输入项目名称" style="width: 50vw"></el-input>
     </div>
     <div class="cell-flex set-margin">
       <div>备注: </div>
