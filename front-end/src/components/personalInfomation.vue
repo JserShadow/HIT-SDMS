@@ -127,10 +127,10 @@
     <CertificatePopup :showCertificatePopup="showCertificatePopup" @closeCertificatePopup="closeCertificatePopup" @reloadCertificates="reloadCertificates" :certificateSelections="adminCertificates"></CertificatePopup>
     <SocialPracticePopup :showSocialPracticePopup="showSocialPracticePopup" @closeSocialPracticePopup="closeSocialPracticePopup" @reloadSocialPractices="reloadSocialPractices"></SocialPracticePopup>
     <RemarkPopup :showRemarkPopup="showRemarkPopup" @closeRemarkPopup="closeRemarkPopup" @reloadRemarks="reloadRemarks"></RemarkPopup>
-    <van-dialog v-model="showTrans">
+    <!-- <van-dialog v-model="showTrans">
       <p>成绩单请在电脑端查看(长按复制链接)</p>
       <p style="padding: 0 20px;word-wrap: break-word;">{{transcriptUrl}}</p>
-    </van-dialog>
+    </van-dialog> -->
   </div>
 </template>
 
@@ -446,7 +446,7 @@ export default {
     },
     toTranscript() {
       this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript?userID=${localStorage.getItem('userID')}#/`
-      this.showTrans = true;
+      this.$router.push(this.transcriptUrl);
     },
     closeRemarkPopup() {
       this.showRemarkPopup = false;

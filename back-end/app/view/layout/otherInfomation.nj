@@ -17,7 +17,7 @@
       <div class="score-inner-title">奖学金</div>
       <ul class="score-inner-content">
       {% for item in scholarships %}
-        <li>{{item.year}}学年 {{item.term}} 奖学金: {{item.name}}</li>
+        <li>{{item.year}}学年 {{item.term}} 奖学金: {{item.name}} 金额: {{item.detail}}</li>
       {% endfor %}
       </ul>
     </div>
