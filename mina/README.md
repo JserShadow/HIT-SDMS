@@ -1,21 +1,20 @@
-# hit-sdms
+# HIT-SDMS
 
 > HIT Students' Documents Management System
+### 本地开发
 
-## Build Setup
-
-``` bash
-# install dependencies
+```bash
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 在 http://localhost:8080 开启热更新服务
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
+微信开发者工具和mpVue的使用方法:point_down:
+[微信开发者工具及开发文档](https://developers.weixin.qq.com/miniprogram/dev/index.html)  [mpVue文档](http://mpvue.com/mpvue/quickstart/)
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+想要了解更多Vue.js运行原理，请访问[指引](http://vuejs-templates.github.io/webpack/)和[vue-loader文档](http://vuejs.github.io/vue-loader)
+
+### 小程序路由
+- pages/index/main 欢迎/登录页（首页）
+- pages/hitsdms/index 进入系统（web-view）
