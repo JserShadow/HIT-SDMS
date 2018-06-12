@@ -2,13 +2,11 @@
 
 >HIT Students' Documents Management System
 
-[TOC]
-
 ## 快速入门
 
 <!-- 在此次添加使用文档 -->
 ### 后台渲染
-- 学生成绩单使用`Nunjucks`引擎渲染，配合`egg-view-nunjucks`使用:point_down:
+- 学生成绩单使用`Nunjucks`引擎渲染，配合`egg-view-nunjucks`使用:point_right:
 [Nunjucks 文档](http://mozilla.github.io/nunjucks/)  [egg--view-nunjucks 文档](https://www.npmjs.com/package/egg-view-nunjucks)
 ### 数据库
 - 该项目使用`MongoDB`存放数据，配合`egg-mongoose`插件使用
