@@ -4,6 +4,7 @@ import PersonalInfomation from '@/components/personalInfomation'
 import Form from '@/components/formPage';
 import Basic from '@/components/forms/basic';
 import Personal from '@/components/forms/personal';
+import Transcript from '@/components/iframe';
 import Admin from '@/components/admin'
 import AdminInfo from '@/components/adminComponents/admin-info';
 import AdminScore from '@/components/adminComponents/admin-score';
@@ -12,7 +13,7 @@ import AdminScholarship from '@/components/adminComponents/admin-scholarship';
 import AdminTechnology from '@/components/adminComponents/admin-technology';
 import AdminCertificate from '@/components/adminComponents/admin-certificate';
 import AdminSocialPractice from '@/components/adminComponents/admin-socialPractice';
-import Transcript from '@/components/iframe';
+import AdminRemark from '@/components/adminComponents/admin-remark';
 
 Vue.use(Router)
 
@@ -84,6 +85,11 @@ export default new Router({
           path: 'socialpractice',
           name: 'AdminSocialPractice',
           component: AdminSocialPractice
+        },
+        {
+          path: 'remark',
+          name: 'AdminRemark',
+          component: AdminRemark
         },
       ]
     }

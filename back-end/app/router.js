@@ -71,6 +71,9 @@ module.exports = app => {
   router.get('/admin/socialPractice/getAllSocialPractices', controller.admin.getAllSocialPractices);
   router.post('/admin/socialPractice/pass', controller.admin.socialPracticePass);
   router.post('/admin/socialPractice/fail', controller.admin.socialPracticeFail);
+  router.get('/admin/remark/getAllRemarks', controller.admin.getAllRemarks);
+  router.post('/admin/remark/pass', controller.admin.remarkPass);
+  router.post('/admin/remark/fail', controller.admin.remarkFail);
 
   // 学生成绩单
   router.get('/transcript', controller.transcript.getPage);

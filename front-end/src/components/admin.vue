@@ -11,13 +11,21 @@ export default {
   components: {
     NavBar,
   },
+  beforeRouteEnter(to, from, next) {
+    if (to.fullPath === '/admin') {
+      next(vm => {
+        vm.$router.push('/admin/info');
+      });
+    } else {
+      next();
+    }
+  }
 }
 </script>
 
 <style scoped>
 .nav {
   width: 20vw;
-  height: 100vh;
 }
 .container {
   display: flex;
