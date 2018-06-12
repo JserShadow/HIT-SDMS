@@ -59,7 +59,7 @@ export default {
         const res = await axios.post('/score/deleteScore', { score: this.scores[index] });
         if (res.data.message === 'ok') {
           this.$toast.success('删除成功');
-          location.reload();
+          this.$emit('getAllScores');
         }
       }).catch(() => {
         return;

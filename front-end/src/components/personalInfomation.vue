@@ -29,7 +29,7 @@
         <van-button size="small" style="font-size: 14px" type="primary" @click="toAddScore">添加</van-button>
       </div>
     </div>
-    <Score @toEditScore="toAddScore" class="collapse" :scores="scores"></Score>
+    <Score @toEditScore="toAddScore" class="collapse" :scores="scores" @getAllScore="getAllScores"></Score>
     <div class="title">
       <span>德育表现</span>
       <div>
@@ -444,9 +444,14 @@ export default {
         }
       }
     },
-    toTranscript() {
-      this.transcriptUrl = `https://hit-sdms.xiaonei.io/transcript?userID=${localStorage.getItem('userID')}#/`
-      this.$router.push(this.transcriptUrl);
+    async toTranscript() {
+      // this.transcriptUrl = `/transcript?userID=${localStorage.getItem('userID')}#/`
+      // const res = await axios.get('/transcript', {
+      //   userID: localStorage.getItem('userID')
+      // });
+      // console.log(res.data);
+      // this.$mount()
+      this.$router.push('/transcript');
     },
     closeRemarkPopup() {
       this.showRemarkPopup = false;

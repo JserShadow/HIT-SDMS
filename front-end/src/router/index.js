@@ -12,6 +12,7 @@ import AdminScholarship from '@/components/adminComponents/admin-scholarship';
 import AdminTechnology from '@/components/adminComponents/admin-technology';
 import AdminCertificate from '@/components/adminComponents/admin-certificate';
 import AdminSocialPractice from '@/components/adminComponents/admin-socialPractice';
+import Transcript from '@/components/iframe';
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'PersonalInfomation',
       component: PersonalInfomation
+    },
+    {
+      path: '/transcript',
+      name: 'Transcript',
+      component: Transcript
     },
     {
       path: '/edit',
