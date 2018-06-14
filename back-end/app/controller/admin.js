@@ -23,9 +23,9 @@ class AdminController extends Controller {
         const waitingRes = await Studentinfo.find({ openId: Id, status: '待审核' });
         const successRes = await Studentinfo.find({ openId: Id, status: '审核通过' });
         const failedRes = await Studentinfo.find({ openId: Id, status: '审核未通过' });
-        waitingResult = waitingRes;
-        successResult = successRes;
-        failedResult = failedRes;
+        waitingResult.push(waitingRes);
+        successResult.push(successRes);
+        failedResult.push(failedRes);
       }
       this.ctx.body = {
         message: 'ok',
@@ -146,12 +146,14 @@ class AdminController extends Controller {
       Object.assign(waiting, waitingres);
       Object.assign(success, successres);
       Object.assign(fail, failres);
-      waiting.name = infores[0].basicInfo.name;
-      waiting.stuId = infores[0].basicInfo.stuId;
-      success.name = infores[0].basicInfo.name;
-      success.stuId = infores[0].basicInfo.stuId;
-      fail.name = infores[0].basicInfo.name;
-      fail.stuId = infores[0].basicInfo.stuId;
+      if(infores[0]) {
+        waiting.name = infores[0].basicInfo.name?infores[0].name:'';
+        waiting.stuId = infores[0].basicInfo.stuId?infores[0].stuId:'';
+        success.name = infores[0].basicInfo.name?infores[0].name:'';
+        success.stuId = infores[0].basicInfo.stuId?infores[0].stuId:'';
+        fail.name = infores[0].basicInfo.name?infores[0].name:'';
+        fail.stuId = infores[0].basicInfo.stuId?infores[0].stuId:'';
+      }
       if (waitingres !== null) {
         waitingarr.push(waiting);
       }

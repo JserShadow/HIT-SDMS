@@ -40,6 +40,7 @@ export default {
           success: res.data.success,
           fail: res.data.fail,
         }
+        console.log(this.secondClassInfo);
       }
     }
   },
