@@ -30,6 +30,7 @@ export default {
 .container {
   display: flex;
   justify-content: flex-start;
+  min-height: 100vh;
 }
 .router {
   width: 90vw;

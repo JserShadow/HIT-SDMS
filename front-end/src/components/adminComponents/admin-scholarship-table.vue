@@ -11,6 +11,9 @@
           <el-form-item label="奖学金:">
             <span>{{ item.name }}</span>
           </el-form-item>
+          <el-form-item label="金额:">
+            <span>{{ item.detail }}</span>
+          </el-form-item>
         </el-form>
       </template>
     </el-table-column>

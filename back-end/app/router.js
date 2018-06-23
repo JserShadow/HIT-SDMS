@@ -77,4 +77,6 @@ module.exports = app => {
 
   // 学生成绩单
   router.get('/transcript', controller.transcript.getPage);
+  router.get('/export', controller.export.getZip);
+  router.get('/removeFiles', controller.export.removeFiles);
 };

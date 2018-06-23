@@ -55,6 +55,14 @@ module.exports = {
         target: 'http://localhost:7001',
         changeOrigin: true
       },
+      '/export': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
+      '/removeFiles': {
+        target: 'http://localhost:7001',
+        changeOrigin: true
+      },
       '/remark/*': {
         target: 'http://localhost:7001',
         changeOrigin: true

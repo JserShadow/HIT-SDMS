@@ -23,9 +23,9 @@ class AdminController extends Controller {
         const waitingRes = await Studentinfo.find({ openId: Id, status: '待审核' });
         const successRes = await Studentinfo.find({ openId: Id, status: '审核通过' });
         const failedRes = await Studentinfo.find({ openId: Id, status: '审核未通过' });
-        waitingResult.push(waitingRes);
-        successResult.push(successRes);
-        failedResult.push(failedRes);
+        waitingResult.push(...waitingRes);
+        successResult.push(...successRes);
+        failedResult.push(...failedRes);
       }
       this.ctx.body = {
         message: 'ok',

@@ -11,6 +11,9 @@
           <el-form-item label="证书:">
             <span>{{ item.name }}</span>
           </el-form-item>
+          <el-form-item label="分数:">
+            <span>{{ item.detail }}</span>
+          </el-form-item>
         </el-form>
       </template>
     </el-table-column>

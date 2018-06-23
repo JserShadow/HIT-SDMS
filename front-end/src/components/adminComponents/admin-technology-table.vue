@@ -14,6 +14,12 @@
           <el-form-item label="权重:">
             <span>{{ item.weight }}</span>
           </el-form-item>
+          <el-form-item label="项目名称:">
+            <span>{{ item.detail }}</span>
+          </el-form-item>
+          <el-form-item label="备注:">
+            <span>{{ item.remark }}</span>
+          </el-form-item>
         </el-form>
       </template>
     </el-table-column>

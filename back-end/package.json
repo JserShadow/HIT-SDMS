@@ -11,6 +11,11 @@
     "egg-redis": "^2.0.0",
     "egg-scripts": "^2.5.0",
     "egg-view-nunjucks": "^2.2.0",
+    "fs-extra": "^6.0.1",
+    "html-pdf": "^2.2.0",
+    "node-native-zip": "^1.1.0",
+    "phantom": "^6.0.0",
+    "wkhtmltopdf": "^0.3.4",
     "wx-biz-data-crypt": "^1.0.0"
   },
   "devDependencies": {

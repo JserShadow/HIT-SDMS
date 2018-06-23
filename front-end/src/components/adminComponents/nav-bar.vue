@@ -39,6 +39,10 @@
         <i class="el-icon-message"></i>
         <span slot="title">备注管理</span>
       </el-menu-item>
+      <el-menu-item index="/admin/export2csv">
+        <i class="el-icon-download"></i>
+        <span slot="title">数据导出</span>
+      </el-menu-item>
     </el-menu>
 </template>
 

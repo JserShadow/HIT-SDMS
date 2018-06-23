@@ -56,6 +56,7 @@ export default {
   },
   async mounted() {
     const res = await axios.get('/admin/info/getAllInfos');
+    console.log(res.data);
     this.infoData = res.data.waiting;
     this.requiredData = res.data;
   }

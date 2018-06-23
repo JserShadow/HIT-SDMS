@@ -14,6 +14,7 @@ import AdminTechnology from '@/components/adminComponents/admin-technology';
 import AdminCertificate from '@/components/adminComponents/admin-certificate';
 import AdminSocialPractice from '@/components/adminComponents/admin-socialPractice';
 import AdminRemark from '@/components/adminComponents/admin-remark';
+import AdminExport from '@/components/adminComponents/admin-export';
 
 Vue.use(Router)
 
@@ -90,6 +91,11 @@ export default new Router({
           path: 'remark',
           name: 'AdminRemark',
           component: AdminRemark
+        },
+        {
+          path: 'export2csv',
+          name: 'AdminExport',
+          component: AdminExport
         },
       ]
     }

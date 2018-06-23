@@ -10,6 +10,7 @@
             <li v-for="position in props.row._doc.position" style="display: flex;justify-content: space-between;padding: 0 5px" :key="position._id">
               <span>{{position.year}}{{position.term}}</span>
               <span>{{position.name}}</span>
+              <span>{{position.detail}}</span>
               <span style="color: #ff3333">{{position.weight}}</span>
             </li>
           </ul>
@@ -18,6 +19,7 @@
             <li v-for="honor in props.row._doc.honor" style="display: flex;justify-content: space-between;padding: 0 5px" :key="honor._id">
               <span>{{honor.year}}{{honor.term}}</span>
               <span>{{honor.name}}</span>
+              <span>{{honor.detail}}</span>
               <span style="color: #ff3333">{{honor.weight}}</span>
             </li>
           </ul>
@@ -26,6 +28,7 @@
             <li v-for="activities in props.row._doc.activities" style="display: flex;justify-content: space-between;padding: 0 5px" :key="activities._id">
               <span>{{activities.year}}{{activities.term}}</span>
               <span>{{activities.name}}</span>
+              <span>{{activities.detail}}</span>
               <span style="color: #ff3333">{{activities.weight}}</span>
             </li>
           </ul>
@@ -34,6 +37,7 @@
             <li v-for="dorm in props.row._doc.dorm" style="display: flex;justify-content: space-between;padding: 0 5px" :key="dorm._id">
               <span>{{dorm.year}}{{dorm.term}}</span>
               <span>{{dorm.name}}</span>
+              <span>{{dorm.detail}}</span>
               <span style="color: #ff3333">{{dorm.weight}}</span>
             </li>
           </ul>
@@ -42,6 +46,7 @@
             <li v-for="decrease in props.row._doc.decrease" style="display: flex;justify-content: space-between;padding: 0 5px" :key="decrease._id">
               <span>{{decrease.year}}{{decrease.term}}</span>
               <span>{{decrease.name}}</span>
+              <span>{{decrease.detail}}</span>
               <span style="color: #ff3333">{{decrease.weight}}</span>
             </li>
           </ul>
