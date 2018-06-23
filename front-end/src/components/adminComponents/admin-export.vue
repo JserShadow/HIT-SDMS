@@ -25,7 +25,9 @@ export default {
       this.loading = true;
       let res;
       try {
-        res = await axios.get('/export');
+        res = await axios.get('/export', {}, {
+          timeout: 1000*60*60*3
+        });
       } catch (error) {
         console.dir(error)
         return;
