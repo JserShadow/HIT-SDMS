@@ -10,6 +10,7 @@ class ExportController extends Controller {
   async getZip() {
     const arr = await this.ctx.service.export.getCsv();
     await new Promise((resolve, reject) => {
+      console.log('开始压缩');
       archive.addFiles(arr, function(err) {
         if (err) reject(err);
         resolve();
@@ -17,9 +18,11 @@ class ExportController extends Controller {
     });
     const buff = archive.toBuffer();
     fs.writeFileSync('./app/public/pdfs.zip', buff);
+    console.log('压缩完成');
     this.ctx.body = {
       message: 'ok',
     };
+    console.log('finish');
   }
   async removeFiles() {
     const data = fs.readdirSync('./app/public/pdfs');

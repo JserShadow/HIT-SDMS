@@ -14,6 +14,7 @@
 
 <script>
 import axios from 'axios';
+axios.defaults.timeout = 1000*60*60*3;
 export default {
   data() {
     return {
@@ -25,9 +26,8 @@ export default {
       this.loading = true;
       let res;
       try {
-        res = await axios.get('/export', {}, {
-          timeout: 1000*60*60*3
-        });
+        res = await axios.get('/export');
+        console.log(res.data);
       } catch (error) {
         console.dir(error)
         return;

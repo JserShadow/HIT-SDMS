@@ -22,6 +22,7 @@ class ExportService extends Service {
         name: `${stu.basicInfo.name}_${stu.basicInfo.stuId}.pdf`,
         path: `./app/public/pdfs/${stu.basicInfo.name}_${stu.basicInfo.stuId}.pdf`,
       });
+      console.log(result.length);
     }
     return result;
   }
